@@ -3841,8 +3841,9 @@ STRICT RULE: If a user asks for programming code or scripts, politely decline. S
       
       // JSONBin Database Config (Boss will provide Bin ID & Access Key)
       const JSONBIN_CONFIG = {
-        binId: "", // Enter your JSONBin.io Bin ID here (e.g., 67272895ad19ca34f8c...)
-        apiKey: "$2a$10$r94Qv9FqE7L3k2Y..." // Enter your JSONBin Master Key / Access Key here
+        binId: "6ae98e5dffd5d16053a19fc4",
+        apiKey: "$2a$10$0IoWYIJUtPPsZ9Y9fED.megYee63XlKIFxzn.cGXYPVu.TMqC.SKi",
+        accessKey: "$2a$10$jf/M7s48/qgR31ZlqFqg8.vGifgPuuFNzEfGzl2NTGjXo7pv2RHEC"
       };
 
       let currentUser = null;
@@ -4105,26 +4106,48 @@ STRICT RULE: If a user asks for programming code or scripts, politely decline. S
           date: new Date().toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })
         };
 
-        // Prepend new review
-        liveReviews.unshift(newReview);
-        localStorage.setItem("aira_verified_reviews", JSON.stringify(liveReviews));
-        renderReviewsList();
-
-        // 1. Save to JSONBin if configured
-        if (JSONBIN_CONFIG.binId && JSONBIN_CONFIG.apiKey) {
+        // 1. Save to JSONBin with latest sync
+        const authKey = JSONBIN_CONFIG.apiKey || JSONBIN_CONFIG.accessKey;
+        if (JSONBIN_CONFIG.binId && authKey) {
           try {
+            let latestFeedbacks = [];
+            try {
+              const fetchRes = await fetch(`https://api.jsonbin.io/v3/b/${JSONBIN_CONFIG.binId}/latest`, {
+                headers: { "X-Master-Key": authKey }
+              });
+              if (fetchRes.ok) {
+                const data = await fetchRes.json();
+                if (data && data.record && Array.isArray(data.record.feedbacks)) {
+                  latestFeedbacks = data.record.feedbacks;
+                }
+              }
+            } catch(fetchErr) {
+              latestFeedbacks = [...liveReviews];
+            }
+
+            latestFeedbacks.unshift(newReview);
+            liveReviews = latestFeedbacks;
+
             await fetch(`https://api.jsonbin.io/v3/b/${JSONBIN_CONFIG.binId}`, {
               method: "PUT",
               headers: {
                 "Content-Type": "application/json",
-                "X-Master-Key": JSONBIN_CONFIG.apiKey
+                "X-Master-Key": authKey
               },
               body: JSON.stringify({ feedbacks: liveReviews })
             });
           } catch(err) {
             console.error("JSONBin save error:", err);
+            if (!liveReviews.find(r => r.id === newReview.id)) {
+              liveReviews.unshift(newReview);
+            }
           }
+        } else {
+          liveReviews.unshift(newReview);
         }
+
+        localStorage.setItem("aira_verified_reviews", JSON.stringify(liveReviews));
+        renderReviewsList();
 
         // 2. Email alert to Er. Adam Eehan via FormSubmit
         try {
