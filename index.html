@@ -246,8 +246,6 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
     />
-    <!-- Puter.js Library Import for 24/7 Aira AI Support -->
-    <script src="https://js.puter.com/v2/"></script>
     <!-- Google Identity Services (GSI) -->
     <script src="https://accounts.google.com/gsi/client" async defer></script>
     <link
@@ -2187,7 +2185,7 @@
       </div>
     </div>
 
-    <!-- Floating Aira Chat Widget (24/7 Support) -->
+    <!-- Floating Aira Chat Widget (24/7 Sovereign AI Support) -->
     <div
       id="aira-chat-widget"
       class="fixed bottom-6 right-6 z-50 flex flex-col items-end"
@@ -2214,7 +2212,7 @@
             </div>
             <div>
               <h3 class="font-bold text-sm">Aira AI Assistant</h3>
-              <p class="text-xs text-blue-200">Online • 24/7 Support</p>
+              <p class="text-xs text-blue-200">Sovereign Endpoint • 24/7 Live</p>
             </div>
           </div>
           <button
@@ -2225,32 +2223,8 @@
           </button>
         </div>
 
-        <!-- Login State -->
-        <div
-          id="chat-login-section"
-          class="p-8 text-center bg-slate-50 h-[350px] flex flex-col justify-center items-center"
-        >
-          <div
-            class="w-16 h-16 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center text-2xl mb-4 mx-auto shadow-inner"
-          >
-            <i class="fas fa-lock"></i>
-          </div>
-          <h4 class="font-bold text-[#0a2342] mb-2 text-lg">
-            Welcome to Support
-          </h4>
-          <p class="text-slate-500 mb-6 text-sm leading-relaxed">
-            Securely login with your Puter account to interact with Aira AI.
-          </p>
-          <button
-            onclick="loginWithPuter()"
-            class="btn-primary w-full text-white py-3 rounded-lg font-semibold text-sm shadow-lg"
-          >
-            🔐 Login with Puter
-          </button>
-        </div>
-
-        <!-- Chat State -->
-        <div id="chat-interface" class="hidden flex-col h-[400px] bg-slate-50">
+        <!-- Chat Interface (Direct Sovereign Access - Zero Login Barrier) -->
+        <div id="chat-interface" class="flex flex-col h-[420px] bg-slate-50">
           <div
             id="chat-messages"
             class="flex-1 min-h-0 p-4 overflow-y-auto space-y-4"
@@ -2265,11 +2239,11 @@
               <div
                 class="bg-white p-3 rounded-2xl rounded-tl-sm shadow-sm text-sm text-slate-700 max-w-[85%] border border-slate-100"
               >
-                Hello! I am Aira 😊 Welcome to Aira Group of Technology. How can
-                I assist you today?
+                Hello! I am Aira 😊 Welcome to Aira Group of Technology. How can I assist you with your project today?
               </div>
             </div>
           </div>
+
           <!-- Input Area -->
           <div class="w-full p-3 bg-white border-t border-slate-200 shrink-0">
             <div class="relative flex items-center">
@@ -2288,12 +2262,9 @@
               </button>
             </div>
             <div class="text-center mt-2 pb-1">
-              <button
-                onclick="logoutPuter()"
-                class="text-[10px] text-slate-400 hover:text-red-500 transition-colors"
-              >
-                Log out from Puter
-              </button>
+              <span class="text-[10px] text-slate-400 font-mono flex items-center justify-center gap-1">
+                <i class="fas fa-shield-halved text-blue-500"></i> Powered by Aira Sovereign AI Engine
+              </span>
             </div>
           </div>
         </div>
@@ -2468,8 +2439,10 @@
       </div>
     </div>
 
-    <!-- Chat Widget Logic -->
+    <!-- Chat Widget Logic (Connected to Aira Sovereign AI Endpoint) -->
     <script>
+      const AIRA_CHAT_ENDPOINT = "https://airaai-8ibs.onrender.com/v1/chat/completions";
+
       const chatWidgetBtn = document.getElementById("chat-toggle-btn");
       const chatWindow = document.getElementById("aira-chat-window");
       const closeChatBtn = document.getElementById("close-chat-btn");
@@ -2479,38 +2452,15 @@
       // Toggle UI
       chatWidgetBtn.addEventListener("click", () => {
         chatWindow.classList.toggle("hidden");
-        checkAuth();
+        if (!chatWindow.classList.contains("hidden")) {
+          setTimeout(() => chatInput && chatInput.focus(), 150);
+        }
       });
       closeChatBtn.addEventListener("click", () =>
         chatWindow.classList.add("hidden"),
       );
 
-      // Auth Logic
-      async function checkAuth() {
-        if (puter.auth.isSignedIn()) {
-          document.getElementById("chat-login-section").classList.add("hidden");
-          document
-            .getElementById("chat-interface")
-            .classList.replace("hidden", "flex");
-        } else {
-          document
-            .getElementById("chat-login-section")
-            .classList.remove("hidden");
-          document
-            .getElementById("chat-interface")
-            .classList.replace("flex", "hidden");
-        }
-      }
-      async function loginWithPuter() {
-        await puter.auth.signIn();
-        checkAuth();
-      }
-      function logoutPuter() {
-        puter.auth.signOut();
-        checkAuth();
-      }
-
-      // Chat Logic
+      // Chat Message Rendering
       function appendMessage(text, isUser = false) {
         const msgDiv = document.createElement("div");
         msgDiv.className = isUser
@@ -2541,12 +2491,12 @@
         chatInput.value = "";
 
         const typingBubble = appendMessage("...", false);
-        const messageBubble = typingBubble.lastElementChild; // Fix: target the actual text bubble, not the robot avatar!
+        const messageBubble = typingBubble.lastElementChild;
 
         try {
-          const systemPrompt = `You are Aira, an intelligent AI support assistant created by Adam Eehan for Aira Group of Technology. 
-Answer concisely in professional English. 
-COMPANY INFO: Aira Group provides Web Development (web), Mobile Apps (mobile), AI & Machine Learning (ai), Custom Software (custom), Tech Consulting & Strategy (consulting), and MVP Solutions (mvp). Contact: adameehan34@gmail.com or +91 8921 584 368.
+          const systemPrompt = `You are Aira, an intelligent sovereign AI assistant engineered by Er. Adam Eehan for Aira Group of Technology. 
+Answer concisely in warm, professional English. 
+COMPANY INFO: Aira Group provides Web Development (web), Mobile Apps (mobile), AI & Machine Learning (ai), Custom Software (custom), Tech Consulting & Strategy (consulting), and MVP Solutions (mvp). Founder: Er. Adam Eehan. Contact: adameehan34@gmail.com or +91 8921 584 368.
 
 CO-PILOT CAPABILITY:
 You can help users fill out the client contact form dynamically. 
@@ -2561,34 +2511,37 @@ If they want to hire Aira Group or express interest in a project, guide the conv
 Once you have gathered at least Name, Email, Service, and Project Details, tell the user that you are now filling the contact form for them, and end your response with EXACTLY this hidden tag (with the collected JSON data inside):
 [AUTOFILL:{"firstName":"First", "lastName":"Last", "email":"user@email.com", "company":"Company", "service":"service_code", "message":"Project message here"}]
 Use these service_codes: "web", "mobile", "ai", "custom", "consulting", "mvp", "other".
-STRICT RULE: If a user asks for programming code or scripts, politely decline. State that you are a customer support AI for Aira Group and do NOT provide code snippets. NEVER write code.`;
+STRICT RULE: If a user asks for general programming scripts, politely decline. State that you are the official customer AI for Aira Group of Technology.`;
 
           if (chatHistory.length === 0) {
             chatHistory.push({ role: "system", content: systemPrompt });
           }
           chatHistory.push({ role: "user", content: msg });
 
-          // Keep history size within limits
-          if (chatHistory.length > 20) {
-            chatHistory = [chatHistory[0]].concat(chatHistory.slice(-18));
+          // Keep history compact
+          if (chatHistory.length > 16) {
+            chatHistory = [chatHistory[0]].concat(chatHistory.slice(-14));
           }
 
-          const response = await puter.ai.chat(chatHistory);
+          // Direct call to Aira Sovereign AI Endpoint
+          const response = await fetch(AIRA_CHAT_ENDPOINT, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+              model: "aira-auto",
+              messages: chatHistory,
+              stream: false
+            })
+          });
 
-          // Properly extracting text from Puter's JSON response to fix [object Object]
-          let replyText = "Error processing response";
-          if (typeof response === "string") {
-            replyText = response;
-          } else if (response?.message?.content) {
-            replyText = response.message.content; // Extracts exact message content
-          } else if (
-            response?.message &&
-            typeof response.message === "string"
-          ) {
-            replyText = response.message;
-          } else if (response?.text) {
-            replyText = response.text;
+          if (!response.ok) {
+            throw new Error(`Endpoint response status: ${response.status}`);
           }
+
+          const resData = await response.json();
+          let replyText = resData.choices?.[0]?.message?.content || "Hello! How can I assist you with Aira Group today?";
 
           // Check and parse autofill command tag
           let autofillData = null;
@@ -2600,32 +2553,31 @@ STRICT RULE: If a user asks for programming code or scripts, politely decline. S
             } catch (e) {
               console.error("Autofill parsing failed:", e);
             }
-            // Remove autofill tag from visible chat text
             replyText = replyText.replace(autofillRegex, "").trim();
           }
 
           // Save assistant response to history
           chatHistory.push({ role: "assistant", content: replyText });
 
-          // Typing effect (Typewriter)
+          // Typewriter effect
           messageBubble.innerText = "";
           let displayedText = "";
           for (let i = 0; i < replyText.length; i++) {
             displayedText += replyText.charAt(i);
-            // Convert markdown ** to bold and preserve spaces/newlines!
             messageBubble.innerHTML = displayedText
               .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
               .replace(/\n/g, "<br>");
             chatMessages.scrollTop = chatMessages.scrollHeight;
-            await new Promise((r) => setTimeout(r, 15)); // 15ms typing speed per character
+            await new Promise((r) => setTimeout(r, 12));
           }
 
-          // If autofill tag was detected, trigger form filling!
+          // Trigger autofill if tag present
           if (autofillData) {
             autofillContactForm(autofillData);
           }
         } catch (error) {
-          messageBubble.innerText = "Network Error 😅 Please try again.";
+          console.error("Chat error:", error);
+          messageBubble.innerText = "Network issue connecting to Aira Endpoint. Please try again! 😊";
         }
       }
 
@@ -3199,7 +3151,7 @@ STRICT RULE: If a user asks for programming code or scripts, politely decline. S
       <div class="term-tooltip">Aira Terminal</div>
     </button>
 
-    <!-- TERMINAL POPUP -->
+    <!-- TERMINAL POPUP (Aira Sovereign AI Shell) -->
     <div id="aira-terminal">
       <!-- Title Bar -->
       <div class="term-bar">
@@ -3208,45 +3160,49 @@ STRICT RULE: If a user asks for programming code or scripts, politely decline. S
           <div class="term-dot td-y"></div>
           <div class="term-dot td-g"></div>
         </div>
-        <div class="term-title">Aira CLI Storage</div>
-        <div class="term-user-badge" id="term-user-badge">not logged in</div>
-      </div>
-
-      <!-- Login Screen (shown if not logged in) -->
-      <div class="term-login" id="term-login-screen">
-        <div class="term-login-icon">🔐</div>
-        <h3>Login to Aira Terminal</h3>
-        <p>Puter account vazhi login cheyth<br>5GB free cloud storage access cheyyam</p>
-        <button class="term-login-btn" onclick="termLogin()">🚀 Login with Puter</button>
+        <div class="term-title">Aira Sovereign Shell v3.6</div>
+        <div class="term-user-badge" id="term-user-badge">aira-sovereign</div>
       </div>
 
       <!-- Terminal Output -->
-      <div class="term-output" id="term-output" style="display: none;"></div>
+      <div class="term-output" id="term-output"></div>
 
       <!-- Input -->
-      <div class="term-input-row" id="term-input-row" style="display: none;">
+      <div class="term-input-row" id="term-input-row">
         <span class="term-prompt-label">aira $</span>
         <input id="term-input" type="text" placeholder="type a command..." autocomplete="off" spellcheck="false" />
       </div>
     </div>
 
-    <!-- Hidden file input for upload -->
-    <input type="file" id="term-file-input" multiple />
-
     <script>
       (function() {
         let termOpen = false;
-        let termUser = null;
-        let currentPath = '/';
         let cmdHistory = [];
         let historyIndex = -1;
+        let activeModel = "aira-auto";
+        const AIRA_BASE_URL = "https://airaai-8ibs.onrender.com/v1";
 
-        // Toggle terminal
         window.toggleTerminal = function() {
           termOpen = !termOpen;
           const el = document.getElementById('aira-terminal');
           el.classList.toggle('open', termOpen);
-          if (termOpen) checkAuthState();
+          if (termOpen) {
+            const out = document.getElementById('term-output');
+            if (out.innerHTML === '') {
+              printBanner();
+            }
+            const savedUser = localStorage.getItem("aira_google_user");
+            if (savedUser) {
+              try {
+                const u = JSON.parse(savedUser);
+                document.getElementById('term-user-badge').textContent = u.name.toLowerCase().replace(/\s+/g, '_');
+              } catch(e) {}
+            }
+            setTimeout(() => {
+              const inp = document.getElementById('term-input');
+              if (inp) inp.focus();
+            }, 100);
+          }
         };
 
         window.closeTerminal = function() {
@@ -3254,63 +3210,19 @@ STRICT RULE: If a user asks for programming code or scripts, politely decline. S
           document.getElementById('aira-terminal').classList.remove('open');
         };
 
-        // Check if already logged in
-        async function checkAuthState() {
-          try {
-            const user = await puter.auth.getUser();
-            if (user) {
-              termUser = user;
-              showTerminal(user);
-            }
-          } catch(e) {
-            showLoginScreen();
-          }
-        }
-
-        // Login
-        window.termLogin = async function() {
-          try {
-            const user = await puter.auth.signIn();
-            termUser = user;
-            showTerminal(user);
-          } catch(e) {
-            alert('Login failed. Try again.');
-          }
-        };
-
-        function showLoginScreen() {
-          document.getElementById('term-login-screen').style.display = 'flex';
-          document.getElementById('term-output').style.display = 'none';
-          document.getElementById('term-input-row').style.display = 'none';
-        }
-
-        function showTerminal(user) {
-          document.getElementById('term-login-screen').style.display = 'none';
-          document.getElementById('term-output').style.display = 'block';
-          document.getElementById('term-input-row').style.display = 'flex';
-          document.getElementById('term-user-badge').textContent = user.username || 'user';
-
-          const out = document.getElementById('term-output');
-          if (out.innerHTML === '') {
-            printBanner(user);
-          }
-
-          document.getElementById('term-input').focus();
-        }
-
-        function printBanner(user) {
+        function printBanner() {
           print(`<pre class="t-purple" style="font-family: inherit; margin: 0; line-height: 1.2; white-space: pre-wrap;">
   ___  _           
  / _ \\(_)_ _ __ _ 
 | (_) | | '_/ _\` |
  \\__\\_|_|_| \\__,_|
 </pre>`);
-          print(`<span class="t-cyan">AIRA CLI (STORAGE) v1.0</span>`);
-          print(`<span class="t-muted">Secure Personal Cloud Storage by Aira Group</span>`);
-          print(`<span class="t-muted">© All Rights Reserved by Aira Group</span>`);
-          print(`<span class="t-muted">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span>`);
-          print(`<span class="t-green">✓ Logged in as</span> <span class="t-yellow">${user.username}</span>`);
-          print(`<span class="t-muted">Type <span class="t-white">help</span> to see available commands</span>`);
+          print(`<span class="t-cyan font-bold">AIRA SOVEREIGN SHELL v3.6</span>`);
+          print(`<span class="t-muted">Engineered by Er. Adam Eehan • Aira Group of Technology</span>`);
+          print(`<span class="t-muted">Endpoint: <span class="t-yellow">${AIRA_BASE_URL}</span></span>`);
+          print(`<span class="t-muted">Active Model: <span class="t-green">${activeModel}</span></span>`);
+          print(`<span class="t-muted">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span>`);
+          print(`<span class="t-green">✓ System Online.</span> Type <span class="t-white font-bold">help</span> to view commands.`);
           print('');
         }
 
@@ -3367,357 +3279,155 @@ STRICT RULE: If a user asks for programming code or scripts, politely decline. S
 
           switch(cmd) {
             case 'help': cmdHelp(); break;
+            case 'ask':
+            case 'chat': await cmdChat(args.join(' ')); break;
+            case 'models': await cmdModels(); break;
+            case 'model': cmdSetModel(args[0]); break;
+            case 'status': await cmdStatus(); break;
             case 'whoami': cmdWhoami(); break;
-            case 'ails': await cmdAiLs(); break;
-            case 'aichat': await cmdAiChat(args); break;
+            case 'founder':
+            case 'about': cmdFounder(); break;
             case 'api': cmdApi(); break;
-            case 'ls': await cmdLs(args[0]); break;
-            case 'mkdir': await cmdMkdir(args[0]); break;
-            case 'rm': await cmdRm(args[0]); break;
-            case 'upload': cmdUpload(); break;
-            case 'download': await cmdDownload(args[0]); break;
-            case 'storage': await cmdStorage(); break;
-            case 'pwd': printLine(currentPath, 't-cyan'); break;
-            case 'cd': await cmdCd(args[0]); break;
             case 'clear': document.getElementById('term-output').innerHTML = ''; break;
-            case 'logout': cmdLogout(); break;
-            case 'cat': await cmdCat(args[0]); break;
             default:
-              printLine(`Command not found: ${cmd} — type 'help' for commands`, 't-red');
+              await cmdChat(raw);
           }
           print('');
         }
 
         function cmdHelp() {
-          print(`<span class="t-yellow">━━ Aira Terminal Commands ━━━━━━━━━━━━</span>`);
+          print(`<span class="t-yellow font-bold">━━ Aira Sovereign Shell Commands ━━━━━━━━━━━━</span>`);
           const cmds = [
-            ['ls [path]',      'List files and folders'],
-            ['cd [path]',      'Change directory'],
-            ['pwd',            'Show current path'],
-            ['mkdir [name]',   'Create new folder'],
-            ['upload',         'Upload file(s) from device'],
-            ['download [name]','Download a file'],
-            ['rm [name]',      'Delete file or folder'],
-            ['cat [name]',     'View text file content'],
-            ['storage',        'Show storage usage'],
-            ['ails',           'List available Puter AI models'],
-            ['aichat [model] [prompt]', 'Chat with Puter AI model'],
-            ['api',            'Show your active Puter Session API Key'],
-            ['whoami',         'Show account info'],
-            ['clear',          'Clear terminal'],
-            ['logout',         'Sign out'],
+            ['ask [prompt]',     'Query Aira Sovereign AI model directly'],
+            ['models',           'List all models available on Aira Endpoint'],
+            ['model [id]',       'Switch active model (e.g. aira-sec, aira-core)'],
+            ['status',          'Ping Aira AI Live Endpoint & measure latency'],
+            ['founder / about',  'Display founder & Aira Group architecture'],
+            ['whoami',          'Show your active session info'],
+            ['api',             'Display OpenAI-compatible developer integration'],
+            ['clear',           'Clear terminal screen']
           ];
           cmds.forEach(([c, d]) => {
             print(`  <span class="t-cyan">${c.padEnd(20)}</span><span class="t-muted">${d}</span>`);
           });
         }
 
-        function cmdWhoami() {
-          if (!termUser) return printLine('Not logged in', 't-red');
-          print(`<span class="t-green">Username:</span> <span class="t-yellow">${termUser.username}</span>`);
-          print(`<span class="t-green">Email:</span>    <span class="t-white">${termUser.email || 'N/A'}</span>`);
-        }
-
-        async function cmdLs(path) {
-          const target = resolvePath(path || currentPath);
-          try {
-            printLine(`Listing: ${target}`, 't-muted');
-            const items = await puter.fs.readdir(toPuterPath(target));
-            if (!items || items.length === 0) {
-              printLine('(empty folder)', 't-muted');
-              return;
-            }
-            items.forEach(item => {
-              const isDir = item.is_dir || item.type === 'directory';
-              const icon = isDir ? '📁' : '📄';
-              const name = isDir ? `<span class="t-cyan">${item.name}/</span>` : `<span class="t-white">${item.name}</span>`;
-              const size = item.size ? `<span class="t-muted"> (${formatSize(item.size)})</span>` : '';
-              print(`  ${icon} ${name}${size}`);
-            });
-          } catch(e) {
-            printLine(`Error reading directory: ${e.message || e}`, 't-red');
-          }
-        }
-
-        async function cmdMkdir(name) {
-          if (!name) return printLine('Usage: mkdir [folder-name]', 't-yellow');
-          try {
-            await puter.fs.mkdir(toPuterPath(resolvePath(name)));
-            printLine(`✓ Folder created: ${name}`, 't-green');
-          } catch(e) {
-            printLine(`Error: ${e.message || e}`, 't-red');
-          }
-        }
-
-        async function cmdRm(name) {
-          if (!name) return printLine('Usage: rm [filename]', 't-yellow');
-          try {
-            await puter.fs.delete(toPuterPath(resolvePath(name)));
-            printLine(`✓ Deleted: ${name}`, 't-green');
-          } catch(e) {
-            printLine(`Error: ${e.message || e}`, 't-red');
-          }
-        }
-
-        function cmdUpload() {
-          const fileInput = document.getElementById('term-file-input');
-          fileInput.onchange = async function() {
-            const files = Array.from(this.files);
-            if (!files.length) return;
-
-            let uploadPath = currentPath;
-            if (uploadPath === '/') {
-              printLine(`⚠️ Puter.js does not allow uploading directly to the root directory (/).`, 't-yellow');
-              printLine(`Automatically uploading to '/uploads' instead...`, 't-muted');
-              try {
-                await puter.fs.mkdir(toPuterPath('/uploads')).catch(() => {});
-                uploadPath = '/uploads';
-              } catch (err) {
-                // Ignore errors if directory already exists
-              }
-            }
-
-            for (const file of files) {
-              printLine(`Uploading: ${file.name} (${formatSize(file.size)}) to ${uploadPath}...`, 't-muted');
-              try {
-                await puter.fs.upload([file], toPuterPath(uploadPath));
-                printLine(`✓ Uploaded: ${file.name} to ${uploadPath}`, 't-green');
-              } catch(e) {
-                printLine(`✗ Failed: ${file.name} — ${e.message || e}`, 't-red');
-              }
-            }
-            this.value = '';
-          };
-          fileInput.click();
-        }
-
-        async function cmdDownload(name) {
-          if (!name) return printLine('Usage: download [filename]', 't-yellow');
-          try {
-            printLine(`Downloading: ${name}...`, 't-muted');
-            const blob = await puter.fs.read(toPuterPath(resolvePath(name)));
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = name;
-            a.click();
-            URL.revokeObjectURL(url);
-            printLine(`✓ Download started: ${name}`, 't-green');
-          } catch(e) {
-            printLine(`Error: ${e.message || e}`, 't-red');
-          }
-        }
-
-        async function cmdStorage() {
-          try {
-            printLine('Checking storage...', 't-muted');
-            // Puter free plan = 1GB; show approximate
-            print(`<span class="t-green">Storage Plan:</span>  <span class="t-yellow">Puter Free</span>`);
-            print(`<span class="t-green">Available:</span>     <span class="t-white">Up to 1GB (free tier)</span>`);
-            print(`<span class="t-muted">Tip: Use 'ls' to browse your files</span>`);
-          } catch(e) {
-            printLine(`Error: ${e.message || e}`, 't-red');
-          }
-        }
-
-        async function cmdCd(path) {
-          if (!path || path === '~') { currentPath = '/'; printLine(`→ ${currentPath}`, 't-cyan'); return; }
-          if (path === '..') {
-            const parts = currentPath.split('/').filter(Boolean);
-            parts.pop();
-            currentPath = '/' + parts.join('/');
-            if (currentPath === '') currentPath = '/';
-            printLine(`→ ${currentPath}`, 't-cyan');
-            return;
-          }
-          const target = resolvePath(path);
-          try {
-            await puter.fs.readdir(toPuterPath(target));
-            currentPath = target;
-            printLine(`→ ${currentPath}`, 't-cyan');
-          } catch(e) {
-            printLine(`No such directory: ${path}`, 't-red');
-          }
-        }
-
-        async function cmdCat(name) {
-          if (!name) return printLine('Usage: cat [filename]', 't-yellow');
-          try {
-            const blob = await puter.fs.read(toPuterPath(resolvePath(name)));
-            const text = await blob.text();
-            print(`<span class="t-muted">━━ ${name} ━━━━━━━━━━━</span>`);
-            text.split('\n').forEach(line => printLine(line || ' ', 't-white'));
-          } catch(e) {
-            printLine(`Error: ${e.message || e}`, 't-red');
-          }
-        }
-
-        async function cmdAiLs() {
-          try {
-            printLine('Fetching available AI models from Puter...', 't-muted');
-            const models = await puter.ai.listModels();
-            if (!models || models.length === 0) {
-              printLine('No models found.', 't-yellow');
-              return;
-            }
-            printLine(`Available AI Models (${models.length}):`, 't-green');
-            
-            // Filter unique IDs and sort them
-            const uniqueModels = Array.from(new Set(models.map(m => m.id)))
-                                     .map(id => models.find(m => m.id === id))
-                                     .filter(Boolean)
-                                     .sort((a, b) => a.id.localeCompare(b.id));
-            
-            const displayLimit = 45;
-            uniqueModels.slice(0, displayLimit).forEach(model => {
-              const providerStr = model.provider ? `<span class="t-purple">[${model.provider}]</span> ` : '';
-              print("  " + providerStr + `<span class="t-cyan">${model.id}</span>`);
-            });
-            if (uniqueModels.length > displayLimit) {
-              print(`  <span class="t-muted">...and ${uniqueModels.length - displayLimit} more models.</span>`);
-            }
-            print('');
-            printLine(`To chat, type: <span class="t-white">aichat [model_id] [prompt]</span>`, 't-yellow');
-            printLine(`Or default: <span class="t-white">aichat [prompt]</span>`, 't-muted');
-          } catch (e) {
-            printLine(`Error fetching models: ${e.message || e}`, 't-red');
-          }
-        }
-
-        async function cmdAiChat(args) {
-          if (args.length < 1) {
-            printLine('Usage: aichat [model_id] [prompt]  OR  aichat [prompt]', 't-yellow');
-            printLine('Example: aichat openai/gpt-4o hello there', 't-muted');
-            printLine('Example (Default model): aichat hello there', 't-muted');
-            return;
-          }
-          
-          let modelId = null;
-          let prompt = '';
-          
-          if (args[0].includes('/')) {
-            modelId = args[0];
-            prompt = args.slice(1).join(' ');
-          } else {
-            prompt = args.join(' ');
-          }
-          
+        async function cmdChat(prompt) {
           if (!prompt) {
-            printLine('Error: Prompt cannot be empty.', 't-red');
+            printLine('Usage: ask [your question]', 't-yellow');
             return;
           }
-          
+          printLine(`Connecting to Aira Endpoint [${activeModel}]...`, 't-muted');
           try {
-            const options = modelId ? { model: modelId } : {};
-            const displayModel = modelId || 'default model';
-            printLine(`Sending prompt to ${displayModel} using your Puter session...`, 't-muted');
-            
-            const response = await puter.ai.chat(prompt, options);
-            
-            let text = '';
-            if (typeof response === 'string') {
-              text = response;
-            } else if (response?.message?.content) {
-              text = response.message.content;
-            } else if (response?.text) {
-              text = response.text;
-            } else {
-              text = JSON.stringify(response);
-            }
-            
-            printLine(`\n[${displayModel} Response]:`, 't-green');
-            text.split('\n').forEach(line => printLine(line || ' ', 't-white'));
-          } catch (e) {
-            printLine(`Error: ${e.message || e}`, 't-red');
+            const res = await fetch(`${AIRA_BASE_URL}/chat/completions`, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                model: activeModel,
+                messages: [{ role: "user", content: prompt }],
+                stream: false
+              })
+            });
+            if (!res.ok) throw new Error(`HTTP ${res.status}`);
+            const data = await res.json();
+            const text = data.choices?.[0]?.message?.content || "No response received.";
+            print(`<span class="t-green font-bold">Aira:</span>`);
+            text.split('\n').forEach(line => {
+              print(`  <span class="t-white">${line || ' '}</span>`);
+            });
+          } catch(err) {
+            printLine(`Error connecting to Aira Endpoint: ${err.message}`, 't-red');
           }
+        }
+
+        async function cmdModels() {
+          printLine('Fetching live models from Aira Gateway...', 't-muted');
+          try {
+            const res = await fetch(`${AIRA_BASE_URL}/models`);
+            if (!res.ok) throw new Error(`HTTP ${res.status}`);
+            const data = await res.json();
+            print(`<span class="t-green font-bold">Available Sovereign Models (${data.data.length}):</span>`);
+            data.data.forEach(m => {
+              const activeTag = m.id === activeModel ? ' <span class="t-yellow font-bold">[ACTIVE]</span>' : '';
+              print(`  • <span class="t-cyan font-semibold">${m.id}</span>${activeTag} <span class="t-muted">(owned_by: ${m.owned_by})</span>`);
+            });
+            print(`<span class="t-muted">Switch model using: <span class="t-white">model [model_id]</span></span>`);
+          } catch(err) {
+            printLine(`Failed to fetch models: ${err.message}`, 't-red');
+          }
+        }
+
+        function cmdSetModel(name) {
+          if (!name) {
+            printLine(`Active model: ${activeModel}`, 't-yellow');
+            printLine('Usage: model [model_id]', 't-muted');
+            return;
+          }
+          activeModel = name;
+          printLine(`✓ Switched active model to: ${activeModel}`, 't-green');
+        }
+
+        async function cmdStatus() {
+          printLine(`Pinging ${AIRA_BASE_URL}/models...`, 't-muted');
+          const start = performance.now();
+          try {
+            const res = await fetch(`${AIRA_BASE_URL}/models`);
+            const duration = Math.round(performance.now() - start);
+            if (res.ok) {
+              printLine(`✓ Aira Sovereign Endpoint: ONLINE`, 't-green');
+              printLine(`  • Status Code: ${res.status} OK`, 't-white');
+              printLine(`  • Roundtrip Latency: ${duration} ms`, 't-yellow');
+              printLine(`  • Provider: Aira Group of Technology`, 't-cyan');
+            } else {
+              printLine(`Endpoint responded with status ${res.status}`, 't-red');
+            }
+          } catch(err) {
+            printLine(`Endpoint unreachable: ${err.message}`, 't-red');
+          }
+        }
+
+        function cmdWhoami() {
+          const savedUser = localStorage.getItem("aira_google_user");
+          if (savedUser) {
+            try {
+              const u = JSON.parse(savedUser);
+              print(`<span class="t-green">Identity:</span> <span class="t-yellow">${u.name} (Google Verified)</span>`);
+              print(`<span class="t-green">Email:</span>    <span class="t-white">${u.email}</span>`);
+              return;
+            } catch(e) {}
+          }
+          printLine('Identity: Guest Visitor (Sovereign Session)', 't-cyan');
+          printLine('To verify identity, sign in with Google in the Verified Feedback section.', 't-muted');
+        }
+
+        function cmdFounder() {
+          print(`<span class="t-cyan font-bold">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span>`);
+          print(`<span class="t-yellow font-bold">Er. Adam Eehan</span>`);
+          print(`<span class="t-white">Founder, CEO & Chief Systems Architect</span>`);
+          print(`<span class="t-muted">Aira Group of Technology • Technopark, Trivandrum</span>`);
+          print(`<span class="t-muted">Wikidata: <span class="t-white">Q141755677</span></span>`);
+          print(`<span class="t-muted">Email: adameehan34@gmail.com | Phone: +91 8921 584 368</span>`);
+          print(`<span class="t-cyan font-bold">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span>`);
         }
 
         function cmdApi() {
-          if (!termUser) {
-            printLine('You are not logged in. Please log in first.', 't-red');
-            return;
-          }
-          
-          let token = null;
-          try {
-            token = localStorage.getItem('puter.auth.token') || sessionStorage.getItem('puter.auth.token');
-            if (!token) {
-              for (let i = 0; i < localStorage.length; i++) {
-                const key = localStorage.key(i);
-                if (key.toLowerCase().includes('token') || key.toLowerCase().includes('auth')) {
-                  token = localStorage.getItem(key);
-                  break;
-                }
-              }
-            }
-          } catch (e) {
-            // Ignore security errors in sandboxed iframes
-          }
-          
-          if (!token) {
-            print(`<span class="t-yellow">━━ Puter API Token ━━━━━━━━━━━━</span>`);
-            if (window.location.protocol === 'file:') {
-              printLine('⚠️ You are viewing this site directly as a local file (file://).', 't-yellow');
-              printLine('Browsers block LocalStorage access on local files for security,');
-              printLine('so the CLI cannot read your session token.', 't-muted');
-              printLine('To resolve: Run a local web server (e.g. VS Code Live Server, or run "npx serve").', 't-green');
-            } else {
-              printLine('Could not find active session token in local storage.', 't-red');
-              printLine('Please ensure your browser settings allow LocalStorage and cookies.', 't-muted');
-            }
-            print('');
-            printLine('Manual Option:', 't-cyan');
-            printLine('1. Go to your Dashboard: https://puter.com/dashboard#account');
-            printLine('2. Find the "Auth Token" section and copy your token.');
-            print(`<span class="t-muted">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span>`);
-            return;
-          }
-          
-          print(`<span class="t-yellow">━━ Your Puter API Key / Auth Token ━━━━━━━━━━━━</span>`);
-          printLine('Below is your active Puter Session Auth Token (acts as your API Key).');
-          printLine('Use this to connect Puter SDK or OpenAI-compatible backend services.');
+          print(`<span class="t-yellow font-bold">━━ Aira Sovereign AI Gateway ━━━━━━━━━━━━━━━━━</span>`);
+          printLine('OpenAI Drop-In Compatible API for Developers worldwide.');
+          print(`  <span class="t-cyan">Base URL:</span> <span class="t-white">${AIRA_BASE_URL}</span>`);
+          print(`  <span class="t-cyan">Chat URL:</span> <span class="t-white">${AIRA_BASE_URL}/chat/completions</span>`);
           print('');
-          print(`  <span class="t-cyan">Token:</span>`);
-          print(`  <span class="t-white" style="word-break: break-all; background: rgba(255,255,255,0.06); padding: 4px 8px; border-radius: 6px; display: block; border: 1px solid rgba(255,255,255,0.1); margin: 6px 0;">${token}</span>`);
-          print('');
-          printLine('⚠️ Keep this token secret! Anyone with this token can access your cloud storage & AI credits.', 't-yellow');
-          printLine('Node.js Initialization Example:', 't-muted');
-          print(`<span class="t-white">  const puter = require('@heyputer/puter.js').init("${token.substring(0, 15)}...");</span>`);
-          print(`<span class="t-muted">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span>`);
-        }
-
-        function cmdLogout() {
-          puter.auth.signOut();
-          termUser = null;
-          document.getElementById('term-output').innerHTML = '';
-          showLoginScreen();
-          document.getElementById('term-user-badge').textContent = 'not logged in';
-        }
-
-        function resolvePath(p) {
-          if (!p) return currentPath;
-          if (p.startsWith('/')) return p;
-          return (currentPath === '/' ? '' : currentPath) + '/' + p;
-        }
-
-        function toPuterPath(p) {
-          if (!p) return '.';
-          let cleaned = p;
-          while (cleaned.startsWith('/')) {
-            cleaned = cleaned.substring(1);
-          }
-          return cleaned === '' ? '.' : cleaned;
-        }
-
-        function formatSize(bytes) {
-          if (!bytes) return '0 B';
-          if (bytes < 1024) return bytes + ' B';
-          if (bytes < 1024*1024) return (bytes/1024).toFixed(1) + ' KB';
-          return (bytes/(1024*1024)).toFixed(1) + ' MB';
+          printLine('Python Example:', 't-muted');
+          print(`<pre class="t-green" style="margin: 0; line-height: 1.3;">from openai import OpenAI
+client = OpenAI(base_url="${AIRA_BASE_URL}", api_key="aira-free")
+response = client.chat.completions.create(
+    model="aira-auto",
+    messages=[{"role": "user", "content": "Hello!"}]
+)</pre>`);
+          print(`<span class="t-muted">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span>`);
         }
       })();
     </script>
-  
+
     <!-- Floating Direct WhatsApp Client Connect -->
     <a
       href="https://wa.me/918921584368?text=Hello%20Er.%20Adam%20Eehan,%20I%20would%20like%20to%20discuss%20a%20project%20with%20Aira%20Group."
