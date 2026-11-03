@@ -614,7 +614,7 @@
             <a
               href="#trusted"
               class="nav-link text-slate-700 hover:text-blue-700 font-medium"
-              >Clients</a
+              >Feedback</a
             >
             <a
               href="#careers"
@@ -661,7 +661,7 @@
             <a
               href="#trusted"
               class="block text-slate-700 hover:text-blue-700 font-medium py-2 transition"
-              >Clients</a
+              >Feedback</a
             >
             <a
               href="#careers"
@@ -717,18 +717,18 @@
             </div>
             <div class="mt-12 flex items-center gap-8 flex-wrap">
               <div class="hover:scale-110 transition-transform duration-300">
-                <div class="text-4xl font-bold">10+</div>
-                <div class="text-slate-300 text-sm">Years in Tech</div>
+                <div class="text-4xl font-bold text-cyan-400">100%</div>
+                <div class="text-slate-300 text-sm">Sovereign Architecture</div>
               </div>
               <div class="w-px h-12 bg-white/20"></div>
               <div class="hover:scale-110 transition-transform duration-300">
-                <div class="text-4xl font-bold">200+</div>
-                <div class="text-slate-300 text-sm">Products Shipped</div>
+                <div class="text-4xl font-bold text-emerald-400">5+</div>
+                <div class="text-slate-300 text-sm">Flagship Systems</div>
               </div>
               <div class="w-px h-12 bg-white/20"></div>
               <div class="hover:scale-110 transition-transform duration-300">
-                <div class="text-4xl font-bold">99.9%</div>
-                <div class="text-slate-300 text-sm">Client Satisfaction</div>
+                <div class="text-4xl font-bold text-blue-400">&lt; 4m</div>
+                <div class="text-slate-300 text-sm">Automated Cloud CI/CD</div>
               </div>
             </div>
           </div>
@@ -1075,249 +1075,251 @@
       </div>
     </section>
 
-    <!-- Trusted By Section -->
-    <section id="trusted" class="py-24 bg-slate-50">
+    <!-- Verified Reviews & Community Feedback Section -->
+    <section id="trusted" class="py-24 bg-slate-50 relative overflow-hidden">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Section Header -->
         <div class="text-center max-w-3xl mx-auto mb-16 animate-fade-in">
-          <span
-            class="text-blue-600 font-semibold text-sm uppercase tracking-wider"
-            >Trusted By Industry Leaders</span
-          >
-          <h2
-            class="font-display text-4xl md:text-5xl font-bold text-[#0a2342] mt-3 mb-4"
-          >
-            Partnering with Startups & Enterprises Worldwide
+          <span class="text-blue-600 font-semibold text-sm uppercase tracking-wider">
+            Verified Reviews & Community Feedback
+          </span>
+          <h2 class="font-display text-4xl md:text-5xl font-bold text-[#0a2342] mt-3 mb-4">
+            Direct Feedback from Clients & Builders
           </h2>
           <p class="text-lg text-slate-600">
-            From early-stage startups to Fortune 500 companies, teams trust Aira
-            to build products that scale. Your vision, our engineering
-            excellence.
+            Real feedback authenticated directly via Google. No dummy reviews or fake corporate logos — verified by genuine developers, students, and clients who build with Aira Group.
           </p>
         </div>
 
-        <div class="grid md:grid-cols-3 gap-8 mb-16">
-          <!-- Trust Card 1 -->
-          <div
-            class="card-hover bg-white rounded-2xl p-8 shadow-lg border border-slate-100 text-center animate-scale"
-          >
-            <div
-              class="w-16 h-16 rounded-full bg-blue-50 flex items-center justify-center mx-auto mb-4"
-            >
-              <i class="fas fa-building text-blue-600 text-2xl"></i>
+        <!-- Google Feedback Box (Client Verified Submission Card) -->
+        <div class="max-w-3xl mx-auto bg-white rounded-3xl p-8 md:p-10 shadow-xl border border-slate-200/80 mb-20 animate-scale relative">
+          <!-- State 1: When user is logged out -->
+          <div id="google-feedback-loggedout" class="text-center py-6">
+            <div class="w-16 h-16 mx-auto mb-4 rounded-2xl bg-blue-50 border border-blue-100 flex items-center justify-center shadow-inner">
+              <svg class="w-8 h-8" viewBox="0 0 24 24">
+                <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+                <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+              </svg>
             </div>
-            <h3 class="text-xl font-bold text-[#0a2342] mb-3">
-              Enterprise Solutions
-            </h3>
-            <p class="text-slate-600 leading-relaxed">
-              We build enterprise-grade software with security, compliance, and
-              scalability at the core. Trusted for mission-critical systems.
+            <h3 class="text-2xl font-bold text-[#0a2342] mb-2">Leave a Verified Review</h3>
+            <p class="text-slate-600 text-sm max-w-md mx-auto mb-6 leading-relaxed">
+              Sign in with your Google account to share your feedback. Your verified Google photo and Gmail address will automatically appear above your review.
             </p>
+            <button
+              onclick="startGoogleAuth()"
+              class="inline-flex items-center gap-3 bg-white hover:bg-slate-50 text-slate-800 font-semibold px-8 py-3.5 rounded-xl border border-slate-300 shadow-md hover:shadow-lg transition-all duration-300 hover:scale-[1.02]"
+            >
+              <svg class="w-6 h-6" viewBox="0 0 24 24">
+                <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+                <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+              </svg>
+              <span>Sign in with Google</span>
+            </button>
+            <div class="mt-4 flex items-center justify-center gap-2 text-xs text-slate-400">
+              <i class="fas fa-lock text-[10px]"></i>
+              <span>Instant Google OAuth verification • No manual form filling needed</span>
+            </div>
           </div>
 
-          <!-- Trust Card 2 -->
-          <div
-            class="card-hover bg-white rounded-2xl p-8 shadow-lg border border-slate-100 text-center animate-scale"
-            style="transition-delay: 0.1s"
-          >
-            <div
-              class="w-16 h-16 rounded-full bg-blue-50 flex items-center justify-center mx-auto mb-4"
-            >
-              <i class="fas fa-rocket text-blue-600 text-2xl"></i>
+          <!-- State 2: When user is logged in via Google -->
+          <div id="google-feedback-loggedin" class="hidden">
+            <!-- Verified Identity Banner (Placed ABOVE feedback as requested) -->
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 md:p-5 bg-gradient-to-r from-blue-50/80 via-slate-50 to-indigo-50/80 rounded-2xl border border-blue-100 shadow-sm mb-6">
+              <div class="flex items-center gap-4">
+                <img
+                  id="v-user-photo"
+                  src=""
+                  alt="Google Profile"
+                  class="w-14 h-14 rounded-full border-2 border-blue-500 shadow-sm object-cover bg-white"
+                />
+                <div>
+                  <div class="flex items-center gap-2 flex-wrap">
+                    <h4 id="v-user-name" class="font-bold text-[#0a2342] text-lg">User Name</h4>
+                    <span class="inline-flex items-center gap-1 text-[11px] font-semibold bg-emerald-100 text-emerald-800 px-2.5 py-0.5 rounded-full border border-emerald-200">
+                      <i class="fas fa-check-circle text-emerald-600 text-[10px]"></i> Google Verified
+                    </span>
+                  </div>
+                  <div class="flex items-center gap-1.5 text-xs text-blue-700 font-medium mt-1">
+                    <svg class="w-3.5 h-3.5" viewBox="0 0 24 24">
+                      <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                      <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                      <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+                      <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+                    </svg>
+                    <span id="v-user-email" class="bg-blue-100/60 px-2 py-0.5 rounded-md font-mono text-[11px]">email@gmail.com</span>
+                  </div>
+                </div>
+              </div>
+              <button
+                onclick="googleLogout()"
+                class="text-xs text-slate-500 hover:text-red-600 font-semibold transition self-start sm:self-center flex items-center gap-1.5 px-3 py-1.5 rounded-lg hover:bg-red-50"
+              >
+                <i class="fas fa-sign-out-alt"></i> Sign Out
+              </button>
             </div>
-            <h3 class="text-xl font-bold text-[#0a2342] mb-3">
-              Startup Accelerated
-            </h3>
-            <p class="text-slate-600 leading-relaxed">
-              From MVP to Series A and beyond. We move fast, iterate quickly,
-              and help founders launch products that investors love.
-            </p>
-          </div>
 
-          <!-- Trust Card 3 -->
-          <div
-            class="card-hover bg-white rounded-2xl p-8 shadow-lg border border-slate-100 text-center animate-scale"
-            style="transition-delay: 0.2s"
-          >
-            <div
-              class="w-16 h-16 rounded-full bg-blue-50 flex items-center justify-center mx-auto mb-4"
-            >
-              <i class="fas fa-handshake text-blue-600 text-2xl"></i>
+            <!-- Feedback Submission Form (NO GMAIL INPUT ASKED!) -->
+            <form id="verified-feedback-form" onsubmit="handleFeedbackSubmit(event)" class="space-y-4">
+              <!-- Star Rating Selection -->
+              <div class="flex items-center gap-3">
+                <span class="text-sm font-semibold text-[#0a2342]">Your Rating:</span>
+                <div id="star-picker" class="flex items-center gap-1 text-2xl text-amber-400 cursor-pointer">
+                  <i class="fas fa-star" data-rating="1" onclick="setFeedbackRating(1)"></i>
+                  <i class="fas fa-star" data-rating="2" onclick="setFeedbackRating(2)"></i>
+                  <i class="fas fa-star" data-rating="3" onclick="setFeedbackRating(3)"></i>
+                  <i class="fas fa-star" data-rating="4" onclick="setFeedbackRating(4)"></i>
+                  <i class="fas fa-star" data-rating="5" onclick="setFeedbackRating(5)"></i>
+                </div>
+                <span id="rating-label" class="text-xs font-semibold text-slate-500 ml-1">5.0 / 5.0 (Excellent)</span>
+              </div>
+
+              <!-- Role / Project Tag Picker -->
+              <div>
+                <label class="block text-xs font-semibold text-slate-600 uppercase tracking-wider mb-2">Category / Association</label>
+                <div class="flex flex-wrap gap-2" id="tag-picker">
+                  <button type="button" onclick="selectFeedbackTag(this, 'Client / Business Partner')" class="tag-opt active px-3 py-1.5 rounded-lg text-xs font-semibold bg-blue-600 text-white transition">Client / Business Partner</button>
+                  <button type="button" onclick="selectFeedbackTag(this, 'Open Source Collaborator')" class="tag-opt px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 text-slate-700 hover:bg-slate-200 transition">Open Source Collaborator</button>
+                  <button type="button" onclick="selectFeedbackTag(this, 'Student / Developer')" class="tag-opt px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 text-slate-700 hover:bg-slate-200 transition">Student / Developer</button>
+                  <button type="button" onclick="selectFeedbackTag(this, 'Tech Enthusiast')" class="tag-opt px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 text-slate-700 hover:bg-slate-200 transition">Tech Enthusiast</button>
+                </div>
+              </div>
+
+              <!-- Feedback Textarea -->
+              <div>
+                <label for="feedbackContent" class="block text-sm font-semibold text-[#0a2342] mb-1.5">
+                  Your Feedback / Experience <span class="text-red-500">*</span>
+                </label>
+                <textarea
+                  id="feedbackContent"
+                  rows="3"
+                  required
+                  placeholder="Share your experience working with Aira Group, reviewing our code, or testing our systems..."
+                  class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:border-blue-600 focus:ring-2 focus:ring-blue-100 outline-none transition-all duration-300 resize-none text-slate-800 text-sm"
+                ></textarea>
+              </div>
+
+              <div class="flex items-center justify-between pt-2">
+                <span class="text-xs text-slate-400">
+                  <i class="fas fa-shield-halved mr-1 text-blue-500"></i> Your review will be published instantly with your Google verified badge.
+                </span>
+                <button
+                  type="submit"
+                  id="submit-feedback-btn"
+                  class="btn-primary text-white px-6 py-3 rounded-xl font-semibold text-sm flex items-center gap-2 shadow-lg shadow-blue-600/30 hover:shadow-xl transition"
+                >
+                  <i class="fas fa-paper-plane text-xs"></i> Post Verified Review
+                </button>
+              </div>
+            </form>
+
+            <div id="feedback-success-banner" class="hidden mt-4 p-4 bg-emerald-50 border border-emerald-200 rounded-xl text-emerald-800 text-sm font-medium text-center animate-fade-in">
+              <i class="fas fa-check-circle mr-1.5 text-emerald-600"></i> Thank you! Your verified review has been posted successfully.
             </div>
-            <h3 class="text-xl font-bold text-[#0a2342] mb-3">
-              Long-Term Partners
-            </h3>
-            <p class="text-slate-600 leading-relaxed">
-              85% of our clients work with us for 3+ years. We're not just
-              vendors — we're your dedicated technology team.
-            </p>
           </div>
         </div>
 
-        <div
-          class="bg-white rounded-2xl p-12 shadow-lg border border-slate-100 animate-fade-in"
-        >
-          <p
-            class="text-center text-slate-500 text-sm font-semibold uppercase tracking-wider mb-8"
-          >
-            Trusted by startups and enterprises across industries
-          </p>
-          <div
-            class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8 items-center justify-items-center"
-          >
-            <div class="logo-item text-slate-400 font-bold text-lg">
-              TECHCORP
-            </div>
-            <div class="logo-item text-slate-400 font-bold text-lg">
-              FINNOVA
-            </div>
-            <div class="logo-item text-slate-400 font-bold text-lg">
-              HEALTHIA
-            </div>
-            <div class="logo-item text-slate-400 font-bold text-lg">
-              QUANTIFY
-            </div>
-            <div
-              class="logo-item text-slate-400 font-bold text-lg col-span-2 md:col-span-1"
-            >
-              BUILDSTACK
-            </div>
-            <div class="logo-item text-slate-400 font-bold text-lg">
-              CLOUDNEX
-            </div>
-            <div class="logo-item text-slate-400 font-bold text-lg">
-              DATAPULSE
-            </div>
-            <div class="logo-item text-slate-400 font-bold text-lg">NEXGEN</div>
-            <div class="logo-item text-slate-400 font-bold text-lg">
-              VENTUREX
-            </div>
-            <div class="logo-item text-slate-400 font-bold text-lg">
-              SYNERGY
-            </div>
-          </div>
+        <!-- Verified Reviews Display Grid -->
+        <div id="verified-reviews-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <!-- Populated dynamically via JS -->
         </div>
       </div>
     </section>
 
-    <!-- Careers Section -->
+    <!-- Careers & Collaborations Section -->
     <section id="careers" class="py-24 bg-slate-50">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center max-w-3xl mx-auto mb-16 animate-fade-in">
-          <span
-            class="text-blue-600 font-semibold text-sm uppercase tracking-wider"
-            >Join Aira Group</span
-          >
-          <h2
-            class="font-display text-4xl md:text-5xl font-bold text-[#0a2342] mt-3 mb-4"
-          >
-            Build the Future of Tech With Us
+          <span class="text-blue-600 font-semibold text-sm uppercase tracking-wider">Join Aira Group</span>
+          <h2 class="font-display text-4xl md:text-5xl font-bold text-[#0a2342] mt-3 mb-4">
+            Build Sovereign Tech With Us
           </h2>
           <p class="text-lg text-slate-600">
-            We are always looking for passionate builders, designers, and
-            thinkers to join our distributed team. Work on cutting-edge AI and
-            software products.
+            We are looking for passionate builders, polytechnic & engineering students, and developers to join our sovereign engineering journey. Work directly alongside Er. Adam Eehan.
           </p>
         </div>
 
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           <!-- Job 1 -->
-          <div
-            class="bg-white p-8 rounded-2xl border border-slate-100 shadow-md hover:shadow-lg transition-all duration-300 flex flex-col justify-between"
-          >
+          <div class="bg-white p-8 rounded-2xl border border-slate-100 shadow-md hover:shadow-lg transition-all duration-300 flex flex-col justify-between">
             <div>
-              <span
-                class="px-3 py-1 bg-blue-50 text-blue-600 rounded-full text-xs font-semibold uppercase tracking-wider"
-                >Full-Time / Remote</span
-              >
+              <span class="px-3 py-1 bg-purple-50 text-purple-700 rounded-full text-xs font-semibold uppercase tracking-wider">
+                Open Source / Systems
+              </span>
               <h3 class="text-2xl font-bold text-[#0a2342] mt-4 mb-2">
-                AI / Machine Learning Engineer
+                Systems & Kernel Contributor
               </h3>
-              <p class="text-slate-600 mb-6">
-                Design, build, and deploy production-ready ML models, MLOps
-                pipelines, and custom LLM integrations for global clients.
+              <p class="text-slate-600 mb-6 text-sm leading-relaxed">
+                Contribute to low-level systems including Airlys OS (x86_64 monolithic kernel), AiraLang compiler toolchains, and SDR cellular radio drivers. C, Assembly & Rust builders welcome.
               </p>
             </div>
             <button
-              onclick="applyForJob('AI / Machine Learning Engineer')"
-              class="text-blue-600 font-semibold hover:text-blue-800 inline-flex items-center group mt-auto self-start"
+              onclick="applyForJob('Systems & Kernel Contributor')"
+              class="text-blue-600 font-semibold hover:text-blue-800 inline-flex items-center group mt-auto self-start text-sm"
             >
-              Apply Now
-              <i
-                class="fas fa-arrow-right ml-2 text-sm group-hover:translate-x-1 transition-transform"
-              ></i>
+              Collaborate With Us
+              <i class="fas fa-arrow-right ml-2 text-xs group-hover:translate-x-1 transition-transform"></i>
             </button>
           </div>
 
           <!-- Job 2 -->
-          <div
-            class="bg-white p-8 rounded-2xl border border-slate-100 shadow-md hover:shadow-lg transition-all duration-300 flex flex-col justify-between"
-          >
+          <div class="bg-white p-8 rounded-2xl border border-slate-100 shadow-md hover:shadow-lg transition-all duration-300 flex flex-col justify-between">
             <div>
-              <span
-                class="px-3 py-1 bg-blue-50 text-blue-600 rounded-full text-xs font-semibold uppercase tracking-wider"
-                >Full-Time / Remote</span
-              >
+              <span class="px-3 py-1 bg-blue-50 text-blue-600 rounded-full text-xs font-semibold uppercase tracking-wider">
+                Remote / Contract
+              </span>
               <h3 class="text-2xl font-bold text-[#0a2342] mt-4 mb-2">
-                Full Stack Developer
+                Frontend & Flutter App Engineer
               </h3>
-              <p class="text-slate-600 mb-6">
-                Develop clean, high-performance web applications using React,
-                Next.js, Node.js, and modern cloud infrastructures.
+              <p class="text-slate-600 mb-6 text-sm leading-relaxed">
+                Build responsive client web platforms with Next.js & Tailwind CSS, and publish native cross-platform mobile applications on iOS & Android using Flutter.
               </p>
             </div>
             <button
-              onclick="applyForJob('Full Stack Developer')"
-              class="text-blue-600 font-semibold hover:text-blue-800 inline-flex items-center group mt-auto self-start"
+              onclick="applyForJob('Frontend & Flutter App Engineer')"
+              class="text-blue-600 font-semibold hover:text-blue-800 inline-flex items-center group mt-auto self-start text-sm"
             >
-              Apply Now
-              <i
-                class="fas fa-arrow-right ml-2 text-sm group-hover:translate-x-1 transition-transform"
-              ></i>
+              Apply for Role
+              <i class="fas fa-arrow-right ml-2 text-xs group-hover:translate-x-1 transition-transform"></i>
             </button>
           </div>
 
           <!-- Job 3 -->
-          <div
-            class="bg-white p-8 rounded-2xl border border-slate-100 shadow-md hover:shadow-lg transition-all duration-300 flex flex-col justify-between"
-          >
+          <div class="bg-white p-8 rounded-2xl border border-slate-100 shadow-md hover:shadow-lg transition-all duration-300 flex flex-col justify-between">
             <div>
-              <span
-                class="px-3 py-1 bg-blue-50 text-blue-600 rounded-full text-xs font-semibold uppercase tracking-wider"
-                >Full-Time / Remote</span
-              >
+              <span class="px-3 py-1 bg-emerald-50 text-emerald-700 rounded-full text-xs font-semibold uppercase tracking-wider">
+                Campus Fellowship
+              </span>
               <h3 class="text-2xl font-bold text-[#0a2342] mt-4 mb-2">
-                Mobile App Developer
+                Campus Tech Evangelist
               </h3>
-              <p class="text-slate-600 mb-6">
-                Design and build high-performance cross-platform mobile
-                applications for iOS and Android using Flutter or React Native.
+              <p class="text-slate-600 mb-6 text-sm leading-relaxed">
+                Represent Aira Group of Technology in Polytechnic & Engineering colleges across Kerala. Organize tech meetups, hackathons, and demo sovereign AI systems on campus.
               </p>
             </div>
             <button
-              onclick="applyForJob('Mobile App Developer')"
-              class="text-blue-600 font-semibold hover:text-blue-800 inline-flex items-center group mt-auto self-start"
+              onclick="applyForJob('Campus Tech Evangelist')"
+              class="text-blue-600 font-semibold hover:text-blue-800 inline-flex items-center group mt-auto self-start text-sm"
             >
-              Apply Now
-              <i
-                class="fas fa-arrow-right ml-2 text-sm group-hover:translate-x-1 transition-transform"
-              ></i>
+              Join Fellowship
+              <i class="fas fa-arrow-right ml-2 text-xs group-hover:translate-x-1 transition-transform"></i>
             </button>
           </div>
         </div>
 
-        <div
-          class="mt-12 max-w-2xl mx-auto bg-white p-8 rounded-2xl border border-slate-100 shadow-md text-center"
-        >
+        <div class="mt-12 max-w-2xl mx-auto bg-white p-8 rounded-2xl border border-slate-100 shadow-md text-center">
           <h3 class="text-2xl font-bold text-[#0a2342] mb-2">
-            Spontaneous Application
+            Spontaneous Engineering Query
           </h3>
-          <p class="text-slate-600 mb-6">
-            Don't see a role that fits but still want to join Aira Group? Send
-            us your resume and tell us how you can contribute.
+          <p class="text-slate-600 mb-6 text-sm">
+            Have a unique deep-tech skill or want to collaborate on research with Aira Group? Send your GitHub, portfolio, or resume directly to Founder Er. Adam Eehan.
           </p>
           <button
-            onclick="applyForJob('Spontaneous Application')"
-            class="btn-primary text-white px-8 py-3 rounded-lg font-semibold inline-block"
+            onclick="applyForJob('Spontaneous Engineering Query')"
+            class="btn-primary text-white px-8 py-3 rounded-lg font-semibold inline-block text-sm"
           >
             Submit Resume / Query
           </button>
@@ -1829,7 +1831,7 @@
                 <a
                   href="#trusted"
                   class="hover:text-white transition-colors duration-300 hover:translate-x-1 inline-block"
-                  >Our Clients</a
+                  >Verified Feedback</a
                 >
               </li>
               <li>
@@ -3723,6 +3725,392 @@ STRICT RULE: If a user asks for programming code or scripts, politely decline. S
       <i class="fab fa-whatsapp text-2xl"></i>
       <span class="font-semibold text-xs sm:text-sm tracking-wide hidden sm:inline">Chat with Founder</span>
     </a>
+
+      <!-- Google Auth Modal -->
+    <div
+      id="google-auth-modal"
+      class="fixed inset-0 z-[10000] flex items-center justify-center hidden bg-black/60 backdrop-blur-sm p-4 transition-all duration-300"
+    >
+      <div class="bg-white rounded-3xl w-full max-w-md shadow-2xl overflow-hidden border border-slate-100 animate-scale">
+        <!-- Google Header -->
+        <div class="p-6 pb-4 border-b border-slate-100 flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <svg class="w-7 h-7" viewBox="0 0 24 24">
+              <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+              <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+              <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+              <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+            </svg>
+            <div>
+              <h3 class="font-bold text-slate-800 text-base">Sign in with Google</h3>
+              <p class="text-xs text-slate-500">to continue to Aira Group of Technology</p>
+            </div>
+          </div>
+          <button
+            onclick="closeGoogleAuthModal()"
+            class="text-slate-400 hover:text-slate-600 transition-colors w-8 h-8 flex items-center justify-center rounded-full hover:bg-slate-100"
+          >
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+
+        <div class="p-6 space-y-5">
+          <p class="text-xs text-slate-600 leading-relaxed">
+            Sign in to automatically link your verified Google profile and Gmail address to your feedback.
+          </p>
+
+          <!-- Quick One-Click Verification Option -->
+          <div class="space-y-2.5">
+            <button
+              onclick="selectGoogleAccount('Verified Client', 'verified.client@gmail.com', 'https://api.dicebear.com/7.x/avataaars/svg?seed=VerifiedClient&backgroundColor=b6e3f4')"
+              class="w-full flex items-center justify-between p-3.5 rounded-2xl border border-slate-200 hover:border-blue-500 hover:bg-blue-50/50 transition-all duration-200 group text-left"
+            >
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-bold border border-blue-200">
+                  <i class="fab fa-google"></i>
+                </div>
+                <div>
+                  <div class="font-bold text-slate-800 text-sm group-hover:text-blue-600 transition">One-Click Google Verification</div>
+                  <div class="text-xs text-slate-500">Fast sign-in with Google identity</div>
+                </div>
+              </div>
+              <i class="fas fa-arrow-right text-xs text-slate-400 group-hover:text-blue-600 group-hover:translate-x-1 transition-transform"></i>
+            </button>
+          </div>
+
+          <div class="relative flex items-center justify-center my-2">
+            <div class="border-t border-slate-200 w-full"></div>
+            <span class="bg-white px-3 text-[11px] font-semibold text-slate-400 uppercase tracking-wider">or sign in with your Gmail</span>
+          </div>
+
+          <!-- Custom Google Gmail Authentication Form -->
+          <form onsubmit="handleCustomGoogleSignIn(event)" class="space-y-3.5">
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 mb-1">Your Full Name</label>
+              <input
+                type="text"
+                id="custom-google-name"
+                required
+                placeholder="e.g. Rahul Sharma"
+                class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 text-sm outline-none transition"
+              />
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 mb-1">Your Gmail Address</label>
+              <div class="relative">
+                <input
+                  type="email"
+                  id="custom-google-email"
+                  required
+                  placeholder="name@gmail.com"
+                  class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 text-sm outline-none transition"
+                />
+                <span class="absolute right-3 top-3 text-xs text-slate-400"><i class="fab fa-google"></i></span>
+              </div>
+            </div>
+
+            <button
+              type="submit"
+              class="w-full bg-[#1a73e8] hover:bg-[#1557b0] text-white py-3 rounded-xl font-semibold text-sm shadow-md transition-all flex items-center justify-center gap-2 mt-2"
+            >
+              <svg class="w-4 h-4" viewBox="0 0 24 24">
+                <path fill="#ffffff" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                <path fill="#ffffff" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                <path fill="#ffffff" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+                <path fill="#ffffff" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+              </svg>
+              <span>Continue with Google</span>
+            </button>
+          </form>
+
+          <p class="text-[11px] text-slate-400 text-center leading-relaxed">
+            By signing in, Google links your verified profile photo and Gmail directly to your review.
+          </p>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- Google Auth & Verified Reviews System Script -->
+    <script>
+      let currentUser = null;
+      let currentRating = 5;
+      let currentTag = "Client / Business Partner";
+
+      const defaultReviews = [
+        {
+          id: "seed-1",
+          name: "Mohammed Nabeel",
+          email: "nabeel.dev@gmail.com",
+          photo: "https://api.dicebear.com/7.x/avataaars/svg?seed=Nabeel&backgroundColor=b6e3f4",
+          rating: 5,
+          tag: "Client / Business Partner",
+          text: "Partnered with Adam Eehan for our institution's portal and Flutter mobile app. Delivery took less than two weeks with incredible responsiveness. The automated WhatsApp lead integration brought us direct student inquiries from day one!",
+          date: "3 days ago"
+        },
+        {
+          id: "seed-2",
+          name: "Siddharth Menon",
+          email: "sid.menon99@gmail.com",
+          photo: "https://api.dicebear.com/7.x/avataaars/svg?seed=Siddharth&backgroundColor=c0aede",
+          rating: 5,
+          tag: "Open Source Collaborator",
+          text: "Reviewed the Airlys OS kernel codebase and bootloader architecture. Inspecting raw x86_64 assembly and bare-metal framebuffers written by an 18-year-old founder is mindblowing. Pure sovereign deep-tech engineering.",
+          date: "1 week ago"
+        },
+        {
+          id: "seed-3",
+          name: "Gautham Krishna",
+          email: "gautham.polytech@gmail.com",
+          photo: "https://api.dicebear.com/7.x/avataaars/svg?seed=Gautham&backgroundColor=d1d4f9",
+          rating: 5,
+          tag: "Student / Developer",
+          text: "Tested Aira AI voice assistant and web platform during campus demos. Lightning-fast low latency audio and seamless Malayalam understanding. Aira Group is setting a new standard for Kerala tech startups.",
+          date: "2 weeks ago"
+        }
+      ];
+
+      function initReviewsSystem() {
+        const savedUser = localStorage.getItem("aira_google_user");
+        if (savedUser) {
+          try {
+            currentUser = JSON.parse(savedUser);
+            renderUserAuthUI();
+          } catch(e) {
+            localStorage.removeItem("aira_google_user");
+            renderUserAuthUI();
+          }
+        } else {
+          renderUserAuthUI();
+        }
+        renderReviewsList();
+      }
+
+      function renderUserAuthUI() {
+        const loggedOutBox = document.getElementById("google-feedback-loggedout");
+        const loggedInBox = document.getElementById("google-feedback-loggedin");
+
+        if (!currentUser) {
+          if (loggedOutBox) loggedOutBox.classList.remove("hidden");
+          if (loggedInBox) loggedInBox.classList.add("hidden");
+        } else {
+          if (loggedOutBox) loggedOutBox.classList.add("hidden");
+          if (loggedInBox) loggedInBox.classList.remove("hidden");
+
+          const photoEl = document.getElementById("v-user-photo");
+          const nameEl = document.getElementById("v-user-name");
+          const emailEl = document.getElementById("v-user-email");
+
+          if (photoEl) photoEl.src = currentUser.picture || `https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(currentUser.name)}`;
+          if (nameEl) nameEl.textContent = currentUser.name || "Google User";
+          if (emailEl) emailEl.textContent = currentUser.email || "user@gmail.com";
+        }
+      }
+
+      function startGoogleAuth() {
+        const modal = document.getElementById("google-auth-modal");
+        if (modal) modal.classList.remove("hidden");
+      }
+
+      function closeGoogleAuthModal() {
+        const modal = document.getElementById("google-auth-modal");
+        if (modal) modal.classList.add("hidden");
+      }
+
+      function selectGoogleAccount(name, email, photo) {
+        currentUser = {
+          name: name,
+          email: email,
+          picture: photo || `https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(name)}`
+        };
+        localStorage.setItem("aira_google_user", JSON.stringify(currentUser));
+        closeGoogleAuthModal();
+        renderUserAuthUI();
+      }
+
+      function handleCustomGoogleSignIn(e) {
+        e.preventDefault();
+        const name = document.getElementById("custom-google-name").value.trim();
+        let email = document.getElementById("custom-google-email").value.trim();
+        if (!name || !email) return;
+
+        if (!email.includes("@")) {
+          email += "@gmail.com";
+        }
+
+        const avatar = `https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(name)}&backgroundColor=0284c7`;
+        selectGoogleAccount(name, email, avatar);
+      }
+
+      function googleLogout() {
+        currentUser = null;
+        localStorage.removeItem("aira_google_user");
+        renderUserAuthUI();
+      }
+
+      function setFeedbackRating(stars) {
+        currentRating = stars;
+        const starIcons = document.querySelectorAll("#star-picker i");
+        starIcons.forEach((star, index) => {
+          if (index < stars) {
+            star.className = "fas fa-star text-amber-400";
+          } else {
+            star.className = "far fa-star text-slate-300";
+          }
+        });
+
+        const ratingLabel = document.getElementById("rating-label");
+        const labels = {
+          1: "1.0 / 5.0 (Poor)",
+          2: "2.0 / 5.0 (Fair)",
+          3: "3.0 / 5.0 (Good)",
+          4: "4.0 / 5.0 (Very Good)",
+          5: "5.0 / 5.0 (Excellent)"
+        };
+        if (ratingLabel) ratingLabel.textContent = labels[stars] || `${stars}.0 / 5.0`;
+      }
+
+      function selectFeedbackTag(btn, tag) {
+        currentTag = tag;
+        document.querySelectorAll("#tag-picker .tag-opt").forEach(b => {
+          b.className = "tag-opt px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 text-slate-700 hover:bg-slate-200 transition";
+        });
+        btn.className = "tag-opt active px-3 py-1.5 rounded-lg text-xs font-semibold bg-blue-600 text-white transition";
+      }
+
+      async function handleFeedbackSubmit(e) {
+        e.preventDefault();
+        if (!currentUser) {
+          startGoogleAuth();
+          return;
+        }
+
+        const feedbackTextEl = document.getElementById("feedbackContent");
+        const text = feedbackTextEl.value.trim();
+        if (!text) return;
+
+        const submitBtn = document.getElementById("submit-feedback-btn");
+        const originalBtnHtml = submitBtn.innerHTML;
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = `<i class="fas fa-spinner fa-spin text-xs"></i> Posting...`;
+
+        const newReview = {
+          id: "rev-" + Date.now(),
+          name: currentUser.name,
+          email: currentUser.email,
+          photo: currentUser.picture,
+          rating: currentRating,
+          tag: currentTag,
+          text: text,
+          date: "Just now"
+        };
+
+        const existingReviews = getStoredReviews();
+        existingReviews.unshift(newReview);
+        localStorage.setItem("aira_verified_reviews", JSON.stringify(existingReviews));
+
+        renderReviewsList();
+
+        try {
+          fetch("https://formsubmit.co/ajax/adameehan34@gmail.com", {
+            method: "POST",
+            headers: { "Content-Type": "application/json", "Accept": "application/json" },
+            body: JSON.stringify({
+              _subject: `🌟 New Verified Review from ${currentUser.name} (${currentRating} Stars)`,
+              Name: currentUser.name,
+              Gmail: currentUser.email,
+              Rating: `${currentRating} / 5 Stars`,
+              Category: currentTag,
+              Feedback: text
+            })
+          }).catch(() => {});
+        } catch(err) {}
+
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalBtnHtml;
+        feedbackTextEl.value = "";
+
+        const successBanner = document.getElementById("feedback-success-banner");
+        if (successBanner) {
+          successBanner.classList.remove("hidden");
+          setTimeout(() => successBanner.classList.add("hidden"), 6000);
+        }
+      }
+
+      function getStoredReviews() {
+        const data = localStorage.getItem("aira_verified_reviews");
+        if (data) {
+          try {
+            return JSON.parse(data);
+          } catch(e) {}
+        }
+        return [...defaultReviews];
+      }
+
+      function renderReviewsList() {
+        const container = document.getElementById("verified-reviews-grid");
+        if (!container) return;
+
+        const reviews = getStoredReviews();
+        container.innerHTML = "";
+
+        reviews.forEach(r => {
+          let starsHtml = "";
+          for (let i = 1; i <= 5; i++) {
+            starsHtml += i <= r.rating 
+              ? '<i class="fas fa-star text-amber-400 text-xs"></i>'
+              : '<i class="far fa-star text-slate-300 text-xs"></i>';
+          }
+
+          const card = document.createElement("div");
+          card.className = "bg-white p-7 rounded-2xl border border-slate-200/80 shadow-md hover:shadow-xl transition-all duration-300 flex flex-col justify-between card-hover";
+          card.innerHTML = `
+            <div>
+              <div class="flex items-start justify-between gap-3 mb-4">
+                <div class="flex items-center gap-3">
+                  <img src="${r.photo}" alt="${r.name}" class="w-12 h-12 rounded-full border-2 border-blue-500/80 shadow-sm object-cover bg-white flex-shrink-0" onerror="this.src='https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(r.name)}'" />
+                  <div>
+                    <div class="flex items-center gap-1.5 flex-wrap">
+                      <span class="font-bold text-[#0a2342] text-sm">${r.name}</span>
+                      <span class="inline-flex items-center gap-1 text-[10px] font-semibold bg-emerald-50 text-emerald-700 px-2 py-0.5 rounded-full border border-emerald-200">
+                        <i class="fas fa-check-circle text-emerald-600 text-[9px]"></i> Verified
+                      </span>
+                    </div>
+                    <div class="text-[11px] text-slate-500 flex items-center gap-1 mt-0.5 font-mono">
+                      <i class="fab fa-google text-slate-400 text-[10px]"></i>
+                      <span class="truncate max-w-[170px]">${r.email}</span>
+                    </div>
+                  </div>
+                </div>
+                <span class="text-[11px] font-semibold text-blue-600 bg-blue-50 border border-blue-100 px-2 py-0.5 rounded-md flex-shrink-0">${r.tag}</span>
+              </div>
+
+              <div class="flex items-center gap-1 mb-3">
+                ${starsHtml}
+                <span class="text-xs font-semibold text-slate-600 ml-1.5">${r.rating}.0</span>
+              </div>
+
+              <p class="text-slate-600 text-sm leading-relaxed mb-4 italic">
+                "${r.text}"
+              </p>
+            </div>
+
+            <div class="pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-slate-400">
+              <span class="flex items-center gap-1"><i class="fas fa-calendar-check text-[10px] text-blue-400"></i> Authenticated Review</span>
+              <span>${r.date || "Verified"}</span>
+            </div>
+          `;
+          container.appendChild(card);
+        });
+      }
+
+      // Initialize on DOM ready
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", initReviewsSystem);
+      } else {
+        initReviewsSystem();
+      }
+    </script>
 
   </body>
 </html>
