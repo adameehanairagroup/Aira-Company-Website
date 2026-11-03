@@ -566,6 +566,15 @@
           padding: 24px 16px;
         }
       }
+    
+    /* Smooth Scroll and Section Offset for Fixed Header */
+    html {
+      scroll-behavior: smooth !important;
+    }
+    section, footer {
+      scroll-margin-top: 85px !important;
+    }
+
     </style>
   </head>
   <body class="bg-white antialiased">
@@ -739,7 +748,7 @@
     </section>
 
     <!-- Services Section -->
-        <section id="services" class="py-24 bg-slate-50">
+            <section id="services" class="py-24 bg-slate-50">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center max-w-3xl mx-auto mb-16 animate-fade-in">
           <span class="text-blue-600 font-semibold text-sm uppercase tracking-wider">Our Sovereign Stack & Services</span>
@@ -747,186 +756,233 @@
             Deep-Tech Systems, AI & Native Software
           </h2>
           <p class="text-lg text-slate-600">
-            From sovereign intelligence and private telecommunication cores to high-converting web platforms and mobile apps — we deliver turnkey digital dominance.
+            From sovereign intelligence and private telecommunication cores to high-converting web platforms and mobile apps — explore our live releases and open-source architectures.
           </p>
         </div>
 
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           <!-- Card 1: Aira AI Platform -->
-          <div class="card-hover bg-white rounded-2xl p-8 shadow-lg border-2 border-blue-500/20 relative overflow-hidden animate-scale">
-            <div class="absolute top-4 right-4 bg-blue-600 text-white text-[11px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">
-              Flagship AI
+          <div class="card-hover bg-white rounded-2xl p-8 shadow-lg border-2 border-blue-500/20 relative overflow-hidden animate-scale flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-4">
+                <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-blue-600 to-[#0a2342] flex items-center justify-center service-icon">
+                  <i class="fas fa-brain text-white text-2xl"></i>
+                </div>
+                <span class="bg-blue-600 text-white text-[11px] font-bold px-3 py-1 rounded-full uppercase tracking-wider">
+                  Flagship AI
+                </span>
+              </div>
+              <h3 class="text-2xl font-bold text-[#0a2342] mb-3">Aira AI Sovereign Platform</h3>
+              <p class="text-slate-600 mb-5 leading-relaxed text-sm">
+                Sovereign multimodal intelligence engine featuring Malayalam & English reasoning, low-latency live voice interaction, and native cross-platform deployment.
+              </p>
+              <ul class="space-y-2.5 mb-6 text-sm">
+                <li class="flex items-center text-slate-700">
+                  <i class="fas fa-check-circle text-blue-600 mr-2.5"></i>
+                  <span>Multimodal Voice & Vision Intelligence</span>
+                </li>
+                <li class="flex items-center text-slate-700">
+                  <i class="fas fa-check-circle text-blue-600 mr-2.5"></i>
+                  <span>Live Production WebChat & Mobile App</span>
+                </li>
+                <li class="flex items-center text-slate-700">
+                  <i class="fas fa-check-circle text-blue-600 mr-2.5"></i>
+                  <span>Zero Corporate Dependency</span>
+                </li>
+              </ul>
             </div>
-            <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-blue-600 to-[#0a2342] flex items-center justify-center mb-6 service-icon">
-              <i class="fas fa-brain text-white text-2xl"></i>
-            </div>
-            <h3 class="text-2xl font-bold text-[#0a2342] mb-3">Aira AI Sovereign Platform</h3>
-            <p class="text-slate-600 mb-6 leading-relaxed text-sm">
-              Sovereign multimodal intelligence engine featuring Malayalam & English reasoning, low-latency live voice interaction, and multi-platform availability.
-            </p>
-            <ul class="space-y-2.5 mb-6 text-sm">
-              <li class="flex items-center text-slate-700">
-                <i class="fas fa-check-circle text-blue-600 mr-2.5"></i>
-                <span>Multimodal Voice & Vision Intelligence</span>
-              </li>
-              <li class="flex items-center text-slate-700">
-                <i class="fas fa-check-circle text-blue-600 mr-2.5"></i>
-                <span>Live Production WebChat & Mobile App</span>
-              </li>
-              <li class="flex items-center text-slate-700">
-                <i class="fas fa-check-circle text-blue-600 mr-2.5"></i>
-                <span>Zero Corporate Dependency</span>
-              </li>
-            </ul>
-            <div class="flex items-center gap-3 pt-2 border-t border-slate-100">
-              <a href="https://airaai-gamma.vercel.app" target="_blank" class="text-xs font-bold text-blue-600 hover:text-blue-800 flex items-center gap-1">
-                Launch WebChat <i class="fas fa-arrow-up-right-from-square text-[10px]"></i>
+            <div class="pt-4 border-t border-slate-100 flex flex-wrap items-center gap-2">
+              <a href="https://airaai-gamma.vercel.app" target="_blank" class="text-xs font-bold text-white bg-blue-600 hover:bg-blue-700 px-3 py-1.5 rounded-lg flex items-center gap-1 shadow-sm transition">
+                Live WebChat <i class="fas fa-arrow-up-right-from-square text-[10px]"></i>
               </a>
-              <span class="text-slate-300">•</span>
-              <a href="https://github.com/adameehanairagroup/Aira-Mobile-App/releases/tag/v1.0.1" target="_blank" class="text-xs font-bold text-emerald-600 hover:text-emerald-800 flex items-center gap-1">
-                Download APK v1.0.1 <i class="fas fa-download text-[10px]"></i>
+              <a href="https://github.com/adameehanairagroup/Aira-Mobile-App/releases/tag/v1.0.1" target="_blank" class="text-xs font-bold text-emerald-700 bg-emerald-100 hover:bg-emerald-200 px-3 py-1.5 rounded-lg flex items-center gap-1 transition">
+                APK v1.0.1 <i class="fas fa-download text-[10px]"></i>
+              </a>
+              <a href="https://github.com/adameehanairagroup/Aira-AI-Chat" target="_blank" class="text-xs font-bold text-slate-700 bg-slate-100 hover:bg-slate-200 px-3 py-1.5 rounded-lg flex items-center gap-1 transition">
+                <i class="fab fa-github"></i> Source
               </a>
             </div>
           </div>
 
           <!-- Card 2: Native Flutter Mobile Apps -->
-          <div class="card-hover bg-white rounded-2xl p-8 shadow-lg border border-slate-100 animate-scale" style="transition-delay: 0.1s">
-            <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-indigo-600 to-[#0a2342] flex items-center justify-center mb-6 service-icon">
-              <i class="fas fa-mobile-screen-button text-white text-2xl"></i>
+          <div class="card-hover bg-white rounded-2xl p-8 shadow-lg border border-slate-100 animate-scale flex flex-col justify-between" style="transition-delay: 0.1s">
+            <div>
+              <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-indigo-600 to-[#0a2342] flex items-center justify-center mb-6 service-icon">
+                <i class="fas fa-mobile-screen-button text-white text-2xl"></i>
+              </div>
+              <h3 class="text-2xl font-bold text-[#0a2342] mb-3">Native Mobile Development</h3>
+              <p class="text-slate-600 mb-5 leading-relaxed text-sm">
+                Lightning-fast cross-platform Android & iOS apps engineered with Flutter, featuring automated Cloud CI/CD release pipelines and offline-first native architectures.
+              </p>
+              <ul class="space-y-2.5 mb-6 text-sm">
+                <li class="flex items-center text-slate-700">
+                  <i class="fas fa-check-circle text-indigo-600 mr-2.5"></i>
+                  <span>Turnkey Android & iOS Mobile Apps</span>
+                </li>
+                <li class="flex items-center text-slate-700">
+                  <i class="fas fa-check-circle text-indigo-600 mr-2.5"></i>
+                  <span>Sub-4-Minute Cloud Compilation</span>
+                </li>
+                <li class="flex items-center text-slate-700">
+                  <i class="fas fa-check-circle text-indigo-600 mr-2.5"></i>
+                  <span>Custom Client Portals & Booking</span>
+                </li>
+              </ul>
             </div>
-            <h3 class="text-2xl font-bold text-[#0a2342] mb-3">Native Mobile Development</h3>
-            <p class="text-slate-600 mb-6 leading-relaxed text-sm">
-              Lightning-fast cross-platform Android & iOS apps engineered with Flutter, featuring automated Cloud CI/CD release pipelines and offline-first architectures.
-            </p>
-            <ul class="space-y-2.5 mb-6 text-sm">
-              <li class="flex items-center text-slate-700">
-                <i class="fas fa-check-circle text-indigo-600 mr-2.5"></i>
-                <span>Turnkey Android & iOS Mobile Apps</span>
-              </li>
-              <li class="flex items-center text-slate-700">
-                <i class="fas fa-check-circle text-indigo-600 mr-2.5"></i>
-                <span>Sub-4-Minute Cloud Compilation</span>
-              </li>
-              <li class="flex items-center text-slate-700">
-                <i class="fas fa-check-circle text-indigo-600 mr-2.5"></i>
-                <span>Custom Client Portals & Booking</span>
-              </li>
-            </ul>
-            <a href="#contact" class="text-indigo-600 font-semibold hover:text-indigo-800 inline-flex items-center text-sm group">
-              Build Your Mobile App <i class="fas fa-arrow-right ml-2 text-xs group-hover:translate-x-1 transition-transform"></i>
-            </a>
+            <div class="pt-4 border-t border-slate-100 flex flex-wrap items-center justify-between gap-2">
+              <a href="https://github.com/adameehanairagroup/Aira-Mobile-App" target="_blank" class="text-xs font-bold text-indigo-700 bg-indigo-50 hover:bg-indigo-100 px-3 py-1.5 rounded-lg inline-flex items-center gap-1.5 transition">
+                <i class="fab fa-github text-sm"></i> Mobile App Source Code
+              </a>
+              <a href="#contact" class="text-indigo-600 font-semibold hover:text-indigo-800 text-xs inline-flex items-center group">
+                Order App <i class="fas fa-arrow-right ml-1 text-[10px] group-hover:translate-x-1 transition-transform"></i>
+              </a>
+            </div>
           </div>
 
           <!-- Card 3: Next.js Business Web Platforms -->
-          <div class="card-hover bg-white rounded-2xl p-8 shadow-lg border border-slate-100 animate-scale" style="transition-delay: 0.2s">
-            <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-cyan-600 to-[#0a2342] flex items-center justify-center mb-6 service-icon">
-              <i class="fas fa-globe text-white text-2xl"></i>
+          <div class="card-hover bg-white rounded-2xl p-8 shadow-lg border border-slate-100 animate-scale flex flex-col justify-between" style="transition-delay: 0.2s">
+            <div>
+              <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-cyan-600 to-[#0a2342] flex items-center justify-center mb-6 service-icon">
+                <i class="fas fa-globe text-white text-2xl"></i>
+              </div>
+              <h3 class="text-2xl font-bold text-[#0a2342] mb-3">Modern Web Platforms</h3>
+              <p class="text-slate-600 mb-5 leading-relaxed text-sm">
+                High-converting web applications, student portals, and corporate platforms built with Next.js, React, Tailwind CSS, and global edge deployments.
+              </p>
+              <ul class="space-y-2.5 mb-6 text-sm">
+                <li class="flex items-center text-slate-700">
+                  <i class="fas fa-check-circle text-cyan-600 mr-2.5"></i>
+                  <span>Coaching, Institute & Academy Portals</span>
+                </li>
+                <li class="flex items-center text-slate-700">
+                  <i class="fas fa-check-circle text-cyan-600 mr-2.5"></i>
+                  <span>Automated WhatsApp Lead Flow</span>
+                </li>
+                <li class="flex items-center text-slate-700">
+                  <i class="fas fa-check-circle text-cyan-600 mr-2.5"></i>
+                  <span>100/100 Lighthouse Performance</span>
+                </li>
+              </ul>
             </div>
-            <h3 class="text-2xl font-bold text-[#0a2342] mb-3">Modern Web Platforms</h3>
-            <p class="text-slate-600 mb-6 leading-relaxed text-sm">
-              High-converting web applications, student portals, and corporate platforms built with Next.js, React, Tailwind CSS, and global edge deployments.
-            </p>
-            <ul class="space-y-2.5 mb-6 text-sm">
-              <li class="flex items-center text-slate-700">
-                <i class="fas fa-check-circle text-cyan-600 mr-2.5"></i>
-                <span>Coaching, Institute & Academy Portals</span>
-              </li>
-              <li class="flex items-center text-slate-700">
-                <i class="fas fa-check-circle text-cyan-600 mr-2.5"></i>
-                <span>Automated WhatsApp Lead Flow</span>
-              </li>
-              <li class="flex items-center text-slate-700">
-                <i class="fas fa-check-circle text-cyan-600 mr-2.5"></i>
-                <span>100/100 Lighthouse Performance</span>
-              </li>
-            </ul>
-            <a href="#contact" class="text-cyan-600 font-semibold hover:text-cyan-800 inline-flex items-center text-sm group">
-              Launch Your Web Platform <i class="fas fa-arrow-right ml-2 text-xs group-hover:translate-x-1 transition-transform"></i>
-            </a>
+            <div class="pt-4 border-t border-slate-100 flex flex-wrap items-center justify-between gap-2">
+              <a href="https://github.com/adameehanairagroup/Aira-Company-Website" target="_blank" class="text-xs font-bold text-cyan-700 bg-cyan-50 hover:bg-cyan-100 px-3 py-1.5 rounded-lg inline-flex items-center gap-1.5 transition">
+                <i class="fab fa-github text-sm"></i> Portal Source Code
+              </a>
+              <a href="#contact" class="text-cyan-600 font-semibold hover:text-cyan-800 text-xs inline-flex items-center group">
+                Launch Site <i class="fas fa-arrow-right ml-1 text-[10px] group-hover:translate-x-1 transition-transform"></i>
+              </a>
+            </div>
           </div>
 
           <!-- Card 4: Aira-Telecom Offline Cellular -->
-          <div class="card-hover bg-white rounded-2xl p-8 shadow-lg border border-slate-100 animate-scale">
-            <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-emerald-600 to-[#0a2342] flex items-center justify-center mb-6 service-icon">
-              <i class="fas fa-tower-broadcast text-white text-2xl"></i>
+          <div class="card-hover bg-white rounded-2xl p-8 shadow-lg border-2 border-emerald-500/20 animate-scale flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-4">
+                <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-emerald-600 to-[#0a2342] flex items-center justify-center service-icon">
+                  <i class="fas fa-tower-broadcast text-white text-2xl"></i>
+                </div>
+                <span class="bg-emerald-600 text-white text-[11px] font-bold px-3 py-1 rounded-full uppercase tracking-wider">
+                  Deep Telecom
+                </span>
+              </div>
+              <h3 class="text-2xl font-bold text-[#0a2342] mb-3">Aira-Telecom: Offline Cellular</h3>
+              <p class="text-slate-600 mb-5 leading-relaxed text-sm">
+                Private 4G/GSM cellular core and base station engineering using SDR hardware, enabling voice calls and emergency messaging during total blackout disasters without telecom towers or internet.
+              </p>
+              <ul class="space-y-2.5 mb-6 text-sm">
+                <li class="flex items-center text-slate-700">
+                  <i class="fas fa-check-circle text-emerald-600 mr-2.5"></i>
+                  <span>Zero-Internet Cellular Base Station</span>
+                </li>
+                <li class="flex items-center text-slate-700">
+                  <i class="fas fa-check-circle text-emerald-600 mr-2.5"></i>
+                  <span>Disaster Management & Remote Mesh</span>
+                </li>
+                <li class="flex items-center text-slate-700">
+                  <i class="fas fa-check-circle text-emerald-600 mr-2.5"></i>
+                  <span>Open5GS + SDR Software Radio</span>
+                </li>
+              </ul>
             </div>
-            <h3 class="text-2xl font-bold text-[#0a2342] mb-3">Aira-Telecom: Offline Cellular</h3>
-            <p class="text-slate-600 mb-6 leading-relaxed text-sm">
-              Private 4G/GSM cellular core and base station engineering using SDR hardware, enabling voice calls and emergency messaging during total blackout disasters without telecom towers or internet.
-            </p>
-            <ul class="space-y-2.5 mb-6 text-sm">
-              <li class="flex items-center text-slate-700">
-                <i class="fas fa-check-circle text-emerald-600 mr-2.5"></i>
-                <span>Zero-Internet Cellular Base Station</span>
-              </li>
-              <li class="flex items-center text-slate-700">
-                <i class="fas fa-check-circle text-emerald-600 mr-2.5"></i>
-                <span>Disaster Management & Remote Mesh</span>
-              </li>
-              <li class="flex items-center text-slate-700">
-                <i class="fas fa-check-circle text-emerald-600 mr-2.5"></i>
-                <span>Open5GS + SDR Software Radio</span>
-              </li>
-            </ul>
-            <span class="text-xs font-mono uppercase tracking-wider text-emerald-600 bg-emerald-50 px-3 py-1 rounded-md font-semibold">
-              Proprietary Telecom Tech
-            </span>
+            <div class="pt-4 border-t border-slate-100 flex flex-wrap items-center gap-2">
+              <a href="https://github.com/adameehanairagroup/Aira-Telecom" target="_blank" class="w-full text-center text-xs font-bold text-white bg-emerald-600 hover:bg-emerald-700 px-4 py-2.5 rounded-lg flex items-center justify-center gap-2 shadow-sm transition">
+                <i class="fab fa-github text-sm"></i> View Aira-Telecom Source Code <i class="fas fa-arrow-up-right-from-square text-[10px]"></i>
+              </a>
+            </div>
           </div>
 
           <!-- Card 5: Airlys OS Kernel -->
-          <div class="card-hover bg-white rounded-2xl p-8 shadow-lg border border-slate-100 animate-scale" style="transition-delay: 0.1s">
-            <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-purple-600 to-[#0a2342] flex items-center justify-center mb-6 service-icon">
-              <i class="fas fa-terminal text-white text-2xl"></i>
+          <div class="card-hover bg-white rounded-2xl p-8 shadow-lg border-2 border-purple-500/20 animate-scale flex flex-col justify-between" style="transition-delay: 0.1s">
+            <div>
+              <div class="flex items-center justify-between mb-4">
+                <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-purple-600 to-[#0a2342] flex items-center justify-center service-icon">
+                  <i class="fas fa-terminal text-white text-2xl"></i>
+                </div>
+                <span class="bg-purple-600 text-white text-[11px] font-bold px-3 py-1 rounded-full uppercase tracking-wider">
+                  OS Systems
+                </span>
+              </div>
+              <h3 class="text-2xl font-bold text-[#0a2342] mb-3">Airlys OS Kernel Engineering</h3>
+              <p class="text-slate-600 mb-5 leading-relaxed text-sm">
+                64-bit sovereign monolithic operating system kernel engineered from scratch from first principles, booted directly on bare-metal laptop hardware with native memory management.
+              </p>
+              <ul class="space-y-2.5 mb-6 text-sm">
+                <li class="flex items-center text-slate-700">
+                  <i class="fas fa-check-circle text-purple-600 mr-2.5"></i>
+                  <span>Custom Bootloader & x86_64 Kernel</span>
+                </li>
+                <li class="flex items-center text-slate-700">
+                  <i class="fas fa-check-circle text-purple-600 mr-2.5"></i>
+                  <span>Direct Framebuffer & Driver Control</span>
+                </li>
+                <li class="flex items-center text-slate-700">
+                  <i class="fas fa-check-circle text-purple-600 mr-2.5"></i>
+                  <span>Pure Sovereign Systems Architecture</span>
+                </li>
+              </ul>
             </div>
-            <h3 class="text-2xl font-bold text-[#0a2342] mb-3">Airlys OS Kernel Engineering</h3>
-            <p class="text-slate-600 mb-6 leading-relaxed text-sm">
-              64-bit sovereign monolithic operating system kernel engineered from scratch from first principles, booted directly on bare-metal laptop hardware with native memory management.
-            </p>
-            <ul class="space-y-2.5 mb-6 text-sm">
-              <li class="flex items-center text-slate-700">
-                <i class="fas fa-check-circle text-purple-600 mr-2.5"></i>
-                <span>Custom Bootloader & x86_64 Kernel</span>
-              </li>
-              <li class="flex items-center text-slate-700">
-                <i class="fas fa-check-circle text-purple-600 mr-2.5"></i>
-                <span>Direct Framebuffer & Driver Control</span>
-              </li>
-              <li class="flex items-center text-slate-700">
-                <i class="fas fa-check-circle text-purple-600 mr-2.5"></i>
-                <span>Pure Sovereign Systems Architecture</span>
-              </li>
-            </ul>
-            <span class="text-xs font-mono uppercase tracking-wider text-purple-600 bg-purple-50 px-3 py-1 rounded-md font-semibold">
-              Deep Systems Division
-            </span>
+            <div class="pt-4 border-t border-slate-100 flex flex-wrap items-center gap-2">
+              <a href="https://github.com/adameehanairagroup/AirlysOS" target="_blank" class="w-full text-center text-xs font-bold text-white bg-purple-600 hover:bg-purple-700 px-4 py-2.5 rounded-lg flex items-center justify-center gap-2 shadow-sm transition">
+                <i class="fab fa-github text-sm"></i> View Airlys OS Source Code <i class="fas fa-arrow-up-right-from-square text-[10px]"></i>
+              </a>
+            </div>
           </div>
 
-          <!-- Card 6: AI Automation & Customer Bots -->
-          <div class="card-hover bg-white rounded-2xl p-8 shadow-lg border border-slate-100 animate-scale" style="transition-delay: 0.2s">
-            <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-amber-600 to-[#0a2342] flex items-center justify-center mb-6 service-icon">
-              <i class="fas fa-robot text-white text-2xl"></i>
+          <!-- Card 6: AiraLang Language & AI Bots -->
+          <div class="card-hover bg-white rounded-2xl p-8 shadow-lg border-2 border-amber-500/20 animate-scale flex flex-col justify-between" style="transition-delay: 0.2s">
+            <div>
+              <div class="flex items-center justify-between mb-4">
+                <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-amber-600 to-[#0a2342] flex items-center justify-center service-icon">
+                  <i class="fas fa-code text-white text-2xl"></i>
+                </div>
+                <span class="bg-amber-600 text-white text-[11px] font-bold px-3 py-1 rounded-full uppercase tracking-wider">
+                  AI-Native Lang
+                </span>
+              </div>
+              <h3 class="text-2xl font-bold text-[#0a2342] mb-3">AiraLang & AI Automation</h3>
+              <p class="text-slate-600 mb-5 leading-relaxed text-sm">
+                The world's first AI-Native programming language featuring in-compiler directives and self-healing syntax, alongside enterprise 24/7 lead capture chatbots.
+              </p>
+              <ul class="space-y-2.5 mb-6 text-sm">
+                <li class="flex items-center text-slate-700">
+                  <i class="fas fa-check-circle text-amber-600 mr-2.5"></i>
+                  <span>AiraLang Compiler & Toolchain</span>
+                </li>
+                <li class="flex items-center text-slate-700">
+                  <i class="fas fa-check-circle text-amber-600 mr-2.5"></i>
+                  <span>24/7 Instant Lead Generation Bots</span>
+                </li>
+                <li class="flex items-center text-slate-700">
+                  <i class="fas fa-check-circle text-amber-600 mr-2.5"></i>
+                  <span>Custom WhatsApp & CRM Automation</span>
+                </li>
+              </ul>
             </div>
-            <h3 class="text-2xl font-bold text-[#0a2342] mb-3">Enterprise AI Bots & Workflows</h3>
-            <p class="text-slate-600 mb-6 leading-relaxed text-sm">
-              Custom business chatbots and automation pipelines operating 24/7 on WhatsApp, web portals, and internal workflows to convert visitors into paying clients autonomously.
-            </p>
-            <ul class="space-y-2.5 mb-6 text-sm">
-              <li class="flex items-center text-slate-700">
-                <i class="fas fa-check-circle text-amber-600 mr-2.5"></i>
-                <span>24/7 Instant Lead Generation</span>
-              </li>
-              <li class="flex items-center text-slate-700">
-                <i class="fas fa-check-circle text-amber-600 mr-2.5"></i>
-                <span>Custom WhatsApp & CRM Integration</span>
-              </li>
-              <li class="flex items-center text-slate-700">
-                <i class="fas fa-check-circle text-amber-600 mr-2.5"></i>
-                <span>Zero Latency Local Response Engine</span>
-              </li>
-            </ul>
-            <a href="#contact" class="text-amber-600 font-semibold hover:text-amber-800 inline-flex items-center text-sm group">
-              Deploy AI For Your Business <i class="fas fa-arrow-right ml-2 text-xs group-hover:translate-x-1 transition-transform"></i>
-            </a>
+            <div class="pt-4 border-t border-slate-100 flex flex-wrap items-center gap-2">
+              <a href="https://github.com/adameehanairagroup/Airalang" target="_blank" class="w-full text-center text-xs font-bold text-amber-800 bg-amber-100 hover:bg-amber-200 px-4 py-2.5 rounded-lg flex items-center justify-center gap-2 shadow-sm transition">
+                <i class="fab fa-github text-sm"></i> View AiraLang Source Code <i class="fas fa-arrow-up-right-from-square text-[10px]"></i>
+              </a>
+            </div>
           </div>
         </div>
       </div>
@@ -1009,7 +1065,7 @@
               <a href="#contact" class="btn-primary inline-block text-white px-8 py-4 rounded-lg font-semibold shadow-lg shadow-blue-600/30">
                 Partner With Our Founder
               </a>
-              <a href="https://wa.me/?text=Hello%20Er.%20Adam%20Eehan,%20I%20would%20like%20to%20discuss%20a%20project%20with%20Aira%20Group." target="_blank" class="bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-4 rounded-lg font-semibold inline-flex items-center gap-2 shadow-lg shadow-emerald-600/30 transition-all duration-300">
+              <a href="https://wa.me/918921584368?text=Hello%20Er.%20Adam%20Eehan,%20I%20would%20like%20to%20discuss%20a%20project%20with%20Aira%20Group." target="_blank" class="bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-4 rounded-lg font-semibold inline-flex items-center gap-2 shadow-lg shadow-emerald-600/30 transition-all duration-300">
                 <i class="fab fa-whatsapp text-lg"></i>
                 <span>Direct WhatsApp Inquiry</span>
               </a>
@@ -1375,7 +1431,7 @@
                 <div>
                   <div class="font-bold text-[#0a2342] mb-1">Headquarters</div>
                   <div class="text-slate-600">
-                    Tech Valley, IT Park<br />Kerala, India
+                    Technopark, Thiruvananthapuram<br />Kerala, India
                   </div>
                 </div>
               </div>
@@ -1694,21 +1750,19 @@
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="grid md:grid-cols-4 gap-12 mb-12">
           <div class="md:col-span-2">
-            <div class="flex items-center space-x-2 mb-4">
-              <div
-                class="w-10 h-10 rounded-lg bg-white flex items-center justify-center"
-              >
-                <i class="fas fa-code-branch text-[#0a2342] text-lg"></i>
-              </div>
-              <span class="text-2xl font-bold text-white"
-                >Aira<span class="font-light">Group</span></span
+            <div class="flex items-center space-x-3 mb-4">
+              <img src="assets/logo.png" alt="Aira Logo" class="w-10 h-10 rounded-xl object-contain bg-white p-0.5 shadow-md" />
+              <span class="text-2xl font-bold text-white tracking-tight"
+                >Aira<span class="text-blue-400 font-semibold">Group</span></span
               >
             </div>
-            <p class="text-slate-400 leading-relaxed mb-6">
-              Building intelligent systems and modern software that empower
-              businesses to automate, innovate, and scale. End-to-end tech
-              solutions, delivered responsibly.
+            <p class="text-slate-300 leading-relaxed mb-3">
+              Independent sovereign deep-tech engineering powerhouse. Architecting AI platforms, bare-metal operating systems, private cellular cores, and native business applications.
             </p>
+            <div class="flex items-center gap-2 text-sm text-cyan-400 font-semibold mb-6">
+              <i class="fas fa-location-dot"></i>
+              <span>Technopark, Thiruvananthapuram, Kerala, India</span>
+            </div>
             <div class="flex gap-4">
               <a
                 href="https://www.linkedin.com/in/adam-eehan-1058133b7?utm_source=share_via&utm_content=profile&utm_medium=member_android"
@@ -1718,7 +1772,7 @@
                 <i class="fab fa-linkedin-in"></i>
               </a>
               <a
-                href="https://github.com/blindrusheroffical-wq"
+                href="https://github.com/airagroupoftechnology"
                 target="_blank"
                 class="w-10 h-10 rounded-lg bg-white/10 hover:bg-white/20 flex items-center justify-center transition-all duration-300 hover:scale-110"
               >
@@ -1842,20 +1896,36 @@
         });
       });
 
-      // Smooth scroll offset for fixed nav
+      // Ultra-reliable smooth scroll for all anchor links & buttons
       document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
         anchor.addEventListener("click", function (e) {
           const href = this.getAttribute("href");
-          if (href !== "#" && href.length > 1) {
-            e.preventDefault();
+          if (href && href.startsWith("#") && href.length > 1) {
             const target = document.querySelector(href);
             if (target) {
-              const offset = 80;
-              const targetPosition = target.offsetTop - offset;
+              e.preventDefault();
+              const navHeight = 80;
+              const elementPosition = target.getBoundingClientRect().top;
+              const offsetPosition = elementPosition + window.pageYOffset - navHeight;
+
               window.scrollTo({
-                top: targetPosition,
-                behavior: "smooth",
+                top: offsetPosition,
+                behavior: "smooth"
               });
+
+              // Close mobile menu if open
+              const mobileMenu = document.getElementById("mobile-menu");
+              const mobileMenuBtn = document.getElementById("mobile-menu-btn");
+              if (mobileMenu && mobileMenu.classList.contains("active")) {
+                mobileMenu.classList.remove("active");
+                if (mobileMenuBtn) {
+                  const icon = mobileMenuBtn.querySelector("i");
+                  if (icon) {
+                    icon.classList.add("fa-bars");
+                    icon.classList.remove("fa-times");
+                  }
+                }
+              }
             }
           }
         });
@@ -3098,6 +3168,15 @@ STRICT RULE: If a user asks for programming code or scripts, politely decline. S
 
       /* FILE UPLOAD INPUT */
       #term-file-input { display: none; }
+    
+    /* Smooth Scroll and Section Offset for Fixed Header */
+    html {
+      scroll-behavior: smooth !important;
+    }
+    section, footer {
+      scroll-margin-top: 85px !important;
+    }
+
     </style>
 
     <!-- FLOATING BUTTON -->
@@ -3636,7 +3715,7 @@ STRICT RULE: If a user asks for programming code or scripts, politely decline. S
   
     <!-- Floating Direct WhatsApp Client Connect -->
     <a
-      href="https://wa.me/?text=Hello%20Er.%20Adam%20Eehan,%20I%20would%20like%20to%20discuss%20a%20project%20with%20Aira%20Group."
+      href="https://wa.me/918921584368?text=Hello%20Er.%20Adam%20Eehan,%20I%20would%20like%20to%20discuss%20a%20project%20with%20Aira%20Group."
       target="_blank"
       class="fixed bottom-6 left-6 z-50 bg-[#25D366] hover:bg-[#20ba59] text-white p-3.5 sm:px-5 sm:py-3.5 rounded-full shadow-2xl hover:scale-105 transition-all duration-300 flex items-center gap-2.5 border-2 border-white/80 group"
       title="Chat directly with Founder on WhatsApp"
