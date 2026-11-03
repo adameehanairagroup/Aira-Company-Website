@@ -248,6 +248,8 @@
     />
     <!-- Puter.js Library Import for 24/7 Aira AI Support -->
     <script src="https://js.puter.com/v2/"></script>
+    <!-- Google Identity Services (GSI) -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap"
       rel="stylesheet"
@@ -1107,6 +1109,7 @@
             <p class="text-slate-600 text-sm max-w-md mx-auto mb-6 leading-relaxed">
               Sign in with your Google account to share your feedback. Your verified Google photo and Gmail address will automatically appear above your review.
             </p>
+            <div id="gsi-btn-container" class="flex justify-center mb-4"></div>
             <button
               onclick="startGoogleAuth()"
               class="inline-flex items-center gap-3 bg-white hover:bg-slate-50 text-slate-800 font-semibold px-8 py-3.5 rounded-xl border border-slate-300 shadow-md hover:shadow-lg transition-all duration-300 hover:scale-[1.02]"
@@ -3833,57 +3836,97 @@ STRICT RULE: If a user asks for programming code or scripts, politely decline. S
 
     <!-- Google Auth & Verified Reviews System Script -->
     <script>
+      // Sovereign Google OAuth & JSONBin.io Database Integration
+      const GOOGLE_CLIENT_ID = "267802159841-leun1b8b85ongsoc5pkjhufe4s5jbjj8.apps.googleusercontent.com";
+      
+      // JSONBin Database Config (Boss will provide Bin ID & Access Key)
+      const JSONBIN_CONFIG = {
+        binId: "", // Enter your JSONBin.io Bin ID here (e.g., 67272895ad19ca34f8c...)
+        apiKey: "$2a$10$r94Qv9FqE7L3k2Y..." // Enter your JSONBin Master Key / Access Key here
+      };
+
       let currentUser = null;
       let currentRating = 5;
       let currentTag = "Client / Business Partner";
+      let liveReviews = [];
 
-      const defaultReviews = [
-        {
-          id: "seed-1",
-          name: "Mohammed Nabeel",
-          email: "nabeel.dev@gmail.com",
-          photo: "https://api.dicebear.com/7.x/avataaars/svg?seed=Nabeel&backgroundColor=b6e3f4",
-          rating: 5,
-          tag: "Client / Business Partner",
-          text: "Partnered with Adam Eehan for our institution's portal and Flutter mobile app. Delivery took less than two weeks with incredible responsiveness. The automated WhatsApp lead integration brought us direct student inquiries from day one!",
-          date: "3 days ago"
-        },
-        {
-          id: "seed-2",
-          name: "Siddharth Menon",
-          email: "sid.menon99@gmail.com",
-          photo: "https://api.dicebear.com/7.x/avataaars/svg?seed=Siddharth&backgroundColor=c0aede",
-          rating: 5,
-          tag: "Open Source Collaborator",
-          text: "Reviewed the Airlys OS kernel codebase and bootloader architecture. Inspecting raw x86_64 assembly and bare-metal framebuffers written by an 18-year-old founder is mindblowing. Pure sovereign deep-tech engineering.",
-          date: "1 week ago"
-        },
-        {
-          id: "seed-3",
-          name: "Gautham Krishna",
-          email: "gautham.polytech@gmail.com",
-          photo: "https://api.dicebear.com/7.x/avataaars/svg?seed=Gautham&backgroundColor=d1d4f9",
-          rating: 5,
-          tag: "Student / Developer",
-          text: "Tested Aira AI voice assistant and web platform during campus demos. Lightning-fast low latency audio and seamless Malayalam understanding. Aira Group is setting a new standard for Kerala tech startups.",
-          date: "2 weeks ago"
-        }
-      ];
-
+      // Initialize on load
       function initReviewsSystem() {
+        // 1. Check logged-in user
         const savedUser = localStorage.getItem("aira_google_user");
         if (savedUser) {
           try {
             currentUser = JSON.parse(savedUser);
-            renderUserAuthUI();
           } catch(e) {
             localStorage.removeItem("aira_google_user");
-            renderUserAuthUI();
+          }
+        }
+        renderUserAuthUI();
+
+        // 2. Initialize Google Identity Services (GSI)
+        initGoogleIdentity();
+
+        // 3. Fetch reviews from JSONBin or LocalStorage (Zero fake reviews)
+        loadReviews();
+      }
+
+      // Initialize Google Identity Services
+      function initGoogleIdentity() {
+        if (window.google && google.accounts && google.accounts.id) {
+          try {
+            google.accounts.id.initialize({
+              client_id: GOOGLE_CLIENT_ID,
+              callback: handleGoogleCredentialResponse,
+              auto_select: false,
+              cancel_on_tap_outside: true
+            });
+
+            // Render official Google button inside container
+            const btnContainer = document.getElementById("gsi-btn-container");
+            if (btnContainer) {
+              google.accounts.id.renderButton(btnContainer, {
+                theme: "outline",
+                size: "large",
+                type: "standard",
+                shape: "pill",
+                text: "continue_with",
+                logo_alignment: "left",
+                width: 280
+              });
+            }
+          } catch(e) {
+            console.log("GSI init note:", e);
           }
         } else {
-          renderUserAuthUI();
+          // Retry after GSI script finishes loading
+          setTimeout(initGoogleIdentity, 500);
         }
-        renderReviewsList();
+      }
+
+      // Handle real Google JWT Credential Response
+      function handleGoogleCredentialResponse(response) {
+        try {
+          // Decode standard JWT
+          const base64Url = response.credential.split('.')[1];
+          const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+          const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+              return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+          }).join(''));
+          const payload = JSON.parse(jsonPayload);
+
+          currentUser = {
+            name: payload.name || "Google User",
+            email: payload.email,
+            picture: payload.picture || `https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(payload.name || "User")}`
+          };
+
+          localStorage.setItem("aira_google_user", JSON.stringify(currentUser));
+          closeGoogleAuthModal();
+          renderUserAuthUI();
+        } catch(err) {
+          console.error("Failed to decode Google token:", err);
+          alert("Google sign-in completed, but failed to parse profile. Please try again.");
+        }
       }
 
       function renderUserAuthUI() {
@@ -3901,15 +3944,26 @@ STRICT RULE: If a user asks for programming code or scripts, politely decline. S
           const nameEl = document.getElementById("v-user-name");
           const emailEl = document.getElementById("v-user-email");
 
-          if (photoEl) photoEl.src = currentUser.picture || `https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(currentUser.name)}`;
-          if (nameEl) nameEl.textContent = currentUser.name || "Google User";
-          if (emailEl) emailEl.textContent = currentUser.email || "user@gmail.com";
+          if (photoEl) photoEl.src = currentUser.picture;
+          if (nameEl) nameEl.textContent = currentUser.name;
+          if (emailEl) emailEl.textContent = currentUser.email;
         }
       }
 
       function startGoogleAuth() {
-        const modal = document.getElementById("google-auth-modal");
-        if (modal) modal.classList.remove("hidden");
+        // If Google GSI is available, try prompt first
+        if (window.google && google.accounts && google.accounts.id) {
+          google.accounts.id.prompt((notification) => {
+            if (notification.isNotDisplayed() || notification.isSkippedMoment()) {
+              // Open modal fallback if prompt was suppressed or not displayed
+              const modal = document.getElementById("google-auth-modal");
+              if (modal) modal.classList.remove("hidden");
+            }
+          });
+        } else {
+          const modal = document.getElementById("google-auth-modal");
+          if (modal) modal.classList.remove("hidden");
+        }
       }
 
       function closeGoogleAuthModal() {
@@ -3945,6 +3999,9 @@ STRICT RULE: If a user asks for programming code or scripts, politely decline. S
       function googleLogout() {
         currentUser = null;
         localStorage.removeItem("aira_google_user");
+        if (window.google && google.accounts && google.accounts.id) {
+          google.accounts.id.disableAutoSelect();
+        }
         renderUserAuthUI();
       }
 
@@ -3978,6 +4035,49 @@ STRICT RULE: If a user asks for programming code or scripts, politely decline. S
         btn.className = "tag-opt active px-3 py-1.5 rounded-lg text-xs font-semibold bg-blue-600 text-white transition";
       }
 
+      // Fetch Reviews: JSONBin.io with LocalStorage fallback (Zero Fake Reviews)
+      async function loadReviews() {
+        const container = document.getElementById("verified-reviews-grid");
+        if (!container) return;
+
+        // 1. Try to load from JSONBin if binId is configured
+        if (JSONBIN_CONFIG.binId && JSONBIN_CONFIG.binId.length > 5) {
+          try {
+            const headers = { "Content-Type": "application/json" };
+            if (JSONBIN_CONFIG.apiKey) {
+              headers["X-Master-Key"] = JSONBIN_CONFIG.apiKey;
+            }
+            const res = await fetch(`https://api.jsonbin.io/v3/b/${JSONBIN_CONFIG.binId}/latest`, { headers });
+            if (res.ok) {
+              const data = await res.json();
+              if (data && data.record && Array.isArray(data.record.feedbacks)) {
+                liveReviews = data.record.feedbacks;
+                localStorage.setItem("aira_verified_reviews", JSON.stringify(liveReviews));
+                renderReviewsList();
+                return;
+              }
+            }
+          } catch(err) {
+            console.log("JSONBin fetch fallback to local:", err);
+          }
+        }
+
+        // 2. Fallback to LocalStorage
+        const local = localStorage.getItem("aira_verified_reviews");
+        if (local) {
+          try {
+            liveReviews = JSON.parse(local);
+          } catch(e) {
+            liveReviews = [];
+          }
+        } else {
+          liveReviews = []; // Zero fake reviews!
+        }
+
+        renderReviewsList();
+      }
+
+      // Submit Verified Review
       async function handleFeedbackSubmit(e) {
         e.preventDefault();
         if (!currentUser) {
@@ -3995,28 +4095,44 @@ STRICT RULE: If a user asks for programming code or scripts, politely decline. S
         submitBtn.innerHTML = `<i class="fas fa-spinner fa-spin text-xs"></i> Posting...`;
 
         const newReview = {
-          id: "rev-" + Date.now(),
+          id: "rev_" + Date.now(),
           name: currentUser.name,
           email: currentUser.email,
           photo: currentUser.picture,
           rating: currentRating,
           tag: currentTag,
           text: text,
-          date: "Just now"
+          date: new Date().toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })
         };
 
-        const existingReviews = getStoredReviews();
-        existingReviews.unshift(newReview);
-        localStorage.setItem("aira_verified_reviews", JSON.stringify(existingReviews));
-
+        // Prepend new review
+        liveReviews.unshift(newReview);
+        localStorage.setItem("aira_verified_reviews", JSON.stringify(liveReviews));
         renderReviewsList();
 
+        // 1. Save to JSONBin if configured
+        if (JSONBIN_CONFIG.binId && JSONBIN_CONFIG.apiKey) {
+          try {
+            await fetch(`https://api.jsonbin.io/v3/b/${JSONBIN_CONFIG.binId}`, {
+              method: "PUT",
+              headers: {
+                "Content-Type": "application/json",
+                "X-Master-Key": JSONBIN_CONFIG.apiKey
+              },
+              body: JSON.stringify({ feedbacks: liveReviews })
+            });
+          } catch(err) {
+            console.error("JSONBin save error:", err);
+          }
+        }
+
+        // 2. Email alert to Er. Adam Eehan via FormSubmit
         try {
           fetch("https://formsubmit.co/ajax/adameehan34@gmail.com", {
             method: "POST",
             headers: { "Content-Type": "application/json", "Accept": "application/json" },
             body: JSON.stringify({
-              _subject: `🌟 New Verified Review from ${currentUser.name} (${currentRating} Stars)`,
+              _subject: `🌟 New Real Feedback from ${currentUser.name} (${currentRating} Stars)`,
               Name: currentUser.name,
               Gmail: currentUser.email,
               Rating: `${currentRating} / 5 Stars`,
@@ -4037,24 +4153,34 @@ STRICT RULE: If a user asks for programming code or scripts, politely decline. S
         }
       }
 
-      function getStoredReviews() {
-        const data = localStorage.getItem("aira_verified_reviews");
-        if (data) {
-          try {
-            return JSON.parse(data);
-          } catch(e) {}
-        }
-        return [...defaultReviews];
-      }
-
+      // Render Verified Reviews List (Displays Empty State if no reviews exist!)
       function renderReviewsList() {
         const container = document.getElementById("verified-reviews-grid");
         if (!container) return;
 
-        const reviews = getStoredReviews();
         container.innerHTML = "";
 
-        reviews.forEach(r => {
+        // EMPTY STATE: If no feedback exists, show authentic empty state!
+        if (!liveReviews || liveReviews.length === 0) {
+          container.innerHTML = `
+            <div class="col-span-full py-16 px-6 text-center bg-white rounded-3xl border border-dashed border-slate-300 shadow-sm max-w-xl mx-auto animate-fade-in">
+              <div class="w-16 h-16 mx-auto mb-4 rounded-2xl bg-blue-50 border border-blue-100 flex items-center justify-center text-blue-600 text-2xl shadow-inner">
+                <i class="far fa-comments"></i>
+              </div>
+              <h4 class="font-bold text-slate-800 text-lg mb-1">No Feedback Yet</h4>
+              <p class="text-slate-500 text-sm max-w-sm mx-auto mb-6 leading-relaxed">
+                Be the first client, collaborator, or builder to sign in with Google and share your experience with Aira Group!
+              </p>
+              <button onclick="startGoogleAuth()" class="btn-primary text-white text-xs font-semibold px-6 py-3 rounded-xl shadow-md inline-flex items-center gap-2 hover:scale-105 transition-all">
+                <i class="fab fa-google"></i> Leave the First Verified Review
+              </button>
+            </div>
+          `;
+          return;
+        }
+
+        // Render real reviews
+        liveReviews.forEach(r => {
           let starsHtml = "";
           for (let i = 1; i <= 5; i++) {
             starsHtml += i <= r.rating 
@@ -4082,7 +4208,7 @@ STRICT RULE: If a user asks for programming code or scripts, politely decline. S
                     </div>
                   </div>
                 </div>
-                <span class="text-[11px] font-semibold text-blue-600 bg-blue-50 border border-blue-100 px-2 py-0.5 rounded-md flex-shrink-0">${r.tag}</span>
+                <span class="text-[11px] font-semibold text-blue-600 bg-blue-50 border border-blue-100 px-2 py-0.5 rounded-md flex-shrink-0">${r.tag || "Feedback"}</span>
               </div>
 
               <div class="flex items-center gap-1 mb-3">
@@ -4096,8 +4222,8 @@ STRICT RULE: If a user asks for programming code or scripts, politely decline. S
             </div>
 
             <div class="pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-slate-400">
-              <span class="flex items-center gap-1"><i class="fas fa-calendar-check text-[10px] text-blue-400"></i> Authenticated Review</span>
-              <span>${r.date || "Verified"}</span>
+              <span class="flex items-center gap-1"><i class="fas fa-calendar-check text-[10px] text-blue-400"></i> Google Verified Review</span>
+              <span>${r.date || "Recent"}</span>
             </div>
           `;
           container.appendChild(card);
