@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Subscribe to Sovereign Dispatches | Aira Group of Technology</title>
+    <meta
+      name="description"
+      content="Subscribe to verified technical releases, bare-metal kernel architectures, and sovereign AI telemetry reports directly from Founder Er. Adam Eehan."
+    />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <style>
+      :root {
+        --navy: #0a2342;
+        --navy-light: #13315c;
+        --navy-accent: #1d4ed8;
+      }
+      body {
+        font-family: "Inter", sans-serif;
+        color: #1e293b;
+        background-color: #f8fafc;
+      }
+      .font-display {
+        font-family: "Playfair Display", serif;
+      }
+      
+      /* Input validation shake */
+      @keyframes shake {
+        0%, 100% { transform: translateX(0); }
+        25% { transform: translateX(-6px); }
+        75% { transform: translateX(6px); }
+      }
+      .input-error {
+        border-color: #ef4444 !important;
+        box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15) !important;
+        animation: shake 0.4s ease-in-out;
+      }
+
+      /* Slide to Subscribe Widget */
+      .slider-container {
+        position: relative;
+        height: 58px;
+        background: #e2e8f0;
+        border-radius: 9999px;
+        overflow: hidden;
+        user-select: none;
+        touch-action: none;
+      }
+      .slider-fill {
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: 100%;
+        width: 0;
+        background: linear-gradient(90deg, #0a2342, #1d4ed8);
+        border-radius: 9999px;
+      }
+      .slider-text {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 13px;
+        font-weight: 700;
+        letter-spacing: 1.5px;
+        color: #64748b;
+        pointer-events: none;
+        text-transform: uppercase;
+        transition: opacity 0.15s ease;
+      }
+      .slider-thumb {
+        position: absolute;
+        left: 4px;
+        top: 4px;
+        width: 50px;
+        height: 50px;
+        background: #ffffff;
+        border-radius: 50%;
+        box-shadow: 0 4px 12px rgba(10, 35, 66, 0.18);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 18px;
+        color: #1d4ed8;
+        cursor: grab;
+        z-index: 2;
+        transition: transform 0.1s ease;
+      }
+      .slider-thumb:active {
+        cursor: grabbing;
+        transform: scale(0.97);
+      }
+    </style>
+  </head>
+  <body class="flex flex-col min-h-screen">
+    <!-- Navbar -->
+    <nav class="fixed w-full bg-white/95 backdrop-blur-md z-50 shadow-sm border-b border-slate-100">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-20">
+          <a href="/" class="flex items-center space-x-3 group">
+            <img
+              src="/assets/logo.png"
+              alt="Aira Group Logo"
+              class="w-10 h-10 object-contain rounded-xl border border-slate-200 group-hover:scale-105 transition-transform"
+            />
+            <div class="flex flex-col">
+              <span class="font-bold text-xl tracking-tight text-slate-900 group-hover:text-blue-700 transition-colors">
+                AIRA GROUP
+              </span>
+              <span class="text-[10px] tracking-widest text-slate-500 uppercase -mt-1">
+                Technology
+              </span>
+            </div>
+          </a>
+
+          <div class="hidden md:flex items-center space-x-8">
+            <a href="/" class="text-slate-600 hover:text-blue-700 text-sm font-medium transition-colors">Home</a>
+            <a href="/#ecosystem" class="text-slate-600 hover:text-blue-700 text-sm font-medium transition-colors">Ecosystem</a>
+            <a href="/#leadership" class="text-slate-600 hover:text-blue-700 text-sm font-medium transition-colors">Leadership</a>
+            <a href="https://models.airaaigroup.in" target="_blank" class="text-slate-600 hover:text-blue-700 text-sm font-medium transition-colors">Models Hub</a>
+            <a href="/privacy" class="text-slate-600 hover:text-blue-700 text-sm font-medium transition-colors">Privacy</a>
+          </div>
+
+          <div class="flex items-center space-x-3">
+            <a
+              href="/"
+              class="px-5 py-2.5 rounded-full text-xs font-semibold bg-slate-900 text-white hover:bg-blue-700 transition-all shadow-sm"
+            >
+              &larr; Back to Portal
+            </a>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Main Content Area -->
+    <main class="flex-grow pt-32 pb-20 px-4 sm:px-6 lg:px-8">
+      <div class="max-w-xl mx-auto">
+        
+        <!-- Header Pill -->
+        <div class="text-center mb-6">
+          <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-200 text-blue-700 text-xs font-semibold uppercase tracking-wider">
+            <i class="fas fa-paper-plane text-blue-600"></i>
+            Sovereign Engineering Dispatches
+          </span>
+          <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mt-3 mb-3">
+            Stay Ahead of Deep-Tech
+          </h1>
+          <p class="text-slate-600 text-sm leading-relaxed max-w-md mx-auto">
+            Direct dispatches on bare-metal OS kernels, private cellular mesh systems, and sovereign AI models from Founder Er. Adam Eehan.
+          </p>
+        </div>
+
+        <!-- Interactive Subscription Card -->
+        <div class="bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 shadow-xl shadow-slate-200/50">
+          
+          <form id="subForm" onsubmit="return false;">
+            <!-- Name Field -->
+            <div class="mb-5">
+              <label for="name" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">
+                Your Full Name
+              </label>
+              <input
+                id="name"
+                type="text"
+                placeholder="e.g. Dr. Ramesh Kumar"
+                class="w-full px-4 py-3.5 rounded-xl border border-slate-300 text-slate-900 placeholder-slate-400 text-sm focus:outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-100 transition-all"
+              />
+              <p id="nameErr" class="hidden text-xs text-rose-600 font-medium mt-1.5 flex items-center gap-1">
+                <i class="fas fa-circle-exclamation"></i> Please enter your name
+              </p>
+            </div>
+
+            <!-- Email Field -->
+            <div class="mb-6">
+              <label for="email" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">
+                Corporate or Personal Email
+              </label>
+              <input
+                id="email"
+                type="email"
+                placeholder="developer@company.com"
+                class="w-full px-4 py-3.5 rounded-xl border border-slate-300 text-slate-900 placeholder-slate-400 text-sm focus:outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-100 transition-all"
+              />
+              <p id="emailErr" class="hidden text-xs text-rose-600 font-medium mt-1.5 flex items-center gap-1">
+                <i class="fas fa-circle-exclamation"></i> Please enter a valid email address
+              </p>
+            </div>
+
+            <!-- SLIDE TO SUBSCRIBE WIDGET -->
+            <div class="slider-container" id="slider">
+              <div class="slider-fill" id="fill"></div>
+              <div class="slider-text" id="sliderText">
+                Slide to Subscribe <span class="ml-2">&rarr;</span>
+              </div>
+              <div class="slider-thumb" id="thumb">
+                <i class="fas fa-arrow-right text-sm"></i>
+              </div>
+            </div>
+            
+            <p class="text-[12px] text-slate-400 text-center mt-2.5 select-none">
+              Drag the button to the right to verify and subscribe
+            </p>
+
+            <!-- Success Alert Box -->
+            <div id="successBox" class="hidden mt-6 p-5 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-900 text-sm leading-relaxed">
+              <div class="flex items-start gap-3">
+                <div class="w-8 h-8 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold text-sm shrink-0 mt-0.5">
+                  <i class="fas fa-check"></i>
+                </div>
+                <div>
+                  <h4 class="font-bold text-emerald-950 mb-1">Confirmation Email Dispatched!</h4>
+                  <p id="successMsg" class="text-xs text-emerald-800 leading-relaxed"></p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Error Alert Box -->
+            <div id="errorBox" class="hidden mt-6 p-4 rounded-xl bg-rose-50 border border-rose-200 text-rose-800 text-xs leading-relaxed flex items-center gap-2">
+              <i class="fas fa-triangle-exclamation text-rose-600"></i>
+              <span id="errorMsg">Subscription failed. Please try again.</span>
+            </div>
+
+          </form>
+
+          <!-- Privacy & Trust Indicators -->
+          <div class="mt-8 pt-6 border-t border-slate-100 text-center">
+            <p class="text-xs text-slate-500 leading-relaxed">
+              🔒 <strong>Zero Spam Guarantee:</strong> We never sell your data. Instant 1-click unsubscribe anytime.
+              Read our <a href="/privacy" class="text-blue-600 underline hover:text-blue-800">Privacy Policy</a> and <a href="/terms" class="text-blue-600 underline hover:text-blue-800">Terms</a>.
+            </p>
+
+            <div class="flex justify-center items-center gap-4 text-xs font-semibold text-slate-600 mt-4 flex-wrap">
+              <span class="inline-flex items-center gap-1.5 text-slate-700">
+                <i class="fas fa-shield-check text-blue-600"></i> Verified Updates
+              </span>
+              <span>&bull;</span>
+              <span class="inline-flex items-center gap-1.5 text-slate-700">
+                <i class="fas fa-envelope-circle-check text-blue-600"></i> Double Opt-In
+              </span>
+              <span>&bull;</span>
+              <span class="inline-flex items-center gap-1.5 text-slate-700">
+                <i class="fas fa-bolt text-blue-600"></i> Priority Releases
+              </span>
+            </div>
+
+            <p class="mt-6 text-[11px] text-slate-400">
+              <button onclick="resetWidget()" class="text-blue-600 hover:underline">Reset Form</button>
+              &nbsp;&bull;&nbsp;
+              &copy; 2026 Aira Group of Technology. All rights reserved.
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-400 py-10 border-t border-slate-800 text-xs">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center sm:flex sm:justify-between sm:items-center">
+        <div class="mb-4 sm:mb-0">
+          <span class="font-bold text-white text-sm">AIRA GROUP OF TECHNOLOGY</span>
+          <p class="text-slate-500 text-[11px] mt-0.5">Sovereign Deep-Tech &bull; Technopark, Kerala, India</p>
+        </div>
+        <div class="flex justify-center space-x-6 text-slate-400">
+          <a href="/" class="hover:text-white transition-colors">Home</a>
+          <a href="/privacy" class="hover:text-white transition-colors">Privacy</a>
+          <a href="/terms" class="hover:text-white transition-colors">Terms</a>
+          <a href="https://airaaigroup.in" class="hover:text-white transition-colors">Portal</a>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Interactive Slider & API Dispatch Script -->
+    <script>
+      const slider = document.getElementById('slider');
+      const thumb = document.getElementById('thumb');
+      const fill = document.getElementById('fill');
+      const txt = document.getElementById('sliderText');
+      const nameInput = document.getElementById('name');
+      const emailInput = document.getElementById('email');
+      const nameErr = document.getElementById('nameErr');
+      const emailErr = document.getElementById('emailErr');
+      const successBox = document.getElementById('successBox');
+      const successMsg = document.getElementById('successMsg');
+      const errorBox = document.getElementById('errorBox');
+      const errorMsg = document.getElementById('errorMsg');
+
+      let isDragging = false;
+      let startX = 0;
+      let startLeft = 4;
+      let isSubmitting = false;
+
+      const getMaxX = () => slider.offsetWidth - 54;
+
+      function validateInputs() {
+        const nameVal = nameInput.value.trim();
+        const emailVal = emailInput.value.trim();
+        let isValid = true;
+
+        nameErr.classList.add('hidden');
+        emailErr.classList.add('hidden');
+        nameInput.classList.remove('input-error');
+        emailInput.classList.remove('input-error');
+        errorBox.classList.add('hidden');
+
+        if (!nameVal) {
+          nameErr.classList.remove('hidden');
+          nameInput.classList.add('input-error');
+          isValid = false;
+        }
+
+        if (!emailVal || !emailVal.includes('@') || !emailVal.includes('.')) {
+          emailErr.classList.remove('hidden');
+          emailInput.classList.add('input-error');
+          isValid = false;
+        }
+
+        return isValid;
+      }
+
+      function handleMove(clientX) {
+        if (!isDragging || isSubmitting) return;
+        const maxX = getMaxX();
+        let newLeft = startLeft + (clientX - startX);
+        newLeft = Math.max(4, Math.min(maxX, newLeft));
+
+        thumb.style.left = newLeft + 'px';
+        fill.style.width = (newLeft + 25) + 'px';
+
+        const progress = newLeft / maxX;
+        txt.style.opacity = Math.max(0, 1 - progress * 1.5);
+      }
+
+      async function handleRelease() {
+        if (!isDragging || isSubmitting) return;
+        isDragging = false;
+
+        const currentLeft = parseInt(thumb.style.left || '4', 10);
+        const maxX = getMaxX();
+
+        if (currentLeft / maxX >= 0.85) {
+          if (!validateInputs()) {
+            resetSlider();
+            return;
+          }
+
+          // Trigger Live Submission
+          await executeSubscription();
+        } else {
+          resetSlider();
+        }
+      }
+
+      async function executeSubscription() {
+        isSubmitting = true;
+        const maxX = getMaxX();
+
+        // Lock slider in completed state
+        thumb.style.left = maxX + 'px';
+        fill.style.width = '100%';
+        thumb.innerHTML = '<i class="fas fa-spinner fa-spin text-sm text-blue-700"></i>';
+        txt.innerHTML = 'DISPATCHING...';
+        txt.style.opacity = '1';
+        txt.style.color = '#ffffff';
+
+        nameInput.disabled = true;
+        emailInput.disabled = true;
+
+        const payload = {
+          name: nameInput.value.trim(),
+          email: emailInput.value.trim()
+        };
+
+        try {
+          const res = await fetch('/api/subscribe', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+          });
+
+          const data = await res.json();
+
+          if (res.ok && data.success) {
+            // Success State
+            thumb.innerHTML = '<i class="fas fa-check text-sm text-emerald-600"></i>';
+            thumb.style.backgroundColor = '#ffffff';
+            fill.style.background = '#10b981';
+            txt.innerHTML = 'SUBSCRIBED &bull; VERIFY INBOX';
+            txt.style.color = '#ffffff';
+
+            successMsg.innerHTML = `Welcome <strong>${escapeHtml(payload.name)}</strong>! We've sent a verification link to <strong>${escapeHtml(payload.email)}</strong>. Please click the button in your email to complete activation.`;
+            successBox.classList.remove('hidden');
+          } else {
+            throw new Error(data.error || 'Failed to dispatch subscription.');
+          }
+        } catch (err) {
+          console.error('[Subscription Exception]:', err);
+          errorMsg.textContent = err.message || 'Unable to connect to server. Please try again.';
+          errorBox.classList.remove('hidden');
+          resetSlider();
+          nameInput.disabled = false;
+          emailInput.disabled = false;
+        } finally {
+          isSubmitting = false;
+        }
+      }
+
+      function resetSlider() {
+        thumb.style.transition = 'left 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
+        fill.style.transition = 'width 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
+
+        thumb.style.left = '4px';
+        fill.style.width = '0px';
+        fill.style.background = 'linear-gradient(90deg, #0a2342, #1d4ed8)';
+        txt.style.opacity = '1';
+        txt.style.color = '#64748b';
+        txt.innerHTML = 'Slide to Subscribe <span class="ml-2">&rarr;</span>';
+        thumb.innerHTML = '<i class="fas fa-arrow-right text-sm"></i>';
+
+        setTimeout(() => {
+          thumb.style.transition = '';
+          fill.style.transition = '';
+        }, 300);
+      }
+
+      function resetWidget() {
+        nameInput.disabled = false;
+        emailInput.disabled = false;
+        nameInput.value = '';
+        emailInput.value = '';
+        nameErr.classList.add('hidden');
+        emailErr.classList.add('hidden');
+        nameInput.classList.remove('input-error');
+        emailInput.classList.remove('input-error');
+        successBox.classList.add('hidden');
+        errorBox.classList.add('hidden');
+        resetSlider();
+      }
+
+      function escapeHtml(str) {
+        return String(str)
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;")
+          .replace(/'/g, "&#039;");
+      }
+
+      // Mouse Listeners
+      thumb.addEventListener('mousedown', (e) => {
+        if (isSubmitting) return;
+        isDragging = true;
+        startX = e.clientX;
+        startLeft = parseInt(thumb.style.left || '4', 10);
+      });
+      document.addEventListener('mousemove', (e) => handleMove(e.clientX));
+      document.addEventListener('mouseup', handleRelease);
+
+      // Touch Listeners
+      thumb.addEventListener('touchstart', (e) => {
+        if (isSubmitting) return;
+        isDragging = true;
+        startX = e.touches[0].clientX;
+        startLeft = parseInt(thumb.style.left || '4', 10);
+      }, { passive: true });
+      document.addEventListener('touchmove', (e) => handleMove(e.touches[0].clientX), { passive: true });
+      document.addEventListener('touchend', handleRelease);
+    </script>
+  </body>
+</html>
