@@ -333,3 +333,247 @@ function escapeHtml(str) {
     .replace(/"/g, "&quot;")
     .replace(/'/g, "&#039;");
 }
+
+
+export function getSupportAutoReplyHtml(name) {
+  const safeName = name ? escapeHtml(name) : 'Valued Contact';
+  const tpl = `<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="color-scheme" content="dark">
+  <meta name="supported-color-schemes" content="dark">
+  <title>Thank You for Contacting Aira Group of Technology</title>
+  <!--[if mso]>
+  <noscript>
+    <xml>
+      <o:OfficeDocumentSettings>
+        <o:PixelsPerInch>96</o:PixelsPerInch>
+      </o:OfficeDocumentSettings>
+    </xml>
+  </noscript>
+  <![endif]-->
+  <style>
+    :root {
+      color-scheme: dark;
+      supported-color-schemes: dark;
+    }
+    body, table, td, a {
+      -webkit-text-size-adjust: 100%;
+      -ms-text-size-adjust: 100%;
+    }
+    table, td {
+      mso-table-lspace: 0pt;
+      mso-table-rspace: 0pt;
+    }
+    img {
+      -ms-interpolation-mode: bicubic;
+      border: 0;
+      height: auto;
+      line-height: 100%;
+      outline: none;
+      text-decoration: none;
+    }
+    body {
+      height: 100% !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      width: 100% !important;
+      background-color: #060d19 !important;
+      color: #cbd5e1;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    }
+    @media only screen and (max-width: 620px) {
+      .container-table {
+        width: 100% !important;
+        border-radius: 0 !important;
+      }
+      .mobile-p {
+        padding-left: 20px !important;
+        padding-right: 20px !important;
+      }
+      .mobile-stack {
+        display: block !important;
+        width: 100% !important;
+      }
+      .mobile-stack-right {
+        display: block !important;
+        width: 100% !important;
+        text-align: left !important;
+        margin-top: 12px !important;
+      }
+    }
+  </style>
+</head>
+<body style="margin: 0; padding: 0; background-color: #060d19; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; color: #cbd5e1;">
+
+  <!-- Preheader text (Hidden in email body, visible in inbox preview) -->
+  <div style="display: none; font-size: 1px; color: #060d19; line-height: 1px; max-height: 0px; max-width: 0px; opacity: 0; overflow: hidden;">
+    Your message has been safely received by the executive desk of Founder Er. Adam Eehan & Co-Founder Anandhakrishnan H. We will respond within 24 business hours.
+  </div>
+
+  <!-- Background Wrapper -->
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color: #060d19;">
+    <tr>
+      <td align="center" style="padding: 40px 12px;">
+
+        <!-- Main Card Container (Rich Midnight Obsidian - NOT pure black) -->
+        <table role="presentation" class="container-table" width="600" cellpadding="0" cellspacing="0" border="0" style="max-width: 600px; width: 100%; background-color: #0c182b; border: 1px solid #1e3557; border-radius: 16px; overflow: hidden; box-shadow: 0 25px 60px rgba(0, 0, 0, 0.45);">
+
+          <!-- Top Gradient Accent Bar -->
+          <tr>
+            <td style="background: linear-gradient(90deg, #38bdf8 0%, #2563eb 50%, #818cf8 100%); height: 4px; font-size: 0; line-height: 0;">&nbsp;</td>
+          </tr>
+
+          <!-- HEADER -->
+          <tr>
+            <td class="mobile-p" style="padding: 28px 32px 20px 32px; background-color: #091424; border-bottom: 1px solid #162a45;">
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+                <tr>
+                  <td width="46" style="vertical-align: middle;">
+                    <img src="https://airaaigroup.in/assets/logo.png" width="44" height="44" alt="Aira Group Logo" style="display: block; border-radius: 10px; width: 44px; height: 44px; border: 1px solid rgba(56, 189, 248, 0.3); background-color: #0a1b33;">
+                  </td>
+                  <td style="vertical-align: middle; padding-left: 14px;">
+                    <div style="font-size: 19px; font-weight: 800; color: #ffffff; letter-spacing: -0.3px; line-height: 1.2;">
+                      AIRA <span style="font-weight: 500; color: #38bdf8; font-size: 14px;">GROUP OF TECHNOLOGY</span>
+                    </div>
+                    <div style="font-size: 11px; color: #94a3b8; margin-top: 3px; letter-spacing: 0.5px;">
+                      airaaigroup.in &bull; Sovereign Digital Systems
+                    </div>
+                  </td>
+                  <td class="mobile-stack-right" align="right" style="vertical-align: middle;">
+                    <span style="display: inline-block; background-color: rgba(16, 185, 129, 0.15); color: #34d399; font-size: 11px; font-weight: 700; padding: 5px 12px; border-radius: 20px; border: 1px solid rgba(52, 211, 153, 0.4); text-transform: uppercase; letter-spacing: 0.5px;">
+                      &bull; Message Received
+                    </span>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- BODY CONTENT -->
+          <tr>
+            <td class="mobile-p" style="padding: 36px 32px 28px 32px;">
+
+              <!-- Badge -->
+              <div style="font-size: 11px; font-weight: 800; color: #38bdf8; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 10px;">
+                OFFICIAL EXECUTIVE ACKNOWLEDGMENT
+              </div>
+
+              <!-- Headline -->
+              <h1 style="margin: 0 0 18px 0; font-size: 24px; font-weight: 800; color: #f8fafc; line-height: 1.35; letter-spacing: -0.4px;">
+                Thank you for contacting Aira Group of Technology
+              </h1>
+
+              <!-- Greeting -->
+              <p style="margin: 0 0 16px 0; font-size: 15px; color: #94a3b8; line-height: 1.6;">
+                Dear <strong style="color: #f1f5f9;">[Name / Valued Contact]</strong>,
+              </p>
+
+              <!-- Main Copy -->
+              <p style="margin: 0 0 16px 0; font-size: 15px; line-height: 1.7; color: #cbd5e1;">
+                Thank you for reaching out to Aira Group of Technology. Your communication has been safely received and registered in our central intake dispatch.
+              </p>
+
+              <p style="margin: 0 0 24px 0; font-size: 15px; line-height: 1.7; color: #cbd5e1;">
+                Your message is directly routed to the executive office of Founder &amp; Chief Executive Officer <strong style="color: #f8fafc;">Er. Adam Eehan</strong> and Co-Founder <strong style="color: #f8fafc;">Anandhakrishnan H</strong>.
+              </p>
+
+              <!-- WHAT HAPPENS NEXT CALLOUT BOX -->
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color: #081324; border-left: 4px solid #38bdf8; border-top: 1px solid #172a45; border-right: 1px solid #172a45; border-bottom: 1px solid #172a45; border-radius: 8px; margin: 24px 0;">
+                <tr>
+                  <td style="padding: 20px 22px;">
+                    <div style="font-size: 14px; font-weight: 800; color: #38bdf8; margin-bottom: 6px; letter-spacing: 0.3px; display: flex; align-items: center; gap: 6px;">
+                      What happens next?
+                    </div>
+                    <p style="margin: 0; font-size: 14px; line-height: 1.65; color: #e2e8f0;">
+                      Our executive leadership team will review your inquiry and respond within <strong style="color: #38bdf8;">24 business hours</strong>.
+                    </p>
+                    <div style="margin-top: 10px; font-size: 12.5px; line-height: 1.5; color: #94a3b8;">
+                      For immediate technical overviews or real-time assistance, our sovereign AI co-pilot (<strong style="color: #a78bfa;">Aira 3 Ultra</strong>) is active 24/7 on our website desk.
+                    </div>
+                  </td>
+                </tr>
+              </table>
+
+              <!-- Portal Explorer Invitation -->
+              <p style="margin: 20px 0 16px 0; font-size: 14.5px; line-height: 1.6; color: #94a3b8;">
+                To explore our sovereign AI research, enterprise engineering suites, and leadership portfolio, please visit our official digital portal:
+              </p>
+
+              <!-- CTA BUTTON -->
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+                <tr>
+                  <td align="center" style="padding: 10px 0 28px 0;">
+                    <!--[if mso]>
+                    <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="https://airaaigroup.in" style="height:46px;v-text-anchor:middle;width:240px;" arcsize="50%" stroke="f" fillcolor="#2563eb">
+                      <w:anchorlock/>
+                      <center style="color:#ffffff;font-family:sans-serif;font-size:14px;font-weight:bold;">Visit Official Portal &rarr;</center>
+                    </v:roundrect>
+                    <![endif]-->
+                    <a href="https://airaaigroup.in" target="_blank" style="display: inline-block; background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%); background-color: #2563eb; color: #ffffff; text-decoration: none; font-size: 14px; font-weight: 700; padding: 13px 32px; border-radius: 50px; box-shadow: 0 8px 24px rgba(37, 99, 235, 0.35); border: 1px solid #3b82f6;">
+                      Visit Official Portal &rarr;
+                    </a>
+                  </td>
+                </tr>
+              </table>
+
+              <!-- Divider -->
+              <hr style="border: none; border-top: 1px solid #162842; margin: 0 0 24px 0;">
+
+              <!-- SIGNATURE BLOCK -->
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+                <tr>
+                  <td style="vertical-align: top;">
+                    <div style="font-size: 13px; color: #94a3b8; margin-bottom: 4px;">Warm regards,</div>
+                    <div style="font-size: 16px; font-weight: 800; color: #f8fafc; letter-spacing: -0.2px;">
+                      Executive Operations
+                    </div>
+                    <div style="font-size: 13px; font-weight: 600; color: #38bdf8; margin-top: 2px;">
+                      Aira Group of Technology
+                    </div>
+                    <div style="font-size: 12.5px; color: #94a3b8; margin-top: 4px; line-height: 1.5;">
+                      Technopark, Trivandrum, Kerala, India<br>
+                      <a href="mailto:contact@airaaigroup.in" style="color: #38bdf8; text-decoration: none;">contact@airaaigroup.in</a>
+                      &nbsp;&bull;&nbsp;
+                      <a href="mailto:me@airaaigroup.in" style="color: #38bdf8; text-decoration: none;">me@airaaigroup.in</a>
+                      &nbsp;&bull;&nbsp;
+                      <a href="https://airaaigroup.in" style="color: #60a5fa; text-decoration: none;">airaaigroup.in</a>
+                    </div>
+                  </td>
+                </tr>
+              </table>
+
+            </td>
+          </tr>
+
+          <!-- FOOTER -->
+          <tr>
+            <td class="mobile-p" style="background-color: #08111e; padding: 24px 32px; border-top: 1px solid #132238;">
+              <p style="margin: 0 0 10px 0; font-size: 12px; line-height: 1.55; color: #64748b;">
+                <strong>Notice:</strong> This is an automated acknowledgment dispatch. Please do not reply directly to this notice. For additional inquiries or follow-ups, write to <a href="mailto:contact@airaaigroup.in" style="color: #38bdf8; text-decoration: none;">contact@airaaigroup.in</a>.
+              </p>
+              <p style="margin: 0 0 10px 0; font-size: 11.5px; color: #64748b; line-height: 1.5;">
+                Aira Group of Technology &nbsp;&bull;&nbsp; Technopark, Thiruvananthapuram, Kerala, India &nbsp;&bull;&nbsp;
+                <a href="https://airaaigroup.in/privacy" style="color: #94a3b8; text-decoration: none;">Privacy Policy</a>
+              </p>
+              <p style="margin: 0; font-size: 11.5px; color: #475569;">
+                &copy; 2026 Aira Group of Technology. All rights reserved.
+              </p>
+            </td>
+          </tr>
+
+        </table>
+        <!-- End Main Card -->
+
+      </td>
+    </tr>
+  </table>
+
+</body>
+</html>
+`;
+  return tpl.replace('[Name / Valued Contact]', safeName);
+}
