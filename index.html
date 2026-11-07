@@ -2842,33 +2842,7 @@
       };
 
       function startDeskPolling() {
-        if (deskPollingInterval) clearInterval(deskPollingInterval);
-        deskPollingInterval = setInterval(async () => {
-          if (!deskUser) return;
-          const win = document.getElementById("founder-desk-window");
-          if (!win || win.classList.contains("hidden")) return;
-
-          try {
-            const uid = encodeURIComponent(deskUser.sub || deskUser.email);
-            const res = await fetch(`/api/desk?userId=${uid}&after=${lastDeskPollTimestamp}`);
-            if (res.ok) {
-              const data = await res.json();
-              if (data && Array.isArray(data.messages) && data.messages.length > 0) {
-                data.messages.forEach(m => {
-                  const exists = deskMessagesHistory.some(existing => existing.id === m.id || (existing.timestamp === m.timestamp && existing.text === m.text));
-                  if (!exists) {
-                    deskMessagesHistory.push(m);
-                    appendDeskMessageUI(m, true);
-                  }
-                  if (m.timestamp > lastDeskPollTimestamp) {
-                    lastDeskPollTimestamp = m.timestamp;
-                  }
-                });
-                saveDeskLocalMessages();
-              }
-            }
-          } catch (e) {}
-        }, 1000);
+        // Direct stream: Aira 3 Ultra responds directly and instantly in POST /api/desk
       }
 
       document.addEventListener("DOMContentLoaded", () => {
