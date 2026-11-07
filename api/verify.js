@@ -64,7 +64,7 @@ export default async function handler(req, res) {
   // 3. Render Clean Corporate Success Page
   return res.status(200).send(renderStatusHtml(
     true,
-    "Subscription Confirmed! 🎉",
+    "Subscription Confirmed!",
     `Thank you for confirming your email (${escapeHtml(cleanEmail)}). You are now an active member of Aira Group Sovereign Engineering Dispatches. Your official welcome dispatch has been sent to your inbox.`
   ));
 }

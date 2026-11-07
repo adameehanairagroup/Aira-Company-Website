@@ -81,7 +81,7 @@ export function getConfirmationEmailHtml(name, confirmUrl) {
                 </div>
               </div>
               <p style="margin: 0; font-size: 13px; color: #64748b; line-height: 1.5;">
-                🔒 If you did not request this subscription, no action is required. You will never be added without explicit confirmation.
+                <strong>Note:</strong> If you did not request this subscription, no action is required. You will never be added without explicit confirmation.
               </p>
             </td>
           </tr>
