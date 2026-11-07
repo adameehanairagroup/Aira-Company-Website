@@ -9,9 +9,10 @@ import { getSupportAutoReplyHtml } from "./_emailTemplates.js";
 const HOSTINGER_MAIL_TOKEN = process.env.HOSTINGER_MAIL_TOKEN || "c25fc077cafee320ad909052ce3175dd03977fe036b26eb8037f925b639a18b8";
 const RESEND_KEY = process.env.RESEND_API_KEY || "";
 
-// In-memory rate limiting map: email -> lastReplyTimestamp
+// In-memory rate limiting map: `${mailboxId}:${senderEmail}` -> { count, lastReplyTime, cooldownUntil }
 const recentReplies = new Map();
-const COOLDOWN_MS = 30 * 60 * 1000; // 30 minutes cooldown per sender
+const MAX_BURST = 10; // Max 10 consecutive auto-replies
+const BURST_COOLDOWN_MS = 50 * 1000; // 50 seconds cooldown after 10 auto-replies
 
 export default async function handler(req, res) {
   res.setHeader("Access-Control-Allow-Origin", "*");
@@ -28,7 +29,8 @@ export default async function handler(req, res) {
       status: "online",
       service: "Aira Sovereign Email Auto-Reply Webhook",
       targetMailboxes: ["contact@airaaigroup.in", "me@airaaigroup.in"],
-      cooldownMinutes: 30
+      burstLimit: MAX_BURST,
+      cooldownSeconds: BURST_COOLDOWN_MS / 1000
     });
   }
 
@@ -119,19 +121,52 @@ export default async function handler(req, res) {
       return res.status(200).json({ success: true, skipped: true, reason: "internal_or_bot" });
     }
 
-    // 3. Sender Rate Limiting (Prevent spam loop)
+    // 3. Sender Rate Limiting (10 Replies Burst -> 50 Seconds Cooldown)
+    const rateKey = `${mailboxId}:${senderEmail}`;
     const now = Date.now();
-    const lastSent = recentReplies.get(senderEmail) || 0;
-    if (now - lastSent < COOLDOWN_MS) {
-      console.log(`[Hostinger Webhook] Cooldown active for ${senderEmail}. Auto-reply already sent recently.`);
-      return res.status(200).json({ success: true, skipped: true, reason: "cooldown_active" });
+    let record = recentReplies.get(rateKey);
+
+    if (!record) {
+      record = { count: 0, lastReplyTime: 0, cooldownUntil: 0 };
+      recentReplies.set(rateKey, record);
     }
 
-    recentReplies.set(senderEmail, now);
+    // Check if cooldown is currently active
+    if (now < record.cooldownUntil) {
+      const remainingSec = Math.max(1, Math.ceil((record.cooldownUntil - now) / 1000));
+      console.log(`[Hostinger Webhook] Cooldown active for ${rateKey}. Burst limit (10) reached. ${remainingSec}s remaining.`);
+      return res.status(200).json({
+        success: true,
+        skipped: true,
+        reason: "cooldown_active",
+        burstLimit: MAX_BURST,
+        remainingSeconds: remainingSec
+      });
+    }
+
+    // If previous cooldown has expired, reset counter to 0
+    if (record.cooldownUntil > 0 && now >= record.cooldownUntil) {
+      record.count = 0;
+      record.cooldownUntil = 0;
+    } else if (record.lastReplyTime > 0 && (now - record.lastReplyTime > BURST_COOLDOWN_MS)) {
+      // Inactive for more than 50 seconds -> fresh burst window
+      record.count = 0;
+    }
+
+    // Increment reply count
+    record.count += 1;
+    record.lastReplyTime = now;
+
+    // If 10 replies have been reached, activate 50s cooldown
+    if (record.count >= MAX_BURST) {
+      record.cooldownUntil = now + BURST_COOLDOWN_MS;
+      console.log(`[Hostinger Webhook] Sender ${rateKey} hit 10 auto-replies. 50s cooldown initiated until ${new Date(record.cooldownUntil).toISOString()}`);
+    }
+
     // Cleanup old keys if map grows large
     if (recentReplies.size > 1000) {
       for (const [k, v] of recentReplies.entries()) {
-        if (now - v > COOLDOWN_MS) recentReplies.delete(k);
+        if (now - v.lastReplyTime > BURST_COOLDOWN_MS * 5) recentReplies.delete(k);
       }
     }
 
