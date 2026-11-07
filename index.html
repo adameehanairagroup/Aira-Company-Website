@@ -1784,6 +1784,62 @@
       </div>
     </section>
 
+    <!-- Sovereign Engineering Newsletter & Subscriber Section -->
+    <section class="py-20 bg-slate-100 border-t border-slate-200/80">
+      <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="bg-[#0a2342] rounded-3xl p-8 sm:p-14 text-white shadow-xl relative overflow-hidden">
+          <!-- Background Subtle Gradient Accents -->
+          <div class="absolute -top-24 -right-24 w-96 h-96 bg-blue-600/20 rounded-full blur-3xl pointer-events-none"></div>
+          <div class="absolute -bottom-24 -left-24 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+          <div class="relative z-10 max-w-3xl mx-auto text-center">
+            <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-900/60 border border-blue-400/30 text-blue-200 text-xs font-semibold uppercase tracking-wider mb-5">
+              <i class="fas fa-paper-plane text-cyan-400"></i>
+              Sovereign Engineering Dispatches
+            </div>
+            <h2 class="font-display text-3xl sm:text-4xl font-bold tracking-tight mb-4">
+              Sovereign Engineering. Zero Dependency.
+            </h2>
+            <p class="text-slate-300 text-base leading-relaxed mb-8 max-w-2xl mx-auto font-light">
+              Subscribe to receive verified release updates, technical architectural deep-dives on bare-metal kernels, private mesh cellular networks, and sovereign AI platforms directly from Founder Er. Adam Eehan.
+            </p>
+
+            <!-- Subscriber Form -->
+            <form id="subscribe-form" class="flex flex-col sm:flex-row gap-3 max-w-xl mx-auto text-left" onsubmit="handleNewsletterSubscribe(event)">
+              <input
+                type="text"
+                id="sub-name"
+                placeholder="Your Name"
+                class="w-full sm:w-1/3 px-4 py-3.5 rounded-xl bg-white/10 border border-white/20 text-white placeholder-slate-400 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400 focus:bg-white/15 transition-all"
+              />
+              <input
+                type="email"
+                id="sub-email"
+                required
+                placeholder="developer@company.com"
+                class="w-full sm:w-1/2 px-4 py-3.5 rounded-xl bg-white/10 border border-white/20 text-white placeholder-slate-400 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400 focus:bg-white/15 transition-all"
+              />
+              <button
+                type="submit"
+                id="sub-btn"
+                class="w-full sm:w-auto px-7 py-3.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-semibold text-sm transition-all duration-300 shadow-md hover:shadow-lg whitespace-nowrap flex items-center justify-center gap-2"
+              >
+                <span>Subscribe</span>
+                <i class="fas fa-arrow-right text-xs"></i>
+              </button>
+            </form>
+
+            <!-- Response Alert Box -->
+            <div id="sub-alert" class="mt-5 hidden max-w-xl mx-auto p-4 rounded-xl text-sm"></div>
+
+            <p class="text-xs text-slate-400 mt-5">
+              🔒 We respect your privacy. Zero spam. 1-click unsubscribe anytime. Read our <a href="/privacy" class="text-blue-400 underline hover:text-white">Privacy Policy</a>.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- Footer -->
     <footer class="bg-[#0a2342] text-slate-300 py-16">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -3903,5 +3959,50 @@ response = client.chat.completions.create(
       }
     </script>
 
-  </body>
+  
+    <script>
+      async function handleNewsletterSubscribe(e) {
+        e.preventDefault();
+        const nameInput = document.getElementById('sub-name');
+        const emailInput = document.getElementById('sub-email');
+        const btn = document.getElementById('sub-btn');
+        const alertBox = document.getElementById('sub-alert');
+
+        const email = emailInput.value.trim();
+        const name = nameInput.value.trim();
+
+        if (!email) return;
+
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Subscribing...';
+        alertBox.className = 'mt-5 hidden max-w-xl mx-auto p-4 rounded-xl text-sm';
+
+        try {
+          const res = await fetch('/api/subscribe', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: email, name: name })
+          });
+
+          const data = await res.json();
+
+          if (res.ok) {
+            alertBox.className = 'mt-5 max-w-xl mx-auto p-4 rounded-xl text-sm bg-emerald-900/60 border border-emerald-400/40 text-emerald-200';
+            alertBox.innerHTML = '<i class="fas fa-circle-check text-emerald-400 mr-2"></i><strong>Success!</strong> ' + (data.message || 'Check your inbox to confirm your subscription.');
+            emailInput.value = '';
+            nameInput.value = '';
+          } else {
+            alertBox.className = 'mt-5 max-w-xl mx-auto p-4 rounded-xl text-sm bg-rose-900/60 border border-rose-400/40 text-rose-200';
+            alertBox.innerHTML = '<i class="fas fa-circle-exclamation text-rose-400 mr-2"></i>' + (data.error || 'Subscription failed. Please try again.');
+          }
+        } catch (err) {
+          alertBox.className = 'mt-5 max-w-xl mx-auto p-4 rounded-xl text-sm bg-rose-900/60 border border-rose-400/40 text-rose-200';
+          alertBox.innerHTML = '<i class="fas fa-circle-exclamation text-rose-400 mr-2"></i>Network error. Please try again.';
+        } finally {
+          btn.disabled = false;
+          btn.innerHTML = '<span>Subscribe</span> <i class="fas fa-arrow-right text-xs"></i>';
+        }
+      }
+    </script>
+</body>
 </html>
