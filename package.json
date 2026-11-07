@@ -1,0 +1,9 @@
+{
+  "name": "aira-company-website",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Official Website & Serverless Endpoints for Aira Group of Technology",
+  "dependencies": {
+    "nodemailer": "^6.9.16"
+  }
+}
