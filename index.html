@@ -1785,7 +1785,7 @@
     </section>
 
     <!-- Sovereign Engineering Newsletter & Subscriber Section -->
-    <section class="py-20 bg-slate-100 border-t border-slate-200/80">
+    <section id="newsletter" class="py-20 bg-slate-100 border-t border-slate-200/80">
       <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="bg-[#0a2342] rounded-3xl p-8 sm:p-14 text-white shadow-xl relative overflow-hidden">
           <!-- Background Subtle Gradient Accents -->
@@ -1804,33 +1804,51 @@
               Subscribe to receive verified release updates, technical architectural deep-dives on bare-metal kernels, private mesh cellular networks, and sovereign AI platforms directly from Founder Er. Adam Eehan.
             </p>
 
-            <!-- Subscriber Form -->
-            <form id="subscribe-form" class="flex flex-col sm:flex-row gap-3 max-w-xl mx-auto text-left" onsubmit="handleNewsletterSubscribe(event)">
-              <input
-                type="text"
-                id="sub-name"
-                placeholder="Your Name"
-                class="w-full sm:w-1/3 px-4 py-3.5 rounded-xl bg-white/10 border border-white/20 text-white placeholder-slate-400 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400 focus:bg-white/15 transition-all"
-              />
-              <input
-                type="email"
-                id="sub-email"
-                required
-                placeholder="developer@company.com"
-                class="w-full sm:w-1/2 px-4 py-3.5 rounded-xl bg-white/10 border border-white/20 text-white placeholder-slate-400 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400 focus:bg-white/15 transition-all"
-              />
-              <button
-                type="submit"
-                id="sub-btn"
-                class="w-full sm:w-auto px-7 py-3.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-semibold text-sm transition-all duration-300 shadow-md hover:shadow-lg whitespace-nowrap flex items-center justify-center gap-2"
-              >
-                <span>Subscribe</span>
-                <i class="fas fa-arrow-right text-xs"></i>
-              </button>
+            <!-- Subscriber Form with iPhone Slide-to-Subscribe -->
+            <form id="subscribe-form" class="max-w-xl mx-auto text-left" onsubmit="return false;">
+              <div class="flex flex-col sm:flex-row gap-3 mb-3">
+                <div class="w-full sm:w-1/2">
+                  <input
+                    type="text"
+                    id="sub-name"
+                    placeholder="Your Full Name"
+                    class="w-full px-4 py-3.5 rounded-xl bg-white/10 border border-white/20 text-white placeholder-slate-400 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400 focus:bg-white/15 transition-all"
+                  />
+                  <p id="sub-name-err" class="hidden text-xs text-rose-300 font-medium mt-1.5 flex items-center gap-1">
+                    <i class="fas fa-circle-exclamation"></i> Please enter your name
+                  </p>
+                </div>
+                <div class="w-full sm:w-1/2">
+                  <input
+                    type="email"
+                    id="sub-email"
+                    placeholder="developer@company.com"
+                    class="w-full px-4 py-3.5 rounded-xl bg-white/10 border border-white/20 text-white placeholder-slate-400 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400 focus:bg-white/15 transition-all"
+                  />
+                  <p id="sub-email-err" class="hidden text-xs text-rose-300 font-medium mt-1.5 flex items-center gap-1">
+                    <i class="fas fa-circle-exclamation"></i> Please enter a valid email
+                  </p>
+                </div>
+              </div>
+
+              <!-- SLIDE TO SUBSCRIBE WIDGET -->
+              <div id="sub-slider" class="relative h-14 bg-white/10 border border-white/20 rounded-full overflow-hidden select-none touch-none cursor-pointer mt-3">
+                <div id="sub-fill" class="absolute left-0 top-0 h-full w-0 bg-gradient-to-r from-blue-600 to-cyan-500 rounded-full"></div>
+                <div id="sub-slider-text" class="absolute inset-0 flex items-center justify-center text-xs font-bold tracking-widest text-slate-300 pointer-events-none uppercase transition-opacity">
+                  Slide to Subscribe <span class="ml-2">&rarr;</span>
+                </div>
+                <div id="sub-thumb" class="absolute left-1 top-1 w-12 h-12 bg-white text-blue-900 rounded-full shadow-lg flex items-center justify-center font-bold text-sm cursor-grab active:cursor-grabbing z-10 transition-transform">
+                  <i class="fas fa-arrow-right text-xs"></i>
+                </div>
+              </div>
+
+              <p class="text-[11px] text-slate-400 text-center mt-2.5 select-none">
+                Drag the button to the right to verify and subscribe
+              </p>
             </form>
 
             <!-- Response Alert Box -->
-            <div id="sub-alert" class="mt-5 hidden max-w-xl mx-auto p-4 rounded-xl text-sm"></div>
+            <div id="sub-alert" class="mt-5 hidden max-w-xl mx-auto p-4 rounded-xl text-sm text-left"></div>
 
             <p class="text-xs text-slate-400 mt-5">
               🔒 We respect your privacy. Zero spam. 1-click unsubscribe anytime. Read our <a href="/privacy" class="text-blue-400 underline hover:text-white">Privacy Policy</a>.
@@ -1993,7 +2011,7 @@
           </div>
 
           <div class="flex gap-6 text-sm">
-            <a href="/subscribe" class="hover:text-white transition-colors duration-300"
+            <a href="#newsletter" class="hover:text-white transition-colors duration-300"
               >Newsletter</a
             >
             <a href="/privacy" class="hover:text-white transition-colors duration-300"
@@ -3963,49 +3981,186 @@ response = client.chat.completions.create(
     </script>
 
   
+    <style>
+      @keyframes subShake {
+        0%, 100% { transform: translateX(0); }
+        25% { transform: translateX(-6px); }
+        75% { transform: translateX(6px); }
+      }
+      .sub-input-error {
+        border-color: #f87171 !important;
+        box-shadow: 0 0 0 3px rgba(248, 113, 113, 0.3) !important;
+        animation: subShake 0.4s ease-in-out;
+      }
+    </style>
     <script>
-      async function handleNewsletterSubscribe(e) {
-        e.preventDefault();
+      (function() {
+        const slider = document.getElementById('sub-slider');
+        const thumb = document.getElementById('sub-thumb');
+        const fill = document.getElementById('sub-fill');
+        const txt = document.getElementById('sub-slider-text');
         const nameInput = document.getElementById('sub-name');
         const emailInput = document.getElementById('sub-email');
-        const btn = document.getElementById('sub-btn');
+        const nameErr = document.getElementById('sub-name-err');
+        const emailErr = document.getElementById('sub-email-err');
         const alertBox = document.getElementById('sub-alert');
 
-        const email = emailInput.value.trim();
-        const name = nameInput.value.trim();
+        if (!slider || !thumb || !fill) return;
 
-        if (!email) return;
+        let isDragging = false;
+        let startX = 0;
+        let startLeft = 4;
+        let isSubmitting = false;
 
-        btn.disabled = true;
-        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Subscribing...';
-        alertBox.className = 'mt-5 hidden max-w-xl mx-auto p-4 rounded-xl text-sm';
+        const getMaxX = () => slider.offsetWidth - 52;
 
-        try {
-          const res = await fetch('/api/subscribe', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email: email, name: name })
-          });
+        function validateInputs() {
+          const nameVal = nameInput.value.trim();
+          const emailVal = emailInput.value.trim();
+          let isValid = true;
 
-          const data = await res.json();
+          nameErr.classList.add('hidden');
+          emailErr.classList.add('hidden');
+          nameInput.classList.remove('sub-input-error');
+          emailInput.classList.remove('sub-input-error');
+          alertBox.className = 'mt-5 hidden max-w-xl mx-auto p-4 rounded-xl text-sm text-left';
 
-          if (res.ok) {
-            alertBox.className = 'mt-5 max-w-xl mx-auto p-4 rounded-xl text-sm bg-emerald-900/60 border border-emerald-400/40 text-emerald-200';
-            alertBox.innerHTML = '<i class="fas fa-circle-check text-emerald-400 mr-2"></i><strong>Success!</strong> ' + (data.message || 'Check your inbox to confirm your subscription.');
-            emailInput.value = '';
-            nameInput.value = '';
-          } else {
-            alertBox.className = 'mt-5 max-w-xl mx-auto p-4 rounded-xl text-sm bg-rose-900/60 border border-rose-400/40 text-rose-200';
-            alertBox.innerHTML = '<i class="fas fa-circle-exclamation text-rose-400 mr-2"></i>' + (data.error || 'Subscription failed. Please try again.');
+          if (!nameVal) {
+            nameErr.classList.remove('hidden');
+            nameInput.classList.add('sub-input-error');
+            isValid = false;
           }
-        } catch (err) {
-          alertBox.className = 'mt-5 max-w-xl mx-auto p-4 rounded-xl text-sm bg-rose-900/60 border border-rose-400/40 text-rose-200';
-          alertBox.innerHTML = '<i class="fas fa-circle-exclamation text-rose-400 mr-2"></i>Network error. Please try again.';
-        } finally {
-          btn.disabled = false;
-          btn.innerHTML = '<span>Subscribe</span> <i class="fas fa-arrow-right text-xs"></i>';
+
+          if (!emailVal || !emailVal.includes('@') || !emailVal.includes('.')) {
+            emailErr.classList.remove('hidden');
+            emailInput.classList.add('sub-input-error');
+            isValid = false;
+          }
+
+          return isValid;
         }
-      }
+
+        function handleMove(clientX) {
+          if (!isDragging || isSubmitting) return;
+          const maxX = getMaxX();
+          let newLeft = startLeft + (clientX - startX);
+          newLeft = Math.max(4, Math.min(maxX, newLeft));
+
+          thumb.style.left = newLeft + 'px';
+          fill.style.width = (newLeft + 24) + 'px';
+
+          const progress = newLeft / maxX;
+          txt.style.opacity = Math.max(0, 1 - progress * 1.5);
+        }
+
+        async function handleRelease() {
+          if (!isDragging || isSubmitting) return;
+          isDragging = false;
+
+          const currentLeft = parseInt(thumb.style.left || '4', 10);
+          const maxX = getMaxX();
+
+          if (currentLeft / maxX >= 0.85) {
+            if (!validateInputs()) {
+              resetSlider();
+              return;
+            }
+
+            // Execute Live Subscription
+            await executeSubscription();
+          } else {
+            resetSlider();
+          }
+        }
+
+        async function executeSubscription() {
+          isSubmitting = true;
+          const maxX = getMaxX();
+
+          thumb.style.left = maxX + 'px';
+          fill.style.width = '100%';
+          thumb.innerHTML = '<i class="fas fa-spinner fa-spin text-sm text-blue-900"></i>';
+          txt.innerHTML = 'DISPATCHING...';
+          txt.style.opacity = '1';
+          txt.style.color = '#ffffff';
+
+          nameInput.disabled = true;
+          emailInput.disabled = true;
+
+          const payload = {
+            name: nameInput.value.trim(),
+            email: emailInput.value.trim()
+          };
+
+          try {
+            const res = await fetch('/api/subscribe', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(payload)
+            });
+
+            const data = await res.json();
+
+            if (res.ok && data.success) {
+              thumb.innerHTML = '<i class="fas fa-check text-sm text-emerald-600"></i>';
+              fill.style.background = '#10b981';
+              txt.innerHTML = 'SUBSCRIBED &bull; VERIFY INBOX';
+              txt.style.color = '#ffffff';
+
+              alertBox.className = 'mt-5 max-w-xl mx-auto p-4 rounded-xl text-sm bg-emerald-900/60 border border-emerald-400/40 text-emerald-200 text-left';
+              alertBox.innerHTML = '<i class="fas fa-circle-check text-emerald-400 mr-2"></i><strong>Success!</strong> ' + (data.message || 'Check your inbox to confirm your subscription.');
+            } else {
+              throw new Error(data.error || 'Subscription failed. Please try again.');
+            }
+          } catch (err) {
+            alertBox.className = 'mt-5 max-w-xl mx-auto p-4 rounded-xl text-sm bg-rose-900/60 border border-rose-400/40 text-rose-200 text-left';
+            alertBox.innerHTML = '<i class="fas fa-circle-exclamation text-rose-400 mr-2"></i>' + (err.message || 'Network error. Please try again.');
+            resetSlider();
+            nameInput.disabled = false;
+            emailInput.disabled = false;
+          } finally {
+            isSubmitting = false;
+          }
+        }
+
+        function resetSlider() {
+          thumb.style.transition = 'left 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
+          fill.style.transition = 'width 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
+
+          thumb.style.left = '4px';
+          fill.style.width = '0px';
+          fill.style.background = 'linear-gradient(90deg, #2563eb, #06b6d4)';
+          txt.style.opacity = '1';
+          txt.style.color = '#cbd5e1';
+          txt.innerHTML = 'Slide to Subscribe <span class="ml-2">&rarr;</span>';
+          thumb.innerHTML = '<i class="fas fa-arrow-right text-xs text-blue-900"></i>';
+
+          setTimeout(() => {
+            thumb.style.transition = '';
+            fill.style.transition = '';
+          }, 300);
+        }
+
+        // Mouse Listeners
+        thumb.addEventListener('mousedown', (e) => {
+          if (isSubmitting) return;
+          isDragging = true;
+          startX = e.clientX;
+          startLeft = parseInt(thumb.style.left || '4', 10);
+        });
+        document.addEventListener('mousemove', (e) => handleMove(e.clientX));
+        document.addEventListener('mouseup', handleRelease);
+
+        // Touch Listeners
+        thumb.addEventListener('touchstart', (e) => {
+          if (isSubmitting) return;
+          isDragging = true;
+          startX = e.touches[0].clientX;
+          startLeft = parseInt(thumb.style.left || '4', 10);
+        }, { passive: true });
+        document.addEventListener('touchmove', (e) => handleMove(e.touches[0].clientX), { passive: true });
+        document.addEventListener('touchend', handleRelease);
+      })();
     </script>
 </body>
 </html>
