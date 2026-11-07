@@ -627,11 +627,12 @@
               class="nav-link text-slate-700 hover:text-blue-700 font-medium"
               >FAQ</a
             >
-            <a
-              href="#contact"
-              class="btn-primary text-white px-6 py-2.5 rounded-lg font-semibold"
-              >Get Started</a
+            <button
+              onclick="openFounderDesk()"
+              class="btn-primary text-white px-5 py-2.5 rounded-lg font-semibold flex items-center gap-2 cursor-pointer shadow-md hover:shadow-blue-500/30"
             >
+              <i class="fas fa-comment-dots text-sm"></i> Chat with Founder
+            </button>
           </div>
 
           <button
@@ -674,11 +675,12 @@
               class="block text-slate-700 hover:text-blue-700 font-medium py-2 transition"
               >FAQ</a
             >
-            <a
-              href="#contact"
-              class="block btn-primary text-white text-center px-6 py-2.5 rounded-lg font-semibold mt-4"
-              >Get Started</a
+            <button
+              onclick="openFounderDesk(); document.getElementById('mobile-menu').classList.remove('active');"
+              class="w-full btn-primary text-white text-center px-6 py-2.5 rounded-lg font-semibold mt-4 flex items-center justify-center gap-2 cursor-pointer shadow-md"
             >
+              <i class="fas fa-comment-dots text-sm"></i> Chat with Founder
+            </button>
           </div>
         </div>
       </div>
@@ -703,12 +705,12 @@
               Aira Group of Technology is an independent, deep-tech engineering powerhouse. From Sovereign AI platforms and bare-metal OS kernels to high-performance Flutter mobile apps and enterprise web solutions — we architect, engineer, and ship products built to lead the future.
             </p>
             <div class="flex flex-col sm:flex-row gap-4">
-              <a
-                href="#contact"
-                class="btn-primary text-white px-8 py-4 rounded-lg font-semibold text-center text-lg"
+              <button
+                onclick="openFounderDesk()"
+                class="btn-primary text-white px-8 py-4 rounded-lg font-semibold text-center text-lg flex items-center justify-center gap-2 cursor-pointer shadow-xl hover:shadow-blue-600/40"
               >
-                Schedule Free Consultation
-              </a>
+                <i class="fas fa-comment-dots"></i> Chat with Founder
+              </button>
               <a
                 href="#services"
                 class="btn-secondary bg-white/10 backdrop-blur-sm border-2 border-white/30 text-white px-8 py-4 rounded-lg font-semibold text-center text-lg hover:bg-white/20"
@@ -2335,105 +2337,144 @@
       </div>
     </div>
 
-    <!-- Floating Aira Chat Widget (24/7 Sovereign AI Support) -->
+    <!-- Direct Desk: Chat with Founder (Er. Adam Eehan) -->
     <div
-      id="aira-chat-widget"
+      id="founder-desk-widget"
       class="fixed bottom-6 right-6 z-50 flex flex-col items-end"
     >
       <!-- Chat Window -->
       <div
-        id="aira-chat-window"
-        class="hidden w-[90vw] max-w-[360px] bg-white rounded-2xl shadow-2xl border border-slate-100 overflow-hidden mb-4 transition-all duration-300 origin-bottom-right"
+        id="founder-desk-window"
+        class="hidden w-[92vw] max-w-[390px] h-[550px] max-h-[85vh] bg-white rounded-2xl shadow-2xl border border-slate-200 overflow-hidden mb-4 transition-all duration-300 origin-bottom-right flex-col"
       >
         <!-- Header -->
         <div
-          class="bg-gradient-to-r from-[#0a2342] to-[#13315c] text-white p-4 flex justify-between items-center shadow-md z-10 relative"
+          class="bg-gradient-to-r from-[#0a2342] via-[#0f2d52] to-[#13315c] text-white p-3.5 sm:p-4 flex justify-between items-center shadow-md relative z-10 shrink-0"
         >
           <div class="flex items-center gap-3">
-            <div class="relative">
-              <div
-                class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center backdrop-blur-sm border border-white/20"
-              >
-                🤖
-              </div>
-              <div
-                class="absolute bottom-0 right-0 w-3 h-3 bg-green-400 border-2 border-[#13315c] rounded-full"
-              ></div>
+            <div class="relative shrink-0">
+              <img
+                src="assets/founder.png"
+                alt="Er. Adam Eehan"
+                class="w-11 h-11 rounded-full object-cover border-2 border-cyan-400/80 shadow-md ring-2 ring-cyan-500/20"
+              />
+              <span
+                class="absolute bottom-0 right-0 w-3 h-3 bg-emerald-400 border-2 border-[#0a2342] rounded-full"
+                title="Online on WhatsApp"
+              ></span>
             </div>
             <div>
-              <h3 class="font-bold text-sm">Aira AI Assistant</h3>
-              <p class="text-xs text-blue-200">Sovereign Endpoint • 24/7 Live</p>
+              <div class="flex items-center gap-1.5">
+                <h3 class="font-bold text-sm text-white">Er. Adam Eehan</h3>
+                <svg class="w-3.5 h-3.5 text-cyan-400 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+              </div>
+              <p class="text-[11px] text-blue-200 font-medium">Founder &amp; CEO • Direct Line</p>
+              <div class="flex items-center gap-1.5 mt-0.5">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                <span class="text-[10px] text-emerald-300 font-mono tracking-tight">WhatsApp Linked • Aira 3 Ultra Ready</span>
+              </div>
             </div>
           </div>
           <button
-            id="close-chat-btn"
-            class="text-white/70 hover:text-white transition-colors w-8 h-8 flex items-center justify-center rounded-full hover:bg-white/10"
+            onclick="toggleFounderDesk()"
+            class="text-white/70 hover:text-white transition-colors w-8 h-8 flex items-center justify-center rounded-full hover:bg-white/10 cursor-pointer"
+            aria-label="Close Direct Desk"
           >
             <i class="fas fa-times"></i>
           </button>
         </div>
 
-        <!-- Chat Interface (Direct Sovereign Access - Zero Login Barrier) -->
-        <div id="chat-interface" class="flex flex-col h-[420px] bg-slate-50">
-          <div
-            id="chat-messages"
-            class="flex-1 min-h-0 p-4 overflow-y-auto space-y-4"
-          >
-            <!-- Aira Default Welcome -->
-            <div class="flex items-start gap-2">
-              <div
-                class="w-8 h-8 rounded-full bg-gradient-to-br from-blue-600 to-[#0a2342] flex items-center justify-center flex-shrink-0 text-xs shadow-sm"
-              >
-                🤖
-              </div>
-              <div
-                class="bg-white p-3 rounded-2xl rounded-tl-sm shadow-sm text-sm text-slate-700 max-w-[85%] border border-slate-100"
-              >
-                Hello! I am Aira 😊 Welcome to Aira Group of Technology. How can I assist you with your project today?
+        <!-- Google Auth Protection Gate (Strict Anti-Bot Shield) -->
+        <div id="desk-auth-gate" class="p-6 text-center flex-1 flex flex-col items-center justify-center bg-slate-50">
+          <div class="w-14 h-14 rounded-2xl bg-blue-100/90 border border-blue-200 text-blue-600 flex items-center justify-center mb-3 shadow-inner">
+            <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+            </svg>
+          </div>
+          <h4 class="font-bold text-slate-800 text-base mb-1">Founder Direct Desk</h4>
+          <p class="text-xs text-slate-500 mb-5 leading-relaxed max-w-xs">
+            To eliminate spam and bots, please sign in with Google to connect directly with Er. Adam Eehan's WhatsApp.
+          </p>
+          <div id="desk-google-signin-btn" class="flex justify-center min-h-[44px]"></div>
+          <div class="mt-4 text-[10px] text-slate-400 flex items-center gap-1">
+            <i class="fas fa-shield-alt text-emerald-500"></i>
+            <span>Verified Human Access • Direct WhatsApp Relay</span>
+          </div>
+        </div>
+
+        <!-- Active Chat Interface (Visible once authenticated) -->
+        <div id="desk-chat-interface" class="hidden flex-1 flex-col h-full bg-slate-50 min-h-0">
+          <!-- Auth User Status Ribbon -->
+          <div class="px-3 py-1.5 bg-blue-50/90 border-b border-blue-100 flex items-center justify-between text-[11px] text-blue-900 shrink-0">
+            <div class="flex items-center gap-1.5 truncate">
+              <img id="desk-user-avatar" src="assets/logo.png" class="w-4 h-4 rounded-full" alt="Avatar" />
+              <span class="truncate">Verified: <strong id="desk-user-name">Guest</strong></span>
+            </div>
+            <button onclick="deskSignOut()" class="text-blue-600 hover:text-blue-800 hover:underline shrink-0 text-[10px] ml-2 cursor-pointer">Sign out</button>
+          </div>
+
+          <!-- Chat Stream -->
+          <div id="desk-messages" class="flex-1 min-h-0 p-3 sm:p-4 overflow-y-auto space-y-3.5">
+            <!-- Welcome greeting from Er. Adam Eehan -->
+            <div class="flex items-start gap-2.5">
+              <img src="assets/founder.png" class="w-8 h-8 rounded-full object-cover border border-cyan-400/80 shadow-sm shrink-0" alt="Adam" />
+              <div class="bg-white p-3.5 rounded-2xl rounded-tl-sm shadow-sm text-xs sm:text-sm text-slate-700 max-w-[85%] border border-slate-200/80 leading-relaxed">
+                <div class="text-[10px] font-bold text-blue-700 uppercase tracking-wider mb-1 flex items-center gap-1">
+                  <span>Er. Adam Eehan</span>
+                  <span class="bg-blue-100 text-blue-700 text-[9px] px-1.5 py-0.2 rounded-full">Founder &amp; CEO</span>
+                </div>
+                Hello! Welcome to my Direct Desk. Any message you send here is delivered directly to my personal WhatsApp. Feel free to discuss projects, tech collaborations, or questions. If I am away or occupied, our sovereign Aira 3 Ultra co-pilot will assist you immediately!
               </div>
             </div>
           </div>
 
-          <!-- Input Area -->
-          <div class="w-full p-3 bg-white border-t border-slate-200 shrink-0">
+          <!-- Input Bar -->
+          <div class="p-3 bg-white border-t border-slate-200 shrink-0">
             <div class="relative flex items-center">
               <input
                 type="text"
-                id="chat-input"
-                placeholder="Ask Aira anything..."
-                class="w-full pl-4 pr-12 py-3 bg-slate-50 rounded-full border border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none text-sm transition-all"
-                onkeypress="handleChatEnter(event)"
+                id="desk-input"
+                placeholder="Message Er. Adam Eehan..."
+                class="w-full pl-4 pr-12 py-2.5 bg-slate-50 rounded-full border border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none text-xs sm:text-sm transition-all"
+                onkeypress="handleDeskEnter(event)"
+                autocomplete="off"
               />
               <button
-                onclick="sendChatMessage()"
-                class="absolute right-2 w-9 h-9 bg-blue-600 hover:bg-blue-700 text-white rounded-full flex items-center justify-center transition-colors shadow-md"
+                onclick="sendDeskMessage()"
+                id="desk-send-btn"
+                class="absolute right-1.5 w-8 h-8 bg-blue-600 hover:bg-blue-700 text-white rounded-full flex items-center justify-center transition-colors shadow-md cursor-pointer"
+                title="Send Message"
               >
-                <i class="fas fa-paper-plane text-xs -ml-0.5"></i>
+                <i class="fas fa-paper-plane text-xs"></i>
               </button>
             </div>
-            <div class="text-center mt-2 pb-1">
-              <span class="text-[10px] text-slate-400 font-mono flex items-center justify-center gap-1">
-                <i class="fas fa-shield-halved text-blue-500"></i> Powered by Aira Sovereign AI Engine
+            <div class="text-center mt-1.5">
+              <span class="text-[10px] text-slate-400 flex items-center justify-center gap-1 font-medium">
+                <i class="fab fa-whatsapp text-emerald-500"></i> Direct WhatsApp Relay • Aira 3 Ultra Co-Pilot
               </span>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- Toggle Button -->
+      <!-- Trigger Button -->
       <button
-        id="chat-toggle-btn"
-        class="w-16 h-16 bg-gradient-to-br from-blue-600 to-[#0a2342] text-white rounded-full shadow-2xl hover:shadow-blue-500/40 hover:-translate-y-1 transition-all duration-300 flex items-center justify-center text-2xl relative z-50 group"
+        id="founder-desk-toggle-btn"
+        onclick="toggleFounderDesk()"
+        class="bg-gradient-to-r from-[#0a2342] via-[#0f2d52] to-[#13315c] text-white p-2.5 sm:px-4 sm:py-3 rounded-full shadow-2xl hover:shadow-blue-500/30 hover:scale-105 transition-all duration-300 flex items-center gap-2.5 border-2 border-cyan-400/60 cursor-pointer group"
+        title="Direct Desk: Chat with Founder"
       >
-        <i
-          class="fas fa-robot group-hover:scale-0 transition-transform duration-300 absolute"
-        ></i>
-        <i
-          class="fas fa-comment-dots scale-0 group-hover:scale-100 transition-transform duration-300 absolute"
-        ></i>
-        <span
-          class="absolute top-1 right-1 w-3.5 h-3.5 bg-green-400 border-2 border-[#0a2342] rounded-full"
-        ></span>
+        <div class="relative shrink-0">
+          <img src="assets/founder.png" alt="Er. Adam Eehan" class="w-9 h-9 rounded-full object-cover ring-2 ring-cyan-400/70" />
+          <span class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-emerald-400 border-2 border-[#0a2342] rounded-full"></span>
+        </div>
+        <div class="text-left hidden sm:block">
+          <div class="text-xs font-bold text-white tracking-wide flex items-center gap-1">
+            <span>Chat with Founder</span>
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+          </div>
+          <div class="text-[10px] text-cyan-300">Er. Adam Eehan • WhatsApp Live</div>
+        </div>
       </button>
     </div>
 
@@ -2589,151 +2630,326 @@
       </div>
     </div>
 
-    <!-- Chat Widget Logic (Connected to Aira Sovereign AI Endpoint) -->
+    <!-- Direct Desk Engine (Connected to Founder WhatsApp & Aira 3 Ultra) -->
     <script>
-      const AIRA_CHAT_ENDPOINT = "https://airaai-8ibs.onrender.com/v1/chat/completions";
+      let deskUser = null;
+      let deskPollingInterval = null;
+      let lastDeskPollTimestamp = Date.now();
+      let deskMessagesHistory = [];
 
-      const chatWidgetBtn = document.getElementById("chat-toggle-btn");
-      const chatWindow = document.getElementById("aira-chat-window");
-      const closeChatBtn = document.getElementById("close-chat-btn");
-      const chatInput = document.getElementById("chat-input");
-      const chatMessages = document.getElementById("chat-messages");
+      // Google Identity Services Client ID
+      const DESK_GOOGLE_CLIENT_ID = "267802159841-leun1b8b85ongsoc5pkjhufe4s5jbjj8.apps.googleusercontent.com";
 
-      // Toggle UI
-      chatWidgetBtn.addEventListener("click", () => {
-        chatWindow.classList.toggle("hidden");
-        if (!chatWindow.classList.contains("hidden")) {
-          setTimeout(() => chatInput && chatInput.focus(), 150);
+      // JWT Decode helper
+      function parseJwtPayload(token) {
+        try {
+          const base64Url = token.split('.')[1];
+          const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+          const jsonPayload = decodeURIComponent(
+            atob(base64)
+              .split('')
+              .map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2))
+              .join('')
+          );
+          return JSON.parse(jsonPayload);
+        } catch (e) {
+          return null;
         }
-      });
-      closeChatBtn.addEventListener("click", () =>
-        chatWindow.classList.add("hidden"),
-      );
+      }
 
-      // Chat Message Rendering
-      function appendMessage(text, isUser = false) {
+      // Initialize Desk State on load
+      function initFounderDeskAuth() {
+        const stored = localStorage.getItem("aira_founder_desk_user") || localStorage.getItem("aira_google_user");
+        if (stored) {
+          try {
+            deskUser = JSON.parse(stored);
+            showDeskChatView();
+            return;
+          } catch (e) {}
+        }
+        showDeskAuthGate();
+      }
+
+      function showDeskAuthGate() {
+        const gate = document.getElementById("desk-auth-gate");
+        const chat = document.getElementById("desk-chat-interface");
+        if (gate) gate.classList.remove("hidden");
+        if (chat) chat.classList.add("hidden");
+
+        renderDeskGoogleBtn();
+      }
+
+      function showDeskChatView() {
+        const gate = document.getElementById("desk-auth-gate");
+        const chat = document.getElementById("desk-chat-interface");
+        if (gate) gate.classList.add("hidden");
+        if (chat) {
+          chat.classList.remove("hidden");
+          chat.classList.add("flex");
+        }
+
+        if (deskUser) {
+          const nameEl = document.getElementById("desk-user-name");
+          const avatarEl = document.getElementById("desk-user-avatar");
+          if (nameEl) nameEl.textContent = deskUser.name || deskUser.email || "Verified Visitor";
+          if (avatarEl && deskUser.picture) avatarEl.src = deskUser.picture;
+
+          loadDeskLocalMessages();
+          startDeskPolling();
+        }
+      }
+
+      function renderDeskGoogleBtn() {
+        const container = document.getElementById("desk-google-signin-btn");
+        if (!container) return;
+
+        if (typeof google !== "undefined" && google.accounts && google.accounts.id) {
+          try {
+            google.accounts.id.initialize({
+              client_id: DESK_GOOGLE_CLIENT_ID,
+              callback: handleDeskGoogleCallback,
+              auto_select: false
+            });
+            google.accounts.id.renderButton(container, {
+              theme: "filled_blue",
+              size: "large",
+              text: "signin_with",
+              shape: "pill",
+              width: 250
+            });
+          } catch (err) {
+            console.error("GIS render error:", err);
+          }
+        } else {
+          setTimeout(renderDeskGoogleBtn, 300);
+        }
+      }
+
+      function handleDeskGoogleCallback(response) {
+        if (!response || !response.credential) return;
+        const payload = parseJwtPayload(response.credential);
+        if (payload) {
+          deskUser = {
+            name: payload.name || payload.email.split('@')[0],
+            email: payload.email,
+            picture: payload.picture || "assets/logo.png",
+            sub: payload.sub || payload.email
+          };
+          localStorage.setItem("aira_founder_desk_user", JSON.stringify(deskUser));
+          localStorage.setItem("aira_google_user", JSON.stringify(deskUser));
+          showDeskChatView();
+        }
+      }
+
+      window.deskSignOut = function() {
+        localStorage.removeItem("aira_founder_desk_user");
+        deskUser = null;
+        if (deskPollingInterval) clearInterval(deskPollingInterval);
+        showDeskAuthGate();
+      };
+
+      window.openFounderDesk = function() {
+        const win = document.getElementById("founder-desk-window");
+        if (!win) return;
+        win.classList.remove("hidden");
+        win.classList.add("flex");
+        initFounderDeskAuth();
+        setTimeout(() => {
+          const inp = document.getElementById("desk-input");
+          if (inp && !win.classList.contains("hidden") && deskUser) inp.focus();
+        }, 150);
+      };
+
+      window.toggleFounderDesk = function() {
+        const win = document.getElementById("founder-desk-window");
+        if (!win) return;
+        const isHidden = win.classList.contains("hidden");
+        if (isHidden) {
+          openFounderDesk();
+        } else {
+          win.classList.add("hidden");
+          win.classList.remove("flex");
+          if (deskPollingInterval) clearInterval(deskPollingInterval);
+        }
+      };
+
+      function loadDeskLocalMessages() {
+        if (!deskUser) return;
+        const key = `aira_desk_msgs_${deskUser.sub || deskUser.email}`;
+        const stored = localStorage.getItem(key);
+        if (stored) {
+          try {
+            deskMessagesHistory = JSON.parse(stored);
+            renderAllDeskMessages();
+          } catch (e) {}
+        }
+      }
+
+      function saveDeskLocalMessages() {
+        if (!deskUser) return;
+        const key = `aira_desk_msgs_${deskUser.sub || deskUser.email}`;
+        localStorage.setItem(key, JSON.stringify(deskMessagesHistory.slice(-50)));
+      }
+
+      function renderAllDeskMessages() {
+        const container = document.getElementById("desk-messages");
+        if (!container) return;
+        const welcome = container.firstElementChild;
+        container.innerHTML = "";
+        if (welcome) container.appendChild(welcome);
+
+        deskMessagesHistory.forEach(m => appendDeskMessageUI(m, false));
+        container.scrollTop = container.scrollHeight;
+      }
+
+      function appendDeskMessageUI(msgObj, shouldScroll = true) {
+        const container = document.getElementById("desk-messages");
+        if (!container) return;
+
+        const isUser = msgObj.sender === "user";
+        const isFounder = msgObj.sender === "founder";
+
         const msgDiv = document.createElement("div");
         msgDiv.className = isUser
-          ? "flex items-start gap-2 flex-row-reverse"
-          : "flex items-start gap-2";
+          ? "flex items-start gap-2.5 flex-row-reverse"
+          : "flex items-start gap-2.5";
 
-        const avatar = isUser
-          ? ""
-          : `<div class="w-8 h-8 rounded-full bg-gradient-to-br from-blue-600 to-[#0a2342] flex items-center justify-center flex-shrink-0 text-xs shadow-sm">🤖</div>`;
-        const bubbleClass = isUser
-          ? "bg-blue-600 text-white p-3 rounded-2xl rounded-tr-sm shadow-sm text-sm max-w-[85%]"
-          : "bg-white p-3 rounded-2xl rounded-tl-sm shadow-sm text-sm text-slate-700 max-w-[85%] border border-slate-100";
+        let avatarHtml = "";
+        let bubbleClass = "";
+        let headerBadge = "";
 
-        msgDiv.innerHTML = `${avatar}<div class="${bubbleClass}">${text}</div>`;
-        chatMessages.appendChild(msgDiv);
-        chatMessages.scrollTop = chatMessages.scrollHeight;
+        if (isUser) {
+          avatarHtml = `<img src="${deskUser?.picture || 'assets/logo.png'}" class="w-7 h-7 rounded-full object-cover shrink-0 shadow-sm" alt="You" />`;
+          bubbleClass = "bg-gradient-to-r from-blue-600 to-blue-700 text-white p-3 rounded-2xl rounded-tr-sm shadow-sm text-xs sm:text-sm max-w-[85%] leading-relaxed";
+        } else if (isFounder) {
+          avatarHtml = `<img src="assets/founder.png" class="w-8 h-8 rounded-full object-cover border-2 border-emerald-400 shadow-md ring-2 ring-emerald-500/20 shrink-0" alt="Adam Eehan" />`;
+          bubbleClass = "bg-[#0a2342] text-white p-3.5 rounded-2xl rounded-tl-sm shadow-md text-xs sm:text-sm max-w-[85%] border border-emerald-400/30 leading-relaxed";
+          headerBadge = `<div class="text-[10px] font-bold text-emerald-400 uppercase tracking-wider mb-1 flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span><span>Er. Adam Eehan (Founder &amp; CEO)</span><span class="bg-emerald-500/20 text-emerald-300 text-[9px] px-1.5 py-0.5 rounded-full border border-emerald-500/30">Verified WhatsApp</span></div>`;
+        } else {
+          avatarHtml = `<div class="w-8 h-8 rounded-full bg-gradient-to-br from-indigo-600 via-purple-600 to-[#0a2342] text-white flex items-center justify-center text-xs font-bold shrink-0 shadow-sm border border-cyan-400/40">AI</div>`;
+          bubbleClass = "bg-white p-3.5 rounded-2xl rounded-tl-sm shadow-sm text-xs sm:text-sm text-slate-700 max-w-[85%] border border-slate-200 leading-relaxed";
+          headerBadge = `<div class="text-[10px] font-bold text-purple-700 uppercase tracking-wider mb-1 flex items-center gap-1.5"><span>Aira 3 Ultra</span><span class="bg-purple-100 text-purple-700 text-[9px] px-1.5 py-0.5 rounded-full">Executive Co-Pilot</span></div>`;
+        }
+
+        const safeText = (msgObj.text || "")
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
+          .replace(/\n/g, "<br>");
+
+        msgDiv.innerHTML = `${avatarHtml}<div class="${bubbleClass}">${headerBadge}${safeText}</div>`;
+        container.appendChild(msgDiv);
+        if (shouldScroll) container.scrollTop = container.scrollHeight;
         return msgDiv;
       }
 
-      // Chat History State
-      let chatHistory = [];
+      window.handleDeskEnter = function(e) {
+        if (e.key === "Enter") sendDeskMessage();
+      };
 
-      async function sendChatMessage() {
-        const msg = chatInput.value.trim();
-        if (!msg) return;
+      window.sendDeskMessage = async function() {
+        const inp = document.getElementById("desk-input");
+        if (!inp) return;
+        const text = inp.value.trim();
+        if (!text) return;
+        if (!deskUser) {
+          openFounderDesk();
+          return;
+        }
 
-        appendMessage(msg, true);
-        chatInput.value = "";
+        inp.value = "";
 
-        const typingBubble = appendMessage("...", false);
-        const messageBubble = typingBubble.lastElementChild;
+        const userMsg = {
+          id: `usr_${Date.now()}`,
+          sender: "user",
+          senderName: deskUser.name,
+          text: text,
+          timestamp: Date.now()
+        };
+
+        deskMessagesHistory.push(userMsg);
+        appendDeskMessageUI(userMsg, true);
+        saveDeskLocalMessages();
+
+        const typingEl = appendDeskMessageUI({
+          sender: "aira_ultra",
+          text: "Relaying message directly to Er. Adam Eehan's WhatsApp..."
+        }, true);
 
         try {
-          const systemPrompt = `You are Aira, an intelligent sovereign AI assistant engineered by Er. Adam Eehan for Aira Group of Technology. 
-Answer concisely in warm, professional English. 
-COMPANY INFO: Aira Group provides Web Development (web), Mobile Apps (mobile), AI & Machine Learning (ai), Custom Software (custom), Tech Consulting & Strategy (consulting), and MVP Solutions (mvp). Leadership: Er. Adam Eehan (Founder & CEO) and Anandhakrishnan H (Co-Founder). Official Website: https://airaaigroup.in. Contact: adameehan34@gmail.com or +91 8921 584 368.
-
-CO-PILOT CAPABILITY:
-You can help users fill out the client contact form dynamically. 
-If they want to hire Aira Group or express interest in a project, guide the conversation to gather:
-1. First Name
-2. Last Name
-3. Email
-4. Company Name (optional)
-5. Service Interest (must be one of: web, mobile, ai, custom, consulting, mvp, or other)
-6. Project Details (Brief description)
-
-Once you have gathered at least Name, Email, Service, and Project Details, tell the user that you are now filling the contact form for them, and end your response with EXACTLY this hidden tag (with the collected JSON data inside):
-[AUTOFILL:{"firstName":"First", "lastName":"Last", "email":"user@email.com", "company":"Company", "service":"service_code", "message":"Project message here"}]
-Use these service_codes: "web", "mobile", "ai", "custom", "consulting", "mvp", "other".
-STRICT RULE: If a user asks for general programming scripts, politely decline. State that you are the official customer AI for Aira Group of Technology.`;
-
-          if (chatHistory.length === 0) {
-            chatHistory.push({ role: "system", content: systemPrompt });
-          }
-          chatHistory.push({ role: "user", content: msg });
-
-          // Keep history compact
-          if (chatHistory.length > 16) {
-            chatHistory = [chatHistory[0]].concat(chatHistory.slice(-14));
-          }
-
-          // Direct call to Aira Sovereign AI Endpoint
-          const response = await fetch(AIRA_CHAT_ENDPOINT, {
+          const res = await fetch("/api/desk", {
             method: "POST",
-            headers: {
-              "Content-Type": "application/json"
-            },
+            headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
-              model: "aira-auto",
-              messages: chatHistory,
-              stream: false
+              userId: deskUser.sub || deskUser.email,
+              userName: deskUser.name,
+              userEmail: deskUser.email,
+              userAvatar: deskUser.picture,
+              message: text
             })
           });
 
-          if (!response.ok) {
-            throw new Error(`Endpoint response status: ${response.status}`);
+          if (typingEl && typingEl.parentNode) {
+            typingEl.parentNode.removeChild(typingEl);
           }
 
-          const resData = await response.json();
-          let replyText = resData.choices?.[0]?.message?.content || "Hello! How can I assist you with Aira Group today?";
-
-          // Check and parse autofill command tag
-          let autofillData = null;
-          const autofillRegex = /\[AUTOFILL:(.*?)\]/s;
-          const match = replyText.match(autofillRegex);
-          if (match) {
-            try {
-              autofillData = JSON.parse(match[1].trim());
-            } catch (e) {
-              console.error("Autofill parsing failed:", e);
+          if (res.ok) {
+            const data = await res.json();
+            if (data.aiReply) {
+              deskMessagesHistory.push(data.aiReply);
+              appendDeskMessageUI(data.aiReply, true);
+              saveDeskLocalMessages();
             }
-            replyText = replyText.replace(autofillRegex, "").trim();
           }
-
-          // Save assistant response to history
-          chatHistory.push({ role: "assistant", content: replyText });
-
-          // Typewriter effect
-          messageBubble.innerText = "";
-          let displayedText = "";
-          for (let i = 0; i < replyText.length; i++) {
-            displayedText += replyText.charAt(i);
-            messageBubble.innerHTML = displayedText
-              .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
-              .replace(/\n/g, "<br>");
-            chatMessages.scrollTop = chatMessages.scrollHeight;
-            await new Promise((r) => setTimeout(r, 12));
+        } catch (err) {
+          console.error("Desk send error:", err);
+          if (typingEl && typingEl.parentNode) {
+            typingEl.parentNode.removeChild(typingEl);
           }
-
-          // Trigger autofill if tag present
-          if (autofillData) {
-            autofillContactForm(autofillData);
-          }
-        } catch (error) {
-          console.error("Chat error:", error);
-          messageBubble.innerText = "Network issue connecting to Aira Endpoint. Please try again! 😊";
+          appendDeskMessageUI({
+            sender: "aira_ultra",
+            text: "Message received. If Founder is occupied, our Aira 3 Ultra Co-Pilot is standing by!"
+          }, true);
         }
+
+        lastDeskPollTimestamp = Date.now();
+      };
+
+      function startDeskPolling() {
+        if (deskPollingInterval) clearInterval(deskPollingInterval);
+        deskPollingInterval = setInterval(async () => {
+          if (!deskUser) return;
+          const win = document.getElementById("founder-desk-window");
+          if (!win || win.classList.contains("hidden")) return;
+
+          try {
+            const uid = encodeURIComponent(deskUser.sub || deskUser.email);
+            const res = await fetch(`/api/desk?userId=${uid}&after=${lastDeskPollTimestamp}`);
+            if (res.ok) {
+              const data = await res.json();
+              if (data && Array.isArray(data.messages) && data.messages.length > 0) {
+                data.messages.forEach(m => {
+                  const exists = deskMessagesHistory.some(existing => existing.id === m.id || (existing.timestamp === m.timestamp && existing.text === m.text));
+                  if (!exists) {
+                    deskMessagesHistory.push(m);
+                    appendDeskMessageUI(m, true);
+                  }
+                  if (m.timestamp > lastDeskPollTimestamp) {
+                    lastDeskPollTimestamp = m.timestamp;
+                  }
+                });
+                saveDeskLocalMessages();
+              }
+            }
+          } catch (e) {}
+        }, 2500);
       }
 
-      function handleChatEnter(e) {
-        if (e.key === "Enter") sendChatMessage();
-      }
+      document.addEventListener("DOMContentLoaded", () => {
+        initFounderDeskAuth();
+      });
+    </script>
 
       // Dynamic Autofill Contact Form
       // Dynamic Autofill Contact Form (Cybernetic AI Co-Pilot)
@@ -3069,480 +3285,6 @@ STRICT RULE: If a user asks for general programming scripts, politely decline. S
         }
       }
     </script>
-
-    <!-- AIRA TERMINAL -->
-    <style>
-      /* TERMINAL BUTTON */
-      #aira-term-btn {
-        position: fixed;
-        bottom: 24px;
-        left: 24px;
-        width: 56px;
-        height: 56px;
-        border-radius: 16px;
-        background: linear-gradient(135deg, #1a1d27, #12151c);
-        border: 1px solid rgba(108, 99, 255, 0.4);
-        box-shadow: 0 0 20px rgba(108, 99, 255, 0.25), 0 4px 20px rgba(0, 0, 0, 0.4);
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        z-index: 9998;
-        transition: transform 0.2s, box-shadow 0.2s;
-        font-size: 22px;
-      }
-
-      #aira-term-btn:hover {
-        transform: translateY(-3px) scale(1.05);
-        box-shadow: 0 0 30px rgba(108, 99, 255, 0.45), 0 8px 30px rgba(0, 0, 0, 0.4);
-      }
-
-      #aira-term-btn .term-tooltip {
-        position: absolute;
-        left: 64px;
-        background: #1a1d27;
-        border: 1px solid rgba(108, 99, 255, 0.3);
-        color: #e8eaf0;
-        font-size: 12px;
-        font-family: 'JetBrains Mono', monospace, monospace;
-        padding: 6px 12px;
-        border-radius: 8px;
-        white-space: nowrap;
-        opacity: 0;
-        pointer-events: none;
-        transition: opacity 0.2s;
-      }
-
-      #aira-term-btn:hover .term-tooltip { opacity: 1; }
-
-      /* TERMINAL POPUP */
-      #aira-terminal {
-        position: fixed;
-        bottom: 100px;
-        left: 24px;
-        width: 480px;
-        max-width: calc(100vw - 48px);
-        height: 420px;
-        background: #0d0f14;
-        border: 1px solid rgba(108, 99, 255, 0.35);
-        border-radius: 16px;
-        overflow: hidden;
-        z-index: 9997;
-        display: none;
-        flex-direction: column;
-        box-shadow: 0 0 40px rgba(108, 99, 255, 0.15), 0 20px 60px rgba(0, 0, 0, 0.6);
-        font-family: 'JetBrains Mono', 'Courier New', monospace;
-        font-size: 13px;
-        animation: termSlideUp 0.25s ease;
-      }
-
-      @keyframes termSlideUp {
-        from { opacity: 0; transform: translateY(20px) scale(0.97); }
-        to   { opacity: 1; transform: translateY(0) scale(1); }
-      }
-
-      #aira-terminal.open { display: flex; }
-
-      /* TITLEBAR */
-      .term-bar {
-        background: #12151c;
-        border-bottom: 1px solid #1e2230;
-        padding: 12px 16px;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        flex-shrink: 0;
-      }
-
-      .term-dots { display: flex; gap: 7px; }
-      .term-dot {
-        width: 12px; height: 12px;
-        border-radius: 50%;
-        cursor: pointer;
-      }
-      .td-r { background: #ff5f57; }
-      .td-y { background: #febc2e; }
-      .td-g { background: #28c840; }
-
-      .term-title {
-        flex: 1;
-        text-align: center;
-        color: #e8eaf0;
-        font-size: 14px;
-        font-weight: 600;
-        letter-spacing: 0.75px;
-      }
-
-      .term-user-badge {
-        background: rgba(108, 99, 255, 0.15);
-        border: 1px solid rgba(108, 99, 255, 0.25);
-        color: #a89dff;
-        font-size: 11px;
-        padding: 3px 10px;
-        border-radius: 100px;
-      }
-
-      /* OUTPUT AREA */
-      .term-output {
-        flex: 1;
-        min-height: 0;
-        overflow-y: auto;
-        padding: 16px;
-        color: #e8eaf0;
-        line-height: 1.8;
-        scroll-behavior: smooth;
-      }
-
-      .term-output::-webkit-scrollbar { width: 6px; }
-      .term-output::-webkit-scrollbar-track { background: transparent; }
-      .term-output::-webkit-scrollbar-thumb { background: rgba(108, 99, 255, 0.4); border-radius: 4px; }
-      .term-output::-webkit-scrollbar-thumb:hover { background: rgba(0, 229, 255, 0.6); }
-
-      .t-green  { color: #4ade80; }
-      .t-cyan   { color: #00e5ff; }
-      .t-purple { color: #a89dff; }
-      .t-yellow { color: #fbbf24; }
-      .t-red    { color: #f87171; }
-      .t-muted  { color: #9ca3af; }
-      .t-white  { color: #e8eaf0; }
-
-      /* INPUT AREA */
-      .term-input-row {
-        border-top: 1px solid #1e2230;
-        padding: 12px 16px;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        flex-shrink: 0;
-        background: #0d0f14;
-      }
-
-      .term-prompt-label {
-        color: #00e5ff;
-        white-space: nowrap;
-        font-size: 13px;
-      }
-
-      #term-input {
-        flex: 1;
-        background: transparent;
-        border: none;
-        outline: none;
-        color: #e8eaf0;
-        font-family: inherit;
-        font-size: 13px;
-        caret-color: #00e5ff;
-      }
-
-      #term-input::placeholder { color: #2d3148; }
-    section, footer {
-      scroll-margin-top: 85px !important;
-    }
-
-    </style>
-
-    <!-- FLOATING BUTTON -->
-    <button id="aira-term-btn" onclick="toggleTerminal()" title="Aira Terminal">
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="url(#term-btn-grad)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="filter: drop-shadow(0 0 4px rgba(0, 229, 255, 0.45));">
-        <defs>
-          <linearGradient id="term-btn-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stop-color="#00e5ff" />
-            <stop offset="100%" stop-color="#6c63ff" />
-          </linearGradient>
-        </defs>
-        <polyline points="4 17 10 11 4 5"></polyline>
-        <line x1="12" y1="19" x2="20" y2="19"></line>
-      </svg>
-      <div class="term-tooltip">Aira Terminal</div>
-    </button>
-
-    <!-- TERMINAL POPUP (Aira Sovereign AI Shell) -->
-    <div id="aira-terminal">
-      <!-- Title Bar -->
-      <div class="term-bar">
-        <div class="term-dots">
-          <div class="term-dot td-r" onclick="closeTerminal()" title="Close"></div>
-          <div class="term-dot td-y"></div>
-          <div class="term-dot td-g"></div>
-        </div>
-        <div class="term-title">Aira Sovereign Shell v3.6</div>
-        <div class="term-user-badge" id="term-user-badge">aira-sovereign</div>
-      </div>
-
-      <!-- Terminal Output -->
-      <div class="term-output" id="term-output"></div>
-
-      <!-- Input -->
-      <div class="term-input-row" id="term-input-row">
-        <span class="term-prompt-label">aira $</span>
-        <input id="term-input" type="text" placeholder="type a command..." autocomplete="off" spellcheck="false" />
-      </div>
-    </div>
-
-    <script>
-      (function() {
-        let termOpen = false;
-        let cmdHistory = [];
-        let historyIndex = -1;
-        let activeModel = "aira-auto";
-        const AIRA_BASE_URL = "https://airaai-8ibs.onrender.com/v1";
-
-        window.toggleTerminal = function() {
-          termOpen = !termOpen;
-          const el = document.getElementById('aira-terminal');
-          el.classList.toggle('open', termOpen);
-          if (termOpen) {
-            const out = document.getElementById('term-output');
-            if (out.innerHTML === '') {
-              printBanner();
-            }
-            const savedUser = localStorage.getItem("aira_google_user");
-            if (savedUser) {
-              try {
-                const u = JSON.parse(savedUser);
-                document.getElementById('term-user-badge').textContent = u.name.toLowerCase().replace(/\s+/g, '_');
-              } catch(e) {}
-            }
-            setTimeout(() => {
-              const inp = document.getElementById('term-input');
-              if (inp) inp.focus();
-            }, 100);
-          }
-        };
-
-        window.closeTerminal = function() {
-          termOpen = false;
-          document.getElementById('aira-terminal').classList.remove('open');
-        };
-
-        function printBanner() {
-          print(`<pre class="t-purple" style="font-family: inherit; margin: 0; line-height: 1.2; white-space: pre-wrap;">
-  ___  _           
- / _ \\(_)_ _ __ _ 
-| (_) | | '_/ _\` |
- \\__\\_|_|_| \\__,_|
-</pre>`);
-          print(`<span class="t-cyan font-bold">AIRA SOVEREIGN SHELL v3.6</span>`);
-          print(`<span class="t-muted">Engineered by Er. Adam Eehan • Aira Group of Technology</span>`);
-          print(`<span class="t-muted">Endpoint: <span class="t-yellow">${AIRA_BASE_URL}</span></span>`);
-          print(`<span class="t-muted">Active Model: <span class="t-green">${activeModel}</span></span>`);
-          print(`<span class="t-muted">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span>`);
-          print(`<span class="t-green">✓ System Online.</span> Type <span class="t-white font-bold">help</span> to view commands.`);
-          print('');
-        }
-
-        function print(html) {
-          const out = document.getElementById('term-output');
-          const line = document.createElement('div');
-          line.innerHTML = html;
-          out.appendChild(line);
-          out.scrollTop = out.scrollHeight;
-        }
-
-        function printLine(text, cls = 't-white') {
-          print(`<span class="${cls}">${text}</span>`);
-        }
-
-        function printCmd(cmd) {
-          print(`<span class="t-cyan">aira $</span> <span class="t-white">${cmd}</span>`);
-        }
-
-        // Input handler
-        const input = document.getElementById('term-input');
-        input.addEventListener('keydown', async function(e) {
-          if (e.key === 'Enter') {
-            const cmd = this.value.trim();
-            if (!cmd) return;
-            cmdHistory.unshift(cmd);
-            historyIndex = -1;
-            this.value = '';
-            printCmd(cmd);
-            await handleCommand(cmd);
-          } else if (e.key === 'ArrowUp') {
-            e.preventDefault();
-            if (historyIndex < cmdHistory.length - 1) {
-              historyIndex++;
-              this.value = cmdHistory[historyIndex];
-            }
-          } else if (e.key === 'ArrowDown') {
-            e.preventDefault();
-            if (historyIndex > 0) {
-              historyIndex--;
-              this.value = cmdHistory[historyIndex];
-            } else {
-              historyIndex = -1;
-              this.value = '';
-            }
-          }
-        });
-
-        // Command handler
-        async function handleCommand(raw) {
-          const parts = raw.trim().split(/\s+/);
-          const cmd = parts[0].toLowerCase();
-          const args = parts.slice(1);
-
-          switch(cmd) {
-            case 'help': cmdHelp(); break;
-            case 'ask':
-            case 'chat': await cmdChat(args.join(' ')); break;
-            case 'models': await cmdModels(); break;
-            case 'model': cmdSetModel(args[0]); break;
-            case 'status': await cmdStatus(); break;
-            case 'whoami': cmdWhoami(); break;
-            case 'founder':
-            case 'about': cmdFounder(); break;
-            case 'api': cmdApi(); break;
-            case 'clear': document.getElementById('term-output').innerHTML = ''; break;
-            default:
-              await cmdChat(raw);
-          }
-          print('');
-        }
-
-        function cmdHelp() {
-          print(`<span class="t-yellow font-bold">━━ Aira Sovereign Shell Commands ━━━━━━━━━━━━</span>`);
-          const cmds = [
-            ['ask [prompt]',     'Query Aira Sovereign AI model directly'],
-            ['models',           'List all models available on Aira Endpoint'],
-            ['model [id]',       'Switch active model (e.g. aira-sec, aira-core)'],
-            ['status',          'Ping Aira AI Live Endpoint & measure latency'],
-            ['founder / about',  'Display founder & Aira Group architecture'],
-            ['whoami',          'Show your active session info'],
-            ['api',             'Display OpenAI-compatible developer integration'],
-            ['clear',           'Clear terminal screen']
-          ];
-          cmds.forEach(([c, d]) => {
-            print(`  <span class="t-cyan">${c.padEnd(20)}</span><span class="t-muted">${d}</span>`);
-          });
-        }
-
-        async function cmdChat(prompt) {
-          if (!prompt) {
-            printLine('Usage: ask [your question]', 't-yellow');
-            return;
-          }
-          printLine(`Connecting to Aira Endpoint [${activeModel}]...`, 't-muted');
-          try {
-            const res = await fetch(`${AIRA_BASE_URL}/chat/completions`, {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({
-                model: activeModel,
-                messages: [{ role: "user", content: prompt }],
-                stream: false
-              })
-            });
-            if (!res.ok) throw new Error(`HTTP ${res.status}`);
-            const data = await res.json();
-            const text = data.choices?.[0]?.message?.content || "No response received.";
-            print(`<span class="t-green font-bold">Aira:</span>`);
-            text.split('\n').forEach(line => {
-              print(`  <span class="t-white">${line || ' '}</span>`);
-            });
-          } catch(err) {
-            printLine(`Error connecting to Aira Endpoint: ${err.message}`, 't-red');
-          }
-        }
-
-        async function cmdModels() {
-          printLine('Fetching live models from Aira Gateway...', 't-muted');
-          try {
-            const res = await fetch(`${AIRA_BASE_URL}/models`);
-            if (!res.ok) throw new Error(`HTTP ${res.status}`);
-            const data = await res.json();
-            print(`<span class="t-green font-bold">Available Sovereign Models (${data.data.length}):</span>`);
-            data.data.forEach(m => {
-              const activeTag = m.id === activeModel ? ' <span class="t-yellow font-bold">[ACTIVE]</span>' : '';
-              print(`  • <span class="t-cyan font-semibold">${m.id}</span>${activeTag} <span class="t-muted">(owned_by: ${m.owned_by})</span>`);
-            });
-            print(`<span class="t-muted">Switch model using: <span class="t-white">model [model_id]</span></span>`);
-          } catch(err) {
-            printLine(`Failed to fetch models: ${err.message}`, 't-red');
-          }
-        }
-
-        function cmdSetModel(name) {
-          if (!name) {
-            printLine(`Active model: ${activeModel}`, 't-yellow');
-            printLine('Usage: model [model_id]', 't-muted');
-            return;
-          }
-          activeModel = name;
-          printLine(`✓ Switched active model to: ${activeModel}`, 't-green');
-        }
-
-        async function cmdStatus() {
-          printLine(`Pinging ${AIRA_BASE_URL}/models...`, 't-muted');
-          const start = performance.now();
-          try {
-            const res = await fetch(`${AIRA_BASE_URL}/models`);
-            const duration = Math.round(performance.now() - start);
-            if (res.ok) {
-              printLine(`✓ Aira Sovereign Endpoint: ONLINE`, 't-green');
-              printLine(`  • Status Code: ${res.status} OK`, 't-white');
-              printLine(`  • Roundtrip Latency: ${duration} ms`, 't-yellow');
-              printLine(`  • Provider: Aira Group of Technology`, 't-cyan');
-            } else {
-              printLine(`Endpoint responded with status ${res.status}`, 't-red');
-            }
-          } catch(err) {
-            printLine(`Endpoint unreachable: ${err.message}`, 't-red');
-          }
-        }
-
-        function cmdWhoami() {
-          const savedUser = localStorage.getItem("aira_google_user");
-          if (savedUser) {
-            try {
-              const u = JSON.parse(savedUser);
-              print(`<span class="t-green">Identity:</span> <span class="t-yellow">${u.name} (Google Verified)</span>`);
-              print(`<span class="t-green">Email:</span>    <span class="t-white">${u.email}</span>`);
-              return;
-            } catch(e) {}
-          }
-          printLine('Identity: Guest Visitor (Sovereign Session)', 't-cyan');
-          printLine('To verify identity, sign in with Google in the Verified Feedback section.', 't-muted');
-        }
-
-        function cmdFounder() {
-          print(`<span class="t-cyan font-bold">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span>`);
-          print(`<span class="t-yellow font-bold">Er. Adam Eehan</span> <span class="t-white">• Founder, CEO & Chief Systems Architect</span>`);
-          print(`<span class="t-yellow font-bold">Anandhakrishnan H</span> <span class="t-white">• Co-Founder & Executive Director</span>`);
-          print(`<span class="t-muted">Aira Group of Technology • Technopark, Trivandrum</span>`);
-          print(`<span class="t-muted">Wikidata: <span class="t-white">Q141755677</span> | Official: <span class="t-cyan">https://airaaigroup.in</span></span>`);
-          print(`<span class="t-muted">Email: adameehan34@gmail.com | Phone: +91 8921 584 368</span>`);
-          print(`<span class="t-cyan font-bold">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span>`);
-        }
-
-        function cmdApi() {
-          print(`<span class="t-yellow font-bold">━━ Aira Sovereign AI Gateway ━━━━━━━━━━━━━━━━━</span>`);
-          printLine('OpenAI Drop-In Compatible API for Developers worldwide.');
-          print(`  <span class="t-cyan">Base URL:</span> <span class="t-white">${AIRA_BASE_URL}</span>`);
-          print(`  <span class="t-cyan">Chat URL:</span> <span class="t-white">${AIRA_BASE_URL}/chat/completions</span>`);
-          print('');
-          printLine('Python Example:', 't-muted');
-          print(`<pre class="t-green" style="margin: 0; line-height: 1.3;">from openai import OpenAI
-client = OpenAI(base_url="${AIRA_BASE_URL}", api_key="aira-free")
-response = client.chat.completions.create(
-    model="aira-auto",
-    messages=[{"role": "user", "content": "Hello!"}]
-)</pre>`);
-          print(`<span class="t-muted">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span>`);
-        }
-      })();
-    </script>
-
-    <!-- Floating Direct WhatsApp Client Connect -->
-    <a
-      href="https://wa.me/918921584368?text=Hello%20Er.%20Adam%20Eehan,%20I%20would%20like%20to%20discuss%20a%20project%20with%20Aira%20Group."
-      target="_blank"
-      class="fixed bottom-6 left-6 z-50 bg-[#25D366] hover:bg-[#20ba59] text-white p-3.5 sm:px-5 sm:py-3.5 rounded-full shadow-2xl hover:scale-105 transition-all duration-300 flex items-center gap-2.5 border-2 border-white/80 group"
-      title="Chat directly with Founder on WhatsApp"
-    >
-      <i class="fab fa-whatsapp text-2xl"></i>
-      <span class="font-semibold text-xs sm:text-sm tracking-wide hidden sm:inline">Chat with Founder</span>
-    </a>
 
     <!-- Google Auth & Verified Reviews System Script -->
     <script>
