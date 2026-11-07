@@ -2721,6 +2721,16 @@
         const container = document.getElementById("desk-messages");
         if (!container) return;
 
+        // System notices (e.g. Founder left chat)
+        if (msgObj.sender === "system") {
+          const sysDiv = document.createElement("div");
+          sysDiv.className = "flex justify-center my-2.5";
+          sysDiv.innerHTML = `<div class="bg-amber-500/10 border border-amber-500/30 text-amber-900 px-3 py-1.5 rounded-full text-[11px] font-semibold flex items-center gap-1.5 shadow-sm"><span>👋</span><span>${msgObj.text}</span></div>`;
+          container.appendChild(sysDiv);
+          if (shouldScroll) container.scrollTop = container.scrollHeight;
+          return sysDiv;
+        }
+
         const isUser = msgObj.sender === "user";
         const isFounder = msgObj.sender === "founder";
 
@@ -2858,7 +2868,7 @@
               }
             }
           } catch (e) {}
-        }, 2500);
+        }, 1000);
       }
 
       document.addEventListener("DOMContentLoaded", () => {
