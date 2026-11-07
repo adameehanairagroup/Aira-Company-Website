@@ -4017,6 +4017,12 @@ response = client.chat.completions.create(
 
         const getMaxX = () => slider.offsetWidth - 52;
 
+        function isFormFilled() {
+          const nameVal = nameInput.value.trim();
+          const emailVal = emailInput.value.trim();
+          return nameVal.length > 0 && emailVal.length > 0 && emailVal.includes('@') && emailVal.includes('.');
+        }
+
         function validateInputs() {
           const nameVal = nameInput.value.trim();
           const emailVal = emailInput.value.trim();
@@ -4040,11 +4046,53 @@ response = client.chat.completions.create(
             isValid = false;
           }
 
+          if (!isValid) {
+            if (!nameVal) nameInput.focus();
+            else if (!emailVal) emailInput.focus();
+          }
+
           return isValid;
+        }
+
+        // Live input validation listeners to clear errors on typing
+        nameInput.addEventListener('input', () => {
+          if (nameInput.value.trim()) {
+            nameErr.classList.add('hidden');
+            nameInput.classList.remove('sub-input-error');
+          }
+        });
+        emailInput.addEventListener('input', () => {
+          if (emailInput.value.trim().includes('@')) {
+            emailErr.classList.add('hidden');
+            emailInput.classList.remove('sub-input-error');
+          }
+        });
+
+        function handleStart(clientX, e) {
+          if (isSubmitting) return;
+
+          // STRICT LOCK: Do not allow dragging if name or email is empty/invalid!
+          if (!isFormFilled()) {
+            isDragging = false;
+            validateInputs();
+            if (e && e.cancelable) e.preventDefault();
+            return false;
+          }
+
+          isDragging = true;
+          startX = clientX;
+          startLeft = parseInt(thumb.style.left || '4', 10);
         }
 
         function handleMove(clientX) {
           if (!isDragging || isSubmitting) return;
+          if (!isFormFilled()) {
+            isDragging = false;
+            resetSlider();
+            validateInputs();
+            return;
+          }
+
           const maxX = getMaxX();
           let newLeft = startLeft + (clientX - startX);
           newLeft = Math.max(4, Math.min(maxX, newLeft));
@@ -4063,6 +4111,7 @@ response = client.chat.completions.create(
           const currentLeft = parseInt(thumb.style.left || '4', 10);
           const maxX = getMaxX();
 
+          // Must drag past 85% AND must have valid inputs
           if (currentLeft / maxX >= 0.85) {
             if (!validateInputs()) {
               resetSlider();
@@ -4080,6 +4129,22 @@ response = client.chat.completions.create(
           isSubmitting = true;
           const maxX = getMaxX();
 
+          const payload = {
+            name: nameInput.value.trim(),
+            email: emailInput.value.trim()
+          };
+
+          // Hard guard: Never execute if fields are missing
+          if (!payload.name || !payload.email || !payload.email.includes('@')) {
+            isSubmitting = false;
+            resetSlider();
+            validateInputs();
+            return;
+          }
+
+          // Clear any previous alerts
+          alertBox.className = 'mt-5 hidden max-w-xl mx-auto p-4 rounded-xl text-sm text-left';
+
           thumb.style.left = maxX + 'px';
           fill.style.width = '100%';
           thumb.innerHTML = '<i class="fas fa-spinner fa-spin text-sm text-blue-900"></i>';
@@ -4089,11 +4154,6 @@ response = client.chat.completions.create(
 
           nameInput.disabled = true;
           emailInput.disabled = true;
-
-          const payload = {
-            name: nameInput.value.trim(),
-            email: emailInput.value.trim()
-          };
 
           try {
             const res = await fetch('/api/subscribe', {
@@ -4144,23 +4204,16 @@ response = client.chat.completions.create(
           }, 300);
         }
 
-        // Mouse Listeners
-        thumb.addEventListener('mousedown', (e) => {
-          if (isSubmitting) return;
-          isDragging = true;
-          startX = e.clientX;
-          startLeft = parseInt(thumb.style.left || '4', 10);
+        // Mouse Listeners with strict drag check
+        thumb.addEventListener('mousedown', (e) => handleStart(e.clientX, e));
+        slider.addEventListener('click', (e) => {
+          if (!isFormFilled()) validateInputs();
         });
         document.addEventListener('mousemove', (e) => handleMove(e.clientX));
         document.addEventListener('mouseup', handleRelease);
 
-        // Touch Listeners
-        thumb.addEventListener('touchstart', (e) => {
-          if (isSubmitting) return;
-          isDragging = true;
-          startX = e.touches[0].clientX;
-          startLeft = parseInt(thumb.style.left || '4', 10);
-        }, { passive: true });
+        // Touch Listeners with strict drag check
+        thumb.addEventListener('touchstart', (e) => handleStart(e.touches[0].clientX, e), { passive: false });
         document.addEventListener('touchmove', (e) => handleMove(e.touches[0].clientX), { passive: true });
         document.addEventListener('touchend', handleRelease);
       })();

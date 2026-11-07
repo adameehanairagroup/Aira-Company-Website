@@ -314,6 +314,12 @@
 
       const getMaxX = () => slider.offsetWidth - 54;
 
+      function isFormFilled() {
+        const nameVal = nameInput.value.trim();
+        const emailVal = emailInput.value.trim();
+        return nameVal.length > 0 && emailVal.length > 0 && emailVal.includes('@') && emailVal.includes('.');
+      }
+
       function validateInputs() {
         const nameVal = nameInput.value.trim();
         const emailVal = emailInput.value.trim();
@@ -337,11 +343,52 @@
           isValid = false;
         }
 
+        if (!isValid) {
+          if (!nameVal) nameInput.focus();
+          else if (!emailVal) emailInput.focus();
+        }
+
         return isValid;
+      }
+
+      nameInput.addEventListener('input', () => {
+        if (nameInput.value.trim()) {
+          nameErr.classList.add('hidden');
+          nameInput.classList.remove('input-error');
+        }
+      });
+      emailInput.addEventListener('input', () => {
+        if (emailInput.value.trim().includes('@')) {
+          emailErr.classList.add('hidden');
+          emailInput.classList.remove('input-error');
+        }
+      });
+
+      function handleStart(clientX, e) {
+        if (isSubmitting) return;
+
+        // STRICT LOCK: Do not allow dragging if name or email is empty/invalid!
+        if (!isFormFilled()) {
+          isDragging = false;
+          validateInputs();
+          if (e && e.cancelable) e.preventDefault();
+          return false;
+        }
+
+        isDragging = true;
+        startX = clientX;
+        startLeft = parseInt(thumb.style.left || '4', 10);
       }
 
       function handleMove(clientX) {
         if (!isDragging || isSubmitting) return;
+        if (!isFormFilled()) {
+          isDragging = false;
+          resetSlider();
+          validateInputs();
+          return;
+        }
+
         const maxX = getMaxX();
         let newLeft = startLeft + (clientX - startX);
         newLeft = Math.max(4, Math.min(maxX, newLeft));
@@ -377,6 +424,19 @@
         isSubmitting = true;
         const maxX = getMaxX();
 
+        const payload = {
+          name: nameInput.value.trim(),
+          email: emailInput.value.trim()
+        };
+
+        // Hard guard: Never execute if fields are missing
+        if (!payload.name || !payload.email || !payload.email.includes('@')) {
+          isSubmitting = false;
+          resetSlider();
+          validateInputs();
+          return;
+        }
+
         // Lock slider in completed state
         thumb.style.left = maxX + 'px';
         fill.style.width = '100%';
@@ -387,11 +447,6 @@
 
         nameInput.disabled = true;
         emailInput.disabled = true;
-
-        const payload = {
-          name: nameInput.value.trim(),
-          email: emailInput.value.trim()
-        };
 
         try {
           const res = await fetch('/api/subscribe', {
@@ -468,23 +523,16 @@
           .replace(/'/g, "&#039;");
       }
 
-      // Mouse Listeners
-      thumb.addEventListener('mousedown', (e) => {
-        if (isSubmitting) return;
-        isDragging = true;
-        startX = e.clientX;
-        startLeft = parseInt(thumb.style.left || '4', 10);
+      // Mouse Listeners with strict drag check
+      thumb.addEventListener('mousedown', (e) => handleStart(e.clientX, e));
+      slider.addEventListener('click', (e) => {
+        if (!isFormFilled()) validateInputs();
       });
       document.addEventListener('mousemove', (e) => handleMove(e.clientX));
       document.addEventListener('mouseup', handleRelease);
 
-      // Touch Listeners
-      thumb.addEventListener('touchstart', (e) => {
-        if (isSubmitting) return;
-        isDragging = true;
-        startX = e.touches[0].clientX;
-        startLeft = parseInt(thumb.style.left || '4', 10);
-      }, { passive: true });
+      // Touch Listeners with strict drag check
+      thumb.addEventListener('touchstart', (e) => handleStart(e.touches[0].clientX, e), { passive: false });
       document.addEventListener('touchmove', (e) => handleMove(e.touches[0].clientX), { passive: true });
       document.addEventListener('touchend', handleRelease);
     </script>
