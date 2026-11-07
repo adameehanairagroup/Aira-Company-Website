@@ -1,12 +1,10 @@
 /**
  * 🚀 Sovereign AIRA Founder Desk Gateway (Vercel Serverless - ES Module)
- * Connects airaaigroup.in visitors directly to Founder Er. Adam Eehan's WhatsApp
- * Fallback to Sovereign Aira 3 Ultra (https://airaai-8ibs.onrender.com)
+ * 24/7 Sovereign Customer Support & Solutions AI for Er. Adam Eehan & Aira Group
+ * Strict Anti-Bot Verification: Google Sign-In Required
  */
 
-const RENDER_BRIDGE_URL = process.env.RENDER_BRIDGE_URL || "https://aira-whatsapp-bridge.onrender.com";
 const AIRA_ENDPOINT = process.env.AIRA_API_URL || "https://airaai-8ibs.onrender.com/v1/chat/completions";
-const FOUNDER_PHONE = "918921584368";
 
 const OR_KEYS = [
   Buffer.from("c2stb3ItdjEtMTMwMmY5MTQ0Yjg2ZThhNTMxNzg5Nzc2ZTMwYzM0OGI5NjZlNjNiYTM0MWZhNzFjNDYzNGUxNGE0ZWRjNWUwZA==", "base64").toString("utf-8"),
@@ -17,57 +15,43 @@ const OR_KEYS = [
 function sanitizeAiResponse(text) {
   if (!text) return "";
   let clean = text.trim();
+  // Strip code blocks if any leaked through
+  clean = clean.replace(/```[\s\S]*?```/g, () => {
+    return "[Aira Group specializes in custom enterprise AI & software solutions. For technical implementations or project development, please schedule a consultation with Founder Er. Adam Eehan or contact contact@airaaigroup.in]";
+  });
   clean = clean.replace(/(\b[\w'-]+\b)(?:\s+\1){2,}/gi, '$1');
   clean = clean.replace(/(.{8,40}?)(?:\s*\1){2,}/gi, '$1');
   return clean.trim();
 }
 
-// Fallback Aira 3 Ultra AI Query
-async function queryAiraUltraDirect(userName, message) {
+async function queryAiraUltraSupport(userName, message) {
   const systemPrompt = 
-`You are Aira 3 Ultra, sovereign executive AI co-pilot engineered by Er. Adam Eehan (Founder & CEO of Aira Group of Technology).
-You are assisting on Er. Adam Eehan's Direct Desk at airaaigroup.in.
-Er. Adam has received the visitor's inquiry live on his personal WhatsApp (+91 8921 584 368) and will review it.
-In the meantime, respond warmly, intelligently, and concisely on behalf of the Founder.
+`You are AIRA (Aira 3 Ultra, Engine v3.6), the official sovereign Customer Support & Executive AI of Aira Group of Technology, engineered by Founder & CEO Er. Adam Eehan.
+You are active 24/7 on Er. Adam Eehan's Direct Desk at airaaigroup.in.
 
-Language Directives:
-- Detect and match the visitor's language naturally.
-- If the visitor speaks in Malayalam or Manglish, reply in authentic Malayalam/Manglish. NEVER use Hindi or broken mixed dialects.
-- If English, reply in polished, executive English.
-- If Hindi, Arabic, or another language, reply fluently in that language.
-- Introduce yourself as "Aira 3 Ultra (Er. Adam Eehan's Sovereign AI Co-Pilot)".
-- Keep it concise, helpful, and professional with zero robotic fluff or looping.`;
+Company & Founder Profile:
+- Founder & CEO: Er. Adam Eehan (19 years old, Diploma in Computer Engineering from SBTE Kerala, Google Student Ambassador 2026 Cohort, Wikidata: Q141755677).
+- Company: Aira Group of Technology (airaaigroup.in) - Leading research and development in Sovereign AI, autonomous agents, neural architectures, web & mobile engineering, and enterprise digital solutions.
+- Official Contact: contact@airaaigroup.in / adameehan.airagroup@gmail.com.
 
-  // 1. Try Primary Cloud API
-  try {
-    const res = await fetch(AIRA_ENDPOINT, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        model: "aira-3-ultra",
-        messages: [
-          { role: "system", content: systemPrompt },
-          { role: "user", content: message }
-        ],
-        max_tokens: 450,
-        temperature: 0.7
-      }),
-      signal: AbortSignal.timeout(12000)
-    });
+STRICT OPERATIONAL RULES:
+1. NEVER WRITE OR OUTPUT RAW CODE:
+   - If the user asks for Python, HTML, CSS, JavaScript, scripts, or coding homework, DO NOT write or provide the source code!
+   - Instead, politely explain as a professional Customer Support AI:
+     "Aira Group of Technology builds custom enterprise AI and software solutions. For custom coding projects, technical implementations, or consultation, please connect with Founder Er. Adam Eehan or reach out via contact@airaaigroup.in!"
+2. ROLE: Professional, warm, articulate Customer Support AI:
+   - Answer inquiries about Aira Group's platforms, AI capabilities, web & app development services, and business collaborations.
+3. LANGUAGE DIRECTIVES:
+   - Match the visitor's language naturally.
+   - If the visitor speaks in Malayalam, reply in natural, fluent Malayalam.
+   - If the visitor speaks in Manglish (Malayalam written in English script), reply in authentic, friendly Manglish.
+   - If English, reply in polished, articulate executive English.
+   - If Hindi, Arabic, or another language, reply fluently in that language.
+4. TONE & CONCISENESS:
+   - Keep replies concise (2 to 4 sentences or a crisp paragraph).
+   - Zero corporate HR fluff, robotic disclaimers, or repetitive token loops.`;
 
-    if (res.ok) {
-      const data = await res.json();
-      const content = data?.choices?.[0]?.message?.content;
-      if (content) {
-        const clean = sanitizeAiResponse(content);
-        if (clean && clean.length > 10) return clean;
-      }
-    }
-  } catch (err) {
-    console.warn("Aira Ultra Primary fetch warning:", err.message);
-  }
-
-  // 2. High-Precision OpenRouter Swarm with Repetition Penalty
+  // 1. Multi-Key OpenRouter Swarm with Repetition Penalty & Fast Latency
   for (const key of OR_KEYS) {
     try {
       const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
@@ -82,12 +66,12 @@ Language Directives:
             { role: "system", content: systemPrompt },
             { role: "user", content: message }
           ],
-          max_tokens: 450,
-          temperature: 0.7,
+          max_tokens: 350,
+          temperature: 0.5,
           frequency_penalty: 0.5,
           presence_penalty: 0.5
         }),
-        signal: AbortSignal.timeout(10000)
+        signal: AbortSignal.timeout(9000)
       });
 
       if (res.ok) {
@@ -95,7 +79,7 @@ Language Directives:
         const content = data?.choices?.[0]?.message?.content;
         if (content) {
           const clean = sanitizeAiResponse(content);
-          if (clean && clean.length > 10) return clean;
+          if (clean && clean.length > 5) return clean;
         }
       }
     } catch (e) {
@@ -103,7 +87,34 @@ Language Directives:
     }
   }
 
-  return `Hello ${userName}! Er. Adam Eehan has received your message on his personal WhatsApp (+91 8921 584 368) and will reply shortly. Thank you for connecting with Aira Group!`;
+  // 2. Primary Cloud Backend Fallback
+  try {
+    const res = await fetch(AIRA_ENDPOINT, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        model: "aira-3-ultra",
+        messages: [
+          { role: "system", content: systemPrompt },
+          { role: "user", content: message }
+        ],
+        max_tokens: 350,
+        temperature: 0.5
+      }),
+      signal: AbortSignal.timeout(8000)
+    });
+
+    if (res.ok) {
+      const data = await res.json();
+      const content = data?.choices?.[0]?.message?.content;
+      if (content) {
+        const clean = sanitizeAiResponse(content);
+        if (clean && clean.length > 5) return clean;
+      }
+    }
+  } catch (err) {}
+
+  return `Hello ${userName}! Welcome to Aira Group of Technology. I am Aira 3 Ultra, Founder Er. Adam Eehan's sovereign AI assistant. For project inquiries and software solutions, feel free to reach out via contact@airaaigroup.in!`;
 }
 
 export default async function handler(req, res) {
@@ -115,71 +126,43 @@ export default async function handler(req, res) {
     return res.status(200).end();
   }
 
-  // GET: Poll for messages or check status
+  // GET: Health / Status
   if (req.method === "GET") {
-    const { userId, after } = req.query || {};
-
-    try {
-      const bridgeUrl = `${RENDER_BRIDGE_URL}/api/desk/poll?userId=${encodeURIComponent(userId || "")}&after=${encodeURIComponent(after || 0)}`;
-      const bridgeRes = await fetch(bridgeUrl, { signal: AbortSignal.timeout(3500) });
-      if (bridgeRes.ok) {
-        const data = await bridgeRes.json();
-        return res.status(200).json(data);
-      }
-    } catch (e) {
-      // Bridge sleeping or waking up
-    }
-
     return res.status(200).json({
       online: true,
-      messages: [],
+      service: "Aira 3 Ultra Sovereign Customer Support",
       founder: "Er. Adam Eehan",
-      phone: `+${FOUNDER_PHONE}`
+      company: "Aira Group of Technology",
+      authRequired: true
     });
   }
 
-  // POST: Send visitor message
+  // POST: Chat Message
   if (req.method === "POST") {
     const { userId, userName, userEmail, userAvatar, message } = req.body || {};
 
-    if (!userId || !message || !message.trim()) {
-      return res.status(400).json({ error: "Missing userId or message" });
-    }
-
-    let bridgeSuccess = false;
-    let aiResponse = null;
-
-    // 1. Try sending to Render WhatsApp Bridge
-    try {
-      const bridgeRes = await fetch(`${RENDER_BRIDGE_URL}/api/desk/send`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ userId, userName, userEmail, userAvatar, message }),
-        signal: AbortSignal.timeout(6000)
+    // Strict Anti-Bot Gate: User MUST be signed in with Google
+    if (!userId || !userEmail) {
+      return res.status(401).json({
+        error: "Google Sign-In required. Please sign in to verify you are human and prevent bot abuse."
       });
-
-      if (bridgeRes.ok) {
-        bridgeSuccess = true;
-      }
-    } catch (err) {
-      console.warn("Render Bridge unreachable, falling back to direct Aira 3 Ultra...");
     }
 
-    // 2. If Render Bridge was unreachable, provide instant Aira 3 Ultra response
-    if (!bridgeSuccess) {
-      aiResponse = await queryAiraUltraDirect(userName || "Visitor", message);
+    if (!message || !message.trim()) {
+      return res.status(400).json({ error: "Message cannot be empty." });
     }
+
+    const aiResponse = await queryAiraUltraSupport(userName || "Visitor", message.trim());
 
     return res.status(200).json({
       success: true,
-      deliveredToBridge: bridgeSuccess,
-      aiReply: aiResponse ? {
+      aiReply: {
         id: `ai_${Date.now()}`,
         sender: "aira_ultra",
-        senderName: "Aira 3 Ultra (Co-Pilot)",
+        senderName: "Aira 3 Ultra (Support AI)",
         text: aiResponse,
         timestamp: Date.now()
-      } : null
+      }
     });
   }
 

@@ -284,8 +284,7 @@ export function getWelcomeEmailHtml(name) {
                       Aira Group of Technology
                     </div>
                     <div style="font-size: 12px; color: #64748b; margin-top: 8px; line-height: 1.5;">
-                      <a href="mailto:adameehan34@gmail.com" style="color: #1d4ed8; text-decoration: none;">adameehan34@gmail.com</a>
-                      &nbsp;&bull;&nbsp; +91 8921 584 368
+                      <a href="mailto:contact@airaaigroup.in" style="color: #1d4ed8; text-decoration: none;">contact@airaaigroup.in</a>
                       &nbsp;&bull;&nbsp; <a href="https://airaaigroup.in" style="color: #1d4ed8; text-decoration: none;">airaaigroup.in</a>
                     </div>
                   </td>
