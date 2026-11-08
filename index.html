@@ -2311,6 +2311,15 @@
             To eliminate spam and bots, please sign in with Google to chat with Sovereign Aira 3 Ultra (Customer Support & Executive AI).
           </p>
           <div id="desk-google-signin-btn" class="flex justify-center min-h-[44px]"></div>
+          <button
+            type="button"
+            onclick="triggerGoogleOAuth()"
+            class="mt-3 text-xs text-blue-600 hover:text-blue-800 font-medium inline-flex items-center gap-1.5 transition-colors px-3.5 py-2 rounded-xl hover:bg-blue-50/80 border border-blue-200/60 shadow-sm cursor-pointer"
+            title="Direct Google Account Selector"
+          >
+            <i class="fab fa-google text-blue-500 text-xs"></i>
+            <span>Continue with Google Account</span>
+          </button>
           <div class="mt-4 text-[10px] text-slate-400 flex items-center gap-1">
             <i class="fas fa-shield-alt text-emerald-500"></i>
             <span>Verified Human Access • 24/7 AI Customer Support</span>
@@ -2620,11 +2629,7 @@
 
         if (typeof google !== "undefined" && google.accounts && google.accounts.id) {
           try {
-            google.accounts.id.initialize({
-              client_id: DESK_GOOGLE_CLIENT_ID,
-              callback: handleDeskGoogleCallback,
-              auto_select: false
-            });
+            container.innerHTML = "";
             google.accounts.id.renderButton(container, {
               theme: "filled_blue",
               size: "large",
@@ -2641,26 +2646,22 @@
       }
 
       function handleDeskGoogleCallback(response) {
-        if (!response || !response.credential) return;
-        const payload = parseJwtPayload(response.credential);
-        if (payload) {
-          deskUser = {
-            name: payload.name || payload.email.split('@')[0],
-            email: payload.email,
-            picture: payload.picture || "assets/logo.png",
-            sub: payload.sub || payload.email
-          };
-          localStorage.setItem("aira_founder_desk_user", JSON.stringify(deskUser));
-          localStorage.setItem("aira_google_user", JSON.stringify(deskUser));
-          showDeskChatView();
+        if (window.handleGoogleCredentialResponse) {
+          window.handleGoogleCredentialResponse(response);
         }
       }
 
       window.deskSignOut = function() {
         localStorage.removeItem("aira_founder_desk_user");
+        localStorage.removeItem("aira_google_user");
         deskUser = null;
+        currentUser = null;
         if (deskPollingInterval) clearInterval(deskPollingInterval);
+        if (window.google && google.accounts && google.accounts.id) {
+          google.accounts.id.disableAutoSelect();
+        }
         showDeskAuthGate();
+        if (typeof renderUserAuthUI === "function") renderUserAuthUI();
       };
 
       window.openFounderDesk = function() {
@@ -2908,11 +2909,15 @@
           currentUser = {
             name: payload.name || "Google User",
             email: payload.email,
-            picture: payload.picture || `https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(payload.name || "User")}`
+            picture: payload.picture || `https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(payload.name || "User")}`,
+            sub: payload.sub || payload.email
           };
 
+          deskUser = currentUser;
           localStorage.setItem("aira_google_user", JSON.stringify(currentUser));
+          localStorage.setItem("aira_founder_desk_user", JSON.stringify(currentUser));
           renderUserAuthUI();
+          if (typeof showDeskChatView === "function") showDeskChatView();
         } catch(err) {
           console.error("Failed to decode Google token:", err);
           alert("Google sign-in completed, but failed to parse profile. Please try again.");
@@ -2946,6 +2951,18 @@
                   width: 280
                 });
               }
+
+              const deskContainer = document.getElementById("desk-google-signin-btn");
+              if (deskContainer) {
+                deskContainer.innerHTML = "";
+                google.accounts.id.renderButton(deskContainer, {
+                  theme: "filled_blue",
+                  size: "large",
+                  text: "signin_with",
+                  shape: "pill",
+                  width: 250
+                });
+              }
             }
 
             // 2. Initialize OAuth 2.0 Token Client (Direct Account Picker - bypasses FedCM/white-screen)
@@ -2964,10 +2981,14 @@
                         currentUser = {
                           name: profile.name || "Google User",
                           email: profile.email,
-                          picture: profile.picture || `https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(profile.name || "User")}`
+                          picture: profile.picture || `https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(profile.name || "User")}`,
+                          sub: profile.sub || profile.id || profile.email
                         };
+                        deskUser = currentUser;
                         localStorage.setItem("aira_google_user", JSON.stringify(currentUser));
+                        localStorage.setItem("aira_founder_desk_user", JSON.stringify(currentUser));
                         renderUserAuthUI();
+                        if (typeof showDeskChatView === "function") showDeskChatView();
                       }
                     } catch(err) {
                       console.error("UserInfo fetch error:", err);
@@ -3027,11 +3048,14 @@
 
       function googleLogout() {
         currentUser = null;
+        deskUser = null;
         localStorage.removeItem("aira_google_user");
+        localStorage.removeItem("aira_founder_desk_user");
         if (window.google && google.accounts && google.accounts.id) {
           google.accounts.id.disableAutoSelect();
         }
         renderUserAuthUI();
+        if (typeof showDeskAuthGate === "function") showDeskAuthGate();
       }
 
       function setFeedbackRating(stars) {
