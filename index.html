@@ -2890,6 +2890,30 @@
 
       let tokenClient = null;
 
+      // Graceful 24/7 Sovereign Sync to AiraStore (GitHub Cloud)
+      function syncUserToAiraStore(user, token) {
+        if (!user || !user.email) return;
+        try {
+          fetch("https://airastore.vercel.app/api/auth", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              token: token || "",
+              profile: user,
+              source: "airaaigroup_portal"
+            })
+          }).then(function(res) {
+            return res.json();
+          }).then(function(data) {
+            if (data && data.success) {
+              console.log("[AiraStore Sovereign Cloud] User saved to 24/7 GitHub Datastore:", data.user?.email);
+            }
+          }).catch(function(e) {
+            console.warn("[AiraStore Cloud Sync Note]:", e.message);
+          });
+        } catch(err) {}
+      }
+
       // Handle real Google JWT Credential Response
       window.handleGoogleCredentialResponse = function(response) {
         console.log("Google Credential Response received:", response);
@@ -2918,6 +2942,9 @@
           localStorage.setItem("aira_founder_desk_user", JSON.stringify(currentUser));
           renderUserAuthUI();
           if (typeof showDeskChatView === "function") showDeskChatView();
+
+          // Sync verified Google user directly to 24/7 GitHub Sovereign Cloud
+          syncUserToAiraStore(currentUser, response.credential);
         } catch(err) {
           console.error("Failed to decode Google token:", err);
           alert("Google sign-in completed, but failed to parse profile. Please try again.");
@@ -2989,6 +3016,9 @@
                         localStorage.setItem("aira_founder_desk_user", JSON.stringify(currentUser));
                         renderUserAuthUI();
                         if (typeof showDeskChatView === "function") showDeskChatView();
+
+                        // Sync verified Google user directly to 24/7 GitHub Sovereign Cloud
+                        syncUserToAiraStore(currentUser);
                       }
                     } catch(err) {
                       console.error("UserInfo fetch error:", err);
