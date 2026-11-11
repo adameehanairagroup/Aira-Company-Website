@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AIRA AI REST API Console | Aira Group of Technology</title>
+  <link rel="icon" type="image/png" href="assets/logo.png" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet" />
+  <!-- Razorpay Checkout Gateway -->
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #050b18;
+      color: #ffffff;
+      overflow-x: hidden;
+    }
+    .font-mono {
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .hero-glow {
+      background: radial-gradient(circle at 50% 0%, rgba(37, 99, 235, 0.18) 0%, transparent 60%);
+    }
+    @keyframes pulseGlow {
+      0%, 100% { opacity: 0.4; }
+      50% { opacity: 0.8; }
+    }
+    .animate-glow {
+      animation: pulseGlow 4s ease-in-out infinite;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between antialiased selection:bg-blue-600 selection:text-white">
+
+  <!-- Top Navigation Bar -->
+  <header class="sticky top-0 z-40 bg-[#050b18]/90 backdrop-blur-md border-b border-slate-800/80">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <!-- Brand Logo -->
+      <a href="/" class="flex items-center gap-3 group">
+        <img src="assets/logo.png" alt="Aira Group Official Logo" class="w-9 h-9 rounded-xl shadow-md object-contain transition-transform group-hover:scale-105" />
+        <div class="flex items-center gap-2">
+          <span class="text-xl font-bold tracking-tight text-white">Aira<span class="text-blue-500 font-light">Group</span></span>
+          <span class="text-[10px] font-bold bg-blue-500/20 text-cyan-400 border border-cyan-500/30 px-2 py-0.5 rounded-full uppercase tracking-wider">REST API</span>
+        </div>
+      </a>
+
+      <!-- Right Nav Buttons -->
+      <div class="flex items-center gap-3 sm:gap-4">
+        <div class="hidden sm:flex items-center gap-1.5 text-xs font-mono text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2.5 py-1 rounded-full">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+          <span>99.9% Uptime</span>
+        </div>
+        <a href="/" class="text-xs font-semibold text-slate-300 hover:text-white bg-slate-800/80 hover:bg-slate-700/80 border border-slate-700 px-3.5 py-2 rounded-xl transition flex items-center gap-1.5">
+          <i class="fas fa-arrow-left text-xs"></i> <span>Main Website</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="flex-grow hero-glow relative z-10 py-6 sm:py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <!-- Page Hero Header -->
+      <div class="text-center max-w-3xl mx-auto mb-8 sm:mb-12">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[11px] font-bold tracking-widest uppercase bg-blue-500/10 text-cyan-400 border border-cyan-500/30 mb-3 shadow-sm">
+          <i class="fas fa-microchip text-[10px]"></i> Sovereign Neural API Gateway &bull; OpenAI Compatible
+        </div>
+        <h1 class="text-2xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white">
+          AIRA AI <span class="bg-gradient-to-r from-blue-400 via-cyan-300 to-indigo-300 bg-clip-text text-transparent">Developer Console</span>
+        </h1>
+        <p class="text-slate-300 text-xs sm:text-base mt-2 sm:mt-3 leading-relaxed max-w-2xl mx-auto font-light">
+          Provision direct token-stream credentials for Aira Sovereign AI models. Instant free community access with verified email OTP, or monthly flagship subscription.
+        </p>
+      </div>
+
+      <!-- Main Layout: Form FIRST on mobile (order-1), Docs SECOND on mobile (order-2) -->
+      <div class="grid lg:grid-cols-12 gap-6 sm:gap-8 items-start">
+        
+        <!-- PROVISIONING FORM CARD (lg:col-span-7, order-1 so mobile users see it immediately!) -->
+        <div class="lg:col-span-7 order-1">
+          <div class="bg-gradient-to-b from-slate-900/95 via-slate-900 to-[#071126] border border-blue-500/30 rounded-2xl sm:rounded-3xl p-5 sm:p-8 shadow-2xl backdrop-blur-md relative overflow-hidden">
+            
+            <div class="flex items-center justify-between mb-5 pb-3 border-b border-slate-800">
+              <div>
+                <h2 class="text-lg sm:text-xl font-bold text-white flex items-center gap-2">
+                  <i class="fas fa-key text-blue-400 text-base"></i> Provision API Credentials
+                </h2>
+                <p class="text-[11px] sm:text-xs text-slate-400 mt-0.5">Instant key issuance with cryptographic OTP verification</p>
+              </div>
+              <span class="inline-flex items-center gap-1.5 text-[10px] font-bold text-blue-400 bg-blue-500/10 border border-blue-500/30 px-2 py-0.5 rounded-full uppercase">
+                <i class="fas fa-shield-halved text-[9px]"></i> Secure
+              </span>
+            </div>
+
+            <!-- Form -->
+            <form id="aira-api-form" onsubmit="return false;" class="space-y-4">
+              
+              <!-- 1. API Key Name -->
+              <div>
+                <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1">
+                  1. API Key Name
+                </label>
+                <input
+                  type="text"
+                  id="api-key-name"
+                  placeholder="e.g. Production Web App, Mobile Client, Bot"
+                  class="w-full px-3.5 py-2.5 sm:py-3 bg-slate-950/80 border border-slate-700 rounded-xl text-white placeholder-slate-500 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
+                />
+              </div>
+
+              <!-- 2. Model & 3. Expiry in 2 cols -->
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1">
+                    2. Select Model
+                  </label>
+                  <select
+                    id="api-model-select"
+                    onchange="updateApiModelDetails()"
+                    class="w-full px-3 py-2.5 sm:py-3 bg-slate-950/80 border border-slate-700 rounded-xl text-white text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all cursor-pointer"
+                  >
+                    <optgroup label="🌟 Free Community Models (₹0 / Free)">
+                      <option value="aira-flash-1.5" selected>Aira Flash 1.5 (Free &bull; Fast)</option>
+                      <option value="aira-flash-lite">Aira Flash Lite (Free &bull; High Speed)</option>
+                    </optgroup>
+                    <optgroup label="🚀 Flagship Models (Monthly Subscription)">
+                      <option value="aira-3-ultra">Aira 3 Ultra Engine v3.6 (₹499/mo)</option>
+                      <option value="aira-deepmind">AiraDeepMind 550B MoE (₹799/mo)</option>
+                      <option value="aira-cyber-defender">Aira Cyber Defender AI 7B (₹999/mo)</option>
+                    </optgroup>
+                  </select>
+                </div>
+
+                <div>
+                  <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1">
+                    3. Key Expiration
+                  </label>
+                  <select
+                    id="api-expiry-select"
+                    class="w-full px-3 py-2.5 sm:py-3 bg-slate-950/80 border border-slate-700 rounded-xl text-white text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all cursor-pointer"
+                  >
+                    <option value="30d" selected>30 Days (Standard Development)</option>
+                    <option value="90d">90 Days (Quarterly Active)</option>
+                    <option value="365d">365 Days (1 Year Production)</option>
+                    <option value="never">Permanent (Never Expires)</option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- 4. Developer Email with Side-by-Side "Verify Email" Button -->
+              <div>
+                <div class="flex items-center justify-between mb-1">
+                  <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300">
+                    4. Developer Email &amp; Verification
+                  </label>
+                  <span id="api-verified-status" class="text-[10px] font-semibold text-slate-400">
+                    OTP required for key issuance
+                  </span>
+                </div>
+
+                <div class="flex gap-2">
+                  <input
+                    type="email"
+                    id="api-email"
+                    placeholder="developer@yourcompany.com"
+                    class="flex-1 min-w-0 px-3.5 py-2.5 sm:py-3 bg-slate-950/80 border border-slate-700 rounded-xl text-white placeholder-slate-500 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
+                  />
+                  <button
+                    type="button"
+                    id="api-verify-btn"
+                    onclick="sendApiOtp()"
+                    class="px-4 py-2.5 sm:py-3 bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs rounded-xl shadow-md transition-all flex items-center gap-1.5 whitespace-nowrap active:scale-95 flex-shrink-0"
+                  >
+                    <i class="fas fa-paper-plane text-xs"></i> <span>Verify Email</span>
+                  </button>
+                </div>
+
+                <!-- Inline OTP Drawer (Slides down on OTP dispatch) -->
+                <div id="api-otp-container" class="hidden mt-3 p-3.5 bg-blue-950/40 border border-blue-500/40 rounded-xl animate-fade-in space-y-2">
+                  <div class="flex items-center justify-between text-[11px] text-slate-200">
+                    <span class="flex items-center gap-1">
+                      <i class="fas fa-envelope text-cyan-400"></i> Code sent via <strong class="text-white">noreply@airaaigroup.in</strong>:
+                    </span>
+                    <span id="api-otp-countdown" class="font-mono text-amber-300 font-bold text-xs">10:00</span>
+                  </div>
+
+                  <div class="flex gap-2">
+                    <input
+                      type="text"
+                      id="api-otp-input"
+                      maxlength="6"
+                      placeholder="123456"
+                      class="w-28 sm:w-36 px-2.5 py-2 bg-slate-950 border border-blue-400/80 rounded-xl text-center font-mono text-base font-bold tracking-widest text-cyan-300 focus:outline-none focus:ring-2 focus:ring-cyan-400"
+                    />
+                    <button
+                      type="button"
+                      id="api-otp-confirm-btn"
+                      onclick="verifyApiOtp()"
+                      class="px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs rounded-xl transition flex items-center gap-1.5 active:scale-95"
+                    >
+                      <i class="fas fa-check text-xs"></i> Confirm
+                    </button>
+                    <button
+                      type="button"
+                      onclick="sendApiOtp()"
+                      class="px-2 py-2 text-slate-400 hover:text-white text-xs underline transition"
+                    >
+                      Resend
+                    </button>
+                  </div>
+                  <div id="api-otp-feedback" class="text-xs text-slate-300"></div>
+                </div>
+              </div>
+
+              <!-- 5. Dynamic Pricing & Tier Status Banner -->
+              <div id="api-tier-banner" class="p-3 rounded-xl bg-slate-950/70 border border-slate-800 text-xs flex items-center justify-between transition-all">
+                <div class="flex items-center gap-2.5">
+                  <div id="api-tier-icon" class="w-7 h-7 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold text-xs flex-shrink-0">
+                    <i class="fas fa-bolt"></i>
+                  </div>
+                  <div>
+                    <div id="api-tier-name" class="font-bold text-white text-xs">Free Community Access</div>
+                    <div id="api-tier-desc" class="text-[10px] text-slate-400">Zero cost &bull; Instant API key generation</div>
+                  </div>
+                </div>
+                <div id="api-tier-price" class="text-right">
+                  <span class="text-sm font-extrabold text-emerald-400 font-mono">&#8377;0</span>
+                  <span class="text-[10px] text-slate-400 block">Forever Free</span>
+                </div>
+              </div>
+
+              <!-- 6. SLIDE / SWIPE TO UNLOCK & GENERATE KEY WIDGET -->
+              <div class="pt-1">
+                <div id="api-slider" class="relative h-13 sm:h-14 bg-white/10 border border-white/20 rounded-full overflow-hidden select-none touch-none cursor-pointer py-1">
+                  <div id="api-fill" class="absolute left-0 top-0 h-full w-0 bg-gradient-to-r from-blue-600 via-cyan-500 to-emerald-500 rounded-full"></div>
+                  <div id="api-slider-text" class="absolute inset-0 flex items-center justify-center text-[11px] sm:text-xs font-bold tracking-widest text-slate-200 pointer-events-none uppercase transition-opacity px-4 text-center">
+                    Slide to Generate Free API Key <span class="ml-2">&rarr;</span>
+                  </div>
+                  <div id="api-thumb" class="absolute left-1 top-1 w-11 h-11 sm:w-12 sm:h-12 bg-white text-[#0a2342] rounded-full shadow-lg flex items-center justify-center font-bold text-sm cursor-grab active:cursor-grabbing z-10 transition-transform">
+                    <i class="fas fa-arrow-right text-xs"></i>
+                  </div>
+                </div>
+                <p class="text-[10px] sm:text-[11px] text-slate-400 text-center mt-1.5 select-none">
+                  Drag the button to the right to verify credentials and provision your API key
+                </p>
+              </div>
+
+              <!-- 7. Key Reveal Box -->
+              <div id="api-result-box" class="hidden mt-4 p-4 sm:p-5 bg-gradient-to-br from-emerald-950/60 via-slate-900 to-slate-950 border border-emerald-500/50 rounded-2xl animate-fade-in space-y-2.5">
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center gap-2">
+                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                    <span class="font-bold text-white text-xs sm:text-sm">Provisioned Sovereign API Key</span>
+                  </div>
+                  <span id="api-result-tier-pill" class="text-[9px] sm:text-[10px] font-bold uppercase bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 px-2 py-0.5 rounded-full">Active</span>
+                </div>
+
+                <div class="relative bg-slate-950 border border-emerald-500/40 rounded-xl p-2.5 sm:p-3 flex items-center justify-between gap-2 font-mono text-xs text-emerald-300">
+                  <span id="api-generated-key-display" class="truncate select-all font-bold text-[11px] sm:text-xs"></span>
+                  <button
+                    type="button"
+                    onclick="copyGeneratedApiKey()"
+                    id="api-copy-key-btn"
+                    class="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-[10px] sm:text-[11px] rounded-lg transition flex items-center gap-1 flex-shrink-0"
+                  >
+                    <i class="far fa-copy text-xs"></i> <span>Copy</span>
+                  </button>
+                </div>
+
+                <div class="text-[11px] text-slate-300 flex flex-wrap justify-between gap-2 pt-1 border-t border-slate-800">
+                  <span><strong>Model:</strong> <span id="api-result-model-text" class="text-white"></span></span>
+                  <span><strong>Expires:</strong> <span id="api-result-expiry-text" class="text-white"></span></span>
+                </div>
+                <p class="text-[10px] text-slate-400">
+                  <i class="fas fa-check-circle text-emerald-400 mr-1"></i> Delivered to your inbox from <strong>noreply@airaaigroup.in</strong>.
+                </p>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <!-- SPECS & CODE SAMPLES (lg:col-span-5, order-2 on mobile, clean and scrollable) -->
+        <div class="lg:col-span-5 order-2 space-y-5">
+          <!-- Base Endpoint Card -->
+          <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-5 shadow-xl backdrop-blur-sm">
+            <div class="flex items-center justify-between mb-3 pb-2 border-b border-slate-800">
+              <span class="text-xs font-bold tracking-wider uppercase text-cyan-400 flex items-center gap-1.5">
+                <i class="fas fa-network-wired text-xs"></i> Base Endpoint
+              </span>
+              <span class="text-[10px] font-mono bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 px-2 py-0.5 rounded-full flex items-center gap-1">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span> REST v1
+              </span>
+            </div>
+            <div class="bg-slate-950 rounded-xl p-2.5 border border-slate-800 font-mono text-xs text-blue-300 flex items-center justify-between gap-2">
+              <span class="truncate text-[11px] sm:text-xs">https://airaai-8ibs.onrender.com/v1</span>
+              <button type="button" onclick="navigator.clipboard.writeText('https://airaai-8ibs.onrender.com/v1'); alert('Endpoint copied to clipboard!');" class="text-slate-400 hover:text-white transition text-xs p-1" title="Copy Endpoint">
+                <i class="far fa-copy"></i>
+              </button>
+            </div>
+            <div class="grid grid-cols-2 gap-2.5 mt-3 text-xs">
+              <div class="p-2 rounded-lg bg-slate-950/60 border border-slate-800/80">
+                <div class="text-slate-400 text-[10px] uppercase font-semibold">Latency</div>
+                <div class="text-white font-bold font-mono mt-0.5">&lt;50ms TTFT</div>
+              </div>
+              <div class="p-2 rounded-lg bg-slate-950/60 border border-slate-800/80">
+                <div class="text-slate-400 text-[10px] uppercase font-semibold">Format</div>
+                <div class="text-white font-bold font-mono mt-0.5">OpenAI Spec</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- cURL Quickstart Card -->
+          <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-5 shadow-xl backdrop-blur-sm">
+            <div class="flex items-center justify-between mb-2.5">
+              <span class="text-xs font-bold text-slate-300 uppercase tracking-wider flex items-center gap-1.5">
+                <i class="fas fa-terminal text-blue-400 text-xs"></i> cURL Quick Start
+              </span>
+              <button type="button" onclick="copyApiCurlCode()" id="copy-curl-btn" class="text-xs text-cyan-400 hover:text-cyan-300 font-semibold inline-flex items-center gap-1 transition">
+                <i class="far fa-copy"></i> Copy
+              </button>
+            </div>
+            <pre id="api-curl-sample" class="bg-slate-950 border border-slate-800 rounded-xl p-3 sm:p-4 font-mono text-[11px] text-slate-300 overflow-x-auto leading-relaxed select-all">curl https://airaai-8ibs.onrender.com/v1/chat/completions \
+  -H "Authorization: Bearer airaaixak..." \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "aira-flash-1.5",
+    "messages": [
+      {"role": "user", "content": "Hello Aira!"}
+    ]
+  }'</pre>
+          </div>
+
+          <!-- Available Models Overview -->
+          <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-5 shadow-xl backdrop-blur-sm">
+            <h3 class="text-xs font-bold text-slate-300 uppercase tracking-wider mb-3 flex items-center gap-1.5">
+              <i class="fas fa-layer-group text-blue-400 text-xs"></i> Neural Models Available
+            </h3>
+            <div class="space-y-2">
+              <div class="p-2.5 rounded-xl bg-slate-950 border border-slate-800/80 flex items-center justify-between">
+                <div>
+                  <div class="font-bold text-white text-xs">Aira Flash 1.5 &amp; Flash Lite</div>
+                  <div class="text-[10px] text-slate-400">High-speed conversational inference</div>
+                </div>
+                <span class="text-[10px] font-bold text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 px-2 py-0.5 rounded-full">FREE</span>
+              </div>
+              <div class="p-2.5 rounded-xl bg-slate-950 border border-slate-800/80 flex items-center justify-between">
+                <div>
+                  <div class="font-bold text-white text-xs">Aira 3 Ultra (Engine v3.6)</div>
+                  <div class="text-[10px] text-slate-400">Multimodal Flagship Intelligence</div>
+                </div>
+                <span class="text-[10px] font-bold text-cyan-400 bg-cyan-500/10 border border-cyan-500/30 px-2 py-0.5 rounded-full">&#8377;499/mo</span>
+              </div>
+              <div class="p-2.5 rounded-xl bg-slate-950 border border-slate-800/80 flex items-center justify-between">
+                <div>
+                  <div class="font-bold text-white text-xs">AiraDeepMind</div>
+                  <div class="text-[10px] text-slate-400">550B MoE Swarm Deep Reasoning</div>
+                </div>
+                <span class="text-[10px] font-bold text-cyan-400 bg-cyan-500/10 border border-cyan-500/30 px-2 py-0.5 rounded-full">&#8377;799/mo</span>
+              </div>
+              <div class="p-2.5 rounded-xl bg-slate-950 border border-slate-800/80 flex items-center justify-between">
+                <div>
+                  <div class="font-bold text-white text-xs">Aira Cyber Defender AI</div>
+                  <div class="text-[10px] text-slate-400">Autonomous 7B Security Audit Core</div>
+                </div>
+                <span class="text-[10px] font-bold text-cyan-400 bg-cyan-500/10 border border-cyan-500/30 px-2 py-0.5 rounded-full">&#8377;999/mo</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- Razorpay / UPI Modal for Paid Flagship Models -->
+  <div id="api-payment-modal" class="fixed inset-0 z-50 flex items-center justify-center hidden bg-black/80 backdrop-blur-sm p-4 transition-all duration-300">
+    <div class="bg-slate-900 border border-blue-500/40 rounded-3xl w-full max-w-md shadow-2xl overflow-hidden text-white animate-scale max-h-[90vh] overflow-y-auto">
+      <!-- Modal Header -->
+      <div class="bg-gradient-to-r from-blue-700 via-[#0a2342] to-slate-900 p-4 sm:p-5 flex items-center justify-between border-b border-blue-500/20">
+        <div class="flex items-center gap-3">
+          <div class="w-9 h-9 rounded-xl bg-blue-600/30 border border-blue-400/40 flex items-center justify-center text-cyan-300">
+            <i class="fas fa-crown text-sm"></i>
+          </div>
+          <div>
+            <h4 class="font-bold text-white text-sm sm:text-base">Sovereign Flagship Tier</h4>
+            <p class="text-[11px] text-blue-200" id="payment-modal-model-name">Aira 3 Ultra Monthly Subscription</p>
+          </div>
+        </div>
+        <button type="button" onclick="closeApiPaymentModal()" class="text-slate-400 hover:text-white transition text-lg p-1">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+
+      <!-- Modal Body -->
+      <div class="p-5 space-y-4">
+        <div class="bg-slate-950 p-3.5 rounded-2xl border border-slate-800 flex items-center justify-between">
+          <div>
+            <span class="text-[10px] text-slate-400 block uppercase font-semibold">Monthly Subscription</span>
+            <span class="text-xs text-slate-300">Full neural weights &bull; Priority GPU</span>
+          </div>
+          <div class="text-right">
+            <span id="payment-modal-price" class="text-xl sm:text-2xl font-black text-cyan-400 font-mono">&#8377;499</span>
+            <span class="text-[10px] text-slate-400 block">/ month</span>
+          </div>
+        </div>
+
+        <!-- Razorpay Standard Button -->
+        <button
+          type="button"
+          id="pay-razorpay-btn"
+          onclick="initiateRazorpayPayment()"
+          class="w-full py-3 px-4 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-bold text-xs sm:text-sm rounded-xl shadow-lg transition flex items-center justify-center gap-2 active:scale-98"
+        >
+          <i class="fas fa-credit-card"></i> Pay with Razorpay (UPI, Cards, NetBanking)
+        </button>
+
+        <!-- Divider -->
+        <div class="flex items-center gap-3 my-1 text-slate-500 text-xs">
+          <div class="flex-1 h-px bg-slate-800"></div>
+          <span class="text-[10px]">OR PAY DIRECT VIA UPI</span>
+          <div class="flex-1 h-px bg-slate-800"></div>
+        </div>
+
+        <!-- Direct UPI Option -->
+        <div class="bg-slate-950 p-3.5 rounded-2xl border border-slate-800 space-y-2.5 text-center">
+          <div class="text-[11px] text-slate-300">
+            Scan QR or Pay to Official Founder UPI ID:
+          </div>
+          <div class="inline-block p-1.5 bg-white rounded-xl shadow-md">
+            <img id="upi-qr-image" src="https://api.qrserver.com/v1/create-qr-code/?size=130x130&data=upi%3A%2F%2Fpay%3Fpa%3Dadameehan34%40okaxis%26pn%3DAira%2520Group%2520of%2520Technology%26am%3D499%26cu%3DINR" alt="UPI QR Code" class="w-28 h-28 object-contain" />
+          </div>
+          <div class="flex items-center justify-center gap-2">
+            <code class="px-2.5 py-1 rounded-lg bg-slate-900 border border-slate-700 text-[11px] font-mono text-cyan-300 select-all">adameehan34@okaxis</code>
+            <button type="button" onclick="navigator.clipboard.writeText('adameehan34@okaxis'); alert('UPI ID copied!');" class="text-xs text-slate-400 hover:text-white p-1" title="Copy UPI">
+              <i class="far fa-copy"></i>
+            </button>
+          </div>
+          
+          <div class="pt-1 text-left">
+            <label class="block text-[10px] font-semibold text-slate-400 mb-1">Enter UPI Reference / UTR Number after payment:</label>
+            <div class="flex gap-2">
+              <input
+                type="text"
+                id="upi-ref-input"
+                placeholder="e.g. 431289104829 or Razorpay ID"
+                class="flex-1 min-w-0 px-3 py-2 bg-slate-900 border border-slate-700 rounded-lg text-xs text-white placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+              />
+              <button
+                type="button"
+                onclick="submitUpiPaymentVerification()"
+                id="upi-confirm-btn"
+                class="px-3 py-2 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs rounded-lg transition whitespace-nowrap"
+              >
+                Activate Key
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-[#030712] border-t border-slate-800/80 py-6 text-center text-xs text-slate-500">
+    <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3">
+      <div>
+        &copy; 2026 <strong>Aira Group of Technology</strong>. All sovereign rights reserved.
+      </div>
+      <div class="flex items-center gap-4 text-slate-400 text-xs">
+        <a href="/" class="hover:text-white transition">Home</a>
+        <a href="/#services" class="hover:text-white transition">Solutions</a>
+        <a href="/#contact" class="hover:text-white transition">Contact</a>
+        <a href="/privacy" class="hover:text-white transition">Privacy</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Controller Script -->
+  <script>
+    let apiOtpHash = null;
+    let apiVerifiedProof = null;
+    let apiVerifiedEmail = null;
+    let apiOtpTimerInterval = null;
+
+    const API_MODEL_PRICES = {
+      "aira-flash-1.5": { tier: "free", price: 0, label: "Aira Flash 1.5", desc: "Zero cost • Instant API key generation" },
+      "aira-flash-lite": { tier: "free", price: 0, label: "Aira Flash Lite", desc: "Zero cost • Instant high-speed inference" },
+      "aira-3-ultra": { tier: "pro", price: 499, label: "Aira 3 Ultra (Engine v3.6)", desc: "₹499/mo • Multimodal Flagship Intelligence" },
+      "aira-deepmind": { tier: "pro", price: 799, label: "AiraDeepMind 550B MoE", desc: "₹799/mo • 550B MoE Swarm Deep Reasoning" },
+      "aira-cyber-defender": { tier: "pro", price: 999, label: "Aira Cyber Defender AI", desc: "₹999/mo • Autonomous 7B Cybersecurity Core" }
+    };
+
+    function updateApiModelDetails() {
+      const select = document.getElementById("api-model-select");
+      if (!select) return;
+      const val = select.value;
+      const info = API_MODEL_PRICES[val] || API_MODEL_PRICES["aira-flash-1.5"];
+
+      const tierName = document.getElementById("api-tier-name");
+      const tierDesc = document.getElementById("api-tier-desc");
+      const tierPrice = document.getElementById("api-tier-price");
+      const tierIcon = document.getElementById("api-tier-icon");
+      const sliderText = document.getElementById("api-slider-text");
+
+      if (info.tier === "free") {
+        tierName.textContent = "Free Community Access";
+        tierDesc.textContent = info.desc;
+        tierPrice.innerHTML = `<span class="text-sm font-extrabold text-emerald-400 font-mono">&#8377;0</span><span class="text-[10px] text-slate-400 block">Forever Free</span>`;
+        tierIcon.className = "w-7 h-7 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold text-xs flex-shrink-0";
+        tierIcon.innerHTML = `<i class="fas fa-bolt"></i>`;
+        sliderText.innerHTML = `Slide to Generate Free API Key <span class="ml-2">&rarr;</span>`;
+      } else {
+        tierName.textContent = "Sovereign Flagship Subscription";
+        tierDesc.textContent = info.desc;
+        tierPrice.innerHTML = `<span class="text-sm font-extrabold text-cyan-400 font-mono">&#8377;${info.price}</span><span class="text-[10px] text-slate-400 block">/ month</span>`;
+        tierIcon.className = "w-7 h-7 rounded-lg bg-cyan-500/20 text-cyan-400 flex items-center justify-center font-bold text-xs flex-shrink-0";
+        tierIcon.innerHTML = `<i class="fas fa-crown"></i>`;
+        sliderText.innerHTML = `Slide to Subscribe &bull; &#8377;${info.price}/mo <span class="ml-2">&rarr;</span>`;
+      }
+    }
+
+    // 1. Send OTP via noreply@airaaigroup.in
+    async function sendApiOtp() {
+      const emailInput = document.getElementById("api-email");
+      const email = emailInput.value.trim().toLowerCase();
+      const verifyBtn = document.getElementById("api-verify-btn");
+      const feedback = document.getElementById("api-otp-feedback");
+
+      if (!email || !email.includes("@") || !email.includes(".")) {
+        alert("Please enter a valid developer email address.");
+        emailInput.focus();
+        return;
+      }
+
+      const originalBtnHtml = verifyBtn.innerHTML;
+      verifyBtn.disabled = true;
+      verifyBtn.innerHTML = `<i class="fas fa-spinner fa-spin text-xs"></i> Sending...`;
+
+      try {
+        const res = await fetch("/api/otp", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ action: "send", email })
+        });
+
+        const data = await res.json();
+        if (res.ok && data.success) {
+          apiOtpHash = data.otpHash;
+          document.getElementById("api-otp-container").classList.remove("hidden");
+          feedback.innerHTML = `<span class="text-emerald-400"><i class="fas fa-check-circle"></i> Code sent to <strong>${email}</strong> via noreply@airaaigroup.in!</span>`;
+          startApiOtpCountdown(600); // 10 minutes
+          document.getElementById("api-otp-input").focus();
+        } else {
+          alert(data.error || "Failed to send verification email. Please try again.");
+        }
+      } catch (err) {
+        console.error("[OTP Send Error]:", err);
+        alert("Network error while dispatching verification code. Please try again.");
+      } finally {
+        verifyBtn.disabled = false;
+        verifyBtn.innerHTML = originalBtnHtml;
+      }
+    }
+
+    function startApiOtpCountdown(durationSec) {
+      clearInterval(apiOtpTimerInterval);
+      let rem = durationSec;
+      const timerEl = document.getElementById("api-otp-countdown");
+
+      apiOtpTimerInterval = setInterval(() => {
+        if (rem <= 0) {
+          clearInterval(apiOtpTimerInterval);
+          timerEl.textContent = "Expired";
+          return;
+        }
+        rem--;
+        const m = Math.floor(rem / 60);
+        const s = rem % 60;
+        timerEl.textContent = `${m}:${s < 10 ? '0' : ''}${s}`;
+      }, 1000);
+    }
+
+    // 2. Verify OTP
+    async function verifyApiOtp() {
+      const email = document.getElementById("api-email").value.trim().toLowerCase();
+      const otpInput = document.getElementById("api-otp-input");
+      const otp = otpInput.value.trim();
+      const confirmBtn = document.getElementById("api-otp-confirm-btn");
+      const feedback = document.getElementById("api-otp-feedback");
+
+      if (!otp || otp.length < 6) {
+        alert("Please enter the complete 6-digit verification code.");
+        otpInput.focus();
+        return;
+      }
+
+      confirmBtn.disabled = true;
+      confirmBtn.innerHTML = `<i class="fas fa-spinner fa-spin text-xs"></i>`;
+
+      try {
+        const res = await fetch("/api/otp", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ action: "verify", email, otp, otpHash: apiOtpHash })
+        });
+
+        const data = await res.json();
+        if (res.ok && data.verified) {
+          apiVerifiedProof = data.proof;
+          apiVerifiedEmail = email;
+          clearInterval(apiOtpTimerInterval);
+
+          document.getElementById("api-email").readOnly = true;
+          document.getElementById("api-email").classList.add("bg-slate-900/50", "text-slate-400");
+          
+          const verifyBtn = document.getElementById("api-verify-btn");
+          verifyBtn.className = "px-3.5 py-2.5 sm:py-3 bg-emerald-600/30 text-emerald-400 border border-emerald-500/40 font-bold text-xs rounded-xl flex items-center gap-1.5 cursor-default flex-shrink-0";
+          verifyBtn.innerHTML = `<i class="fas fa-check-circle"></i> Verified`;
+          verifyBtn.disabled = true;
+
+          document.getElementById("api-verified-status").innerHTML = `<span class="text-emerald-400 font-bold"><i class="fas fa-check-circle"></i> Email Verified</span>`;
+          document.getElementById("api-otp-container").classList.add("hidden");
+        } else {
+          feedback.innerHTML = `<span class="text-rose-400"><i class="fas fa-triangle-exclamation"></i> ${data.error || "Invalid code"}</span>`;
+        }
+      } catch (err) {
+        console.error("[OTP Verify Error]:", err);
+        feedback.innerHTML = `<span class="text-rose-400">Verification error. Please retry.</span>`;
+      } finally {
+        confirmBtn.disabled = false;
+        confirmBtn.innerHTML = `<i class="fas fa-check text-xs"></i> Confirm`;
+      }
+    }
+
+    // 3. Slide to Unlock Widget
+    (function initApiSlider() {
+      const slider = document.getElementById('api-slider');
+      const thumb = document.getElementById('api-thumb');
+      const fill = document.getElementById('api-fill');
+      const text = document.getElementById('api-slider-text');
+
+      if (!slider || !thumb || !fill) return;
+
+      let isDragging = false;
+      let startX = 0;
+      let isProcessing = false;
+
+      const getMaxX = () => slider.offsetWidth - 52;
+
+      function onStart(clientX) {
+        if (isProcessing) return;
+        isDragging = true;
+        startX = clientX - thumb.offsetLeft;
+        thumb.style.transition = 'none';
+        fill.style.transition = 'none';
+      }
+
+      function onMove(clientX) {
+        if (!isDragging || isProcessing) return;
+        const maxX = getMaxX();
+        let left = clientX - startX;
+        left = Math.max(4, Math.min(left, maxX));
+
+        thumb.style.left = left + 'px';
+        fill.style.width = (left + 24) + 'px';
+        text.style.opacity = Math.max(0, 1 - (left / (maxX * 0.7)));
+
+        if (left >= maxX - 4) {
+          isDragging = false;
+          triggerApiAction();
+        }
+      }
+
+      function onEnd() {
+        if (!isDragging || isProcessing) return;
+        isDragging = false;
+        resetSlider();
+      }
+
+      function resetSlider() {
+        thumb.style.transition = 'left 0.3s ease-out';
+        fill.style.transition = 'width 0.3s ease-out';
+        thumb.style.left = '4px';
+        fill.style.width = '0px';
+        text.style.opacity = '1';
+      }
+
+      // Mouse events
+      thumb.addEventListener('mousedown', (e) => onStart(e.clientX));
+      window.addEventListener('mousemove', (e) => onMove(e.clientX));
+      window.addEventListener('mouseup', onEnd);
+
+      // Touch events (mobile friendly)
+      thumb.addEventListener('touchstart', (e) => onStart(e.touches[0].clientX), { passive: true });
+      window.addEventListener('touchmove', (e) => onMove(e.touches[0].clientX), { passive: true });
+      window.addEventListener('touchend', onEnd);
+
+      async function triggerApiAction() {
+        const keyName = document.getElementById("api-key-name").value.trim() || "Default Client";
+        const model = document.getElementById("api-model-select").value;
+        const expiry = document.getElementById("api-expiry-select").value;
+        const email = document.getElementById("api-email").value.trim().toLowerCase();
+
+        if (!apiVerifiedProof || apiVerifiedEmail !== email) {
+          alert("Please verify your email address using the 'Verify Email' button and enter the 6-digit OTP first!");
+          resetSlider();
+          document.getElementById("api-email").focus();
+          return;
+        }
+
+        const modelInfo = API_MODEL_PRICES[model] || API_MODEL_PRICES["aira-flash-1.5"];
+        
+        if (modelInfo.tier === "pro") {
+          openApiPaymentModal(model, modelInfo);
+          resetSlider();
+          return;
+        }
+
+        isProcessing = true;
+        text.textContent = "Generating Key...";
+        thumb.innerHTML = `<i class="fas fa-spinner fa-spin text-xs"></i>`;
+
+        try {
+          const res = await fetch("/api/generate-key", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              keyName,
+              model,
+              expiry,
+              email,
+              proof: apiVerifiedProof
+            })
+          });
+
+          const data = await res.json();
+          if (res.ok && data.success) {
+            revealGeneratedApiKey(data);
+          } else {
+            alert(data.error || "Failed to generate API key.");
+          }
+        } catch (err) {
+          console.error("[Generate Key Error]:", err);
+          alert("Network error while generating API key.");
+        } finally {
+          isProcessing = false;
+          thumb.innerHTML = `<i class="fas fa-arrow-right text-xs"></i>`;
+          resetSlider();
+        }
+      }
+    })();
+
+    function revealGeneratedApiKey(data) {
+      const box = document.getElementById("api-result-box");
+      document.getElementById("api-generated-key-display").textContent = data.apiKey;
+      document.getElementById("api-result-model-text").textContent = data.model;
+      document.getElementById("api-result-expiry-text").textContent = data.expiryDate;
+      document.getElementById("api-result-tier-pill").textContent = data.tier.toUpperCase() + " ACTIVE";
+      box.classList.remove("hidden");
+      box.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    }
+
+    function copyGeneratedApiKey() {
+      const key = document.getElementById("api-generated-key-display").textContent;
+      const btn = document.getElementById("api-copy-key-btn");
+      navigator.clipboard.writeText(key).then(() => {
+        const original = btn.innerHTML;
+        btn.innerHTML = `<i class="fas fa-check text-xs"></i> Copied!`;
+        btn.className = "px-3 py-1.5 bg-cyan-600 text-white font-bold text-[10px] sm:text-[11px] rounded-lg transition flex items-center gap-1 flex-shrink-0";
+        setTimeout(() => {
+          btn.innerHTML = original;
+          btn.className = "px-3 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-[10px] sm:text-[11px] rounded-lg transition flex items-center gap-1 flex-shrink-0";
+        }, 2500);
+      });
+    }
+
+    function copyApiCurlCode() {
+      const code = document.getElementById("api-curl-sample").innerText;
+      const btn = document.getElementById("copy-curl-btn");
+      navigator.clipboard.writeText(code).then(() => {
+        btn.innerHTML = `<i class="fas fa-check text-emerald-400"></i> Copied`;
+        setTimeout(() => {
+          btn.innerHTML = `<i class="far fa-copy"></i> Copy`;
+        }, 2000);
+      });
+    }
+
+    // 4. Payment Modal Logic
+    let activePaidModel = null;
+    let activePaidInfo = null;
+
+    function openApiPaymentModal(model, info) {
+      activePaidModel = model;
+      activePaidInfo = info;
+      document.getElementById("payment-modal-model-name").textContent = `${info.label} Monthly Subscription`;
+      document.getElementById("payment-modal-price").innerHTML = `&#8377;${info.price}`;
+      
+      const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=130x130&data=${encodeURIComponent(`upi://pay?pa=adameehan34@okaxis&pn=Aira Group of Technology&am=${info.price}&cu=INR`)}`;
+      document.getElementById("upi-qr-image").src = qrUrl;
+
+      document.getElementById("api-payment-modal").classList.remove("hidden");
+    }
+
+    function closeApiPaymentModal() {
+      document.getElementById("api-payment-modal").classList.add("hidden");
+    }
+
+    function initiateRazorpayPayment() {
+      if (!activePaidInfo) return;
+      const email = document.getElementById("api-email").value.trim().toLowerCase();
+      const keyName = document.getElementById("api-key-name").value.trim() || "Pro API Client";
+
+      const options = {
+        key: window.RAZORPAY_KEY_ID || "rzp_live_AiraGroup",
+        amount: activePaidInfo.price * 100,
+        currency: "INR",
+        name: "Aira Group of Technology",
+        description: `AIRA AI API Monthly Subscription - ${activePaidInfo.label}`,
+        image: "assets/logo.png",
+        prefill: {
+          name: keyName,
+          email: email
+        },
+        theme: {
+          color: "#0a2342"
+        },
+        handler: function(response) {
+          completePaidKeyGeneration(response.razorpay_payment_id || "rzp_paid_" + Date.now());
+        }
+      };
+
+      if (typeof Razorpay !== "undefined") {
+        try {
+          const rzp = new Razorpay(options);
+          rzp.on('payment.failed', function (resp){
+            alert("Payment failed or cancelled: " + resp.error.description);
+          });
+          rzp.open();
+        } catch(e) {
+          console.warn("Razorpay popup fallback:", e);
+          alert("Razorpay initialized. You can also pay directly via UPI QR below!");
+        }
+      } else {
+        alert("Razorpay SDK loading. You can also pay directly via UPI QR below!");
+      }
+    }
+
+    async function submitUpiPaymentVerification() {
+      const refInput = document.getElementById("upi-ref-input");
+      const ref = refInput.value.trim();
+      if (!ref || ref.length < 6) {
+        alert("Please enter the UPI Reference / UTR Number or Transaction ID.");
+        refInput.focus();
+        return;
+      }
+
+      const confirmBtn = document.getElementById("upi-confirm-btn");
+      confirmBtn.disabled = true;
+      confirmBtn.innerHTML = `<i class="fas fa-spinner fa-spin text-xs"></i> Verifying...`;
+
+      await completePaidKeyGeneration("upi_ref_" + ref);
+      confirmBtn.disabled = false;
+      confirmBtn.innerHTML = `Activate Key`;
+    }
+
+    async function completePaidKeyGeneration(paymentId) {
+      const keyName = document.getElementById("api-key-name").value.trim() || "Pro Client";
+      const model = activePaidModel || document.getElementById("api-model-select").value;
+      const expiry = document.getElementById("api-expiry-select").value;
+      const email = document.getElementById("api-email").value.trim().toLowerCase();
+
+      try {
+        const res = await fetch("/api/generate-key", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            keyName,
+            model,
+            expiry,
+            email,
+            proof: apiVerifiedProof,
+            paymentId
+          })
+        });
+
+        const data = await res.json();
+        if (res.ok && data.success) {
+          closeApiPaymentModal();
+          revealGeneratedApiKey(data);
+        } else {
+          alert(data.error || "Payment verification failed.");
+        }
+      } catch (err) {
+        console.error("[Paid Key Generation Error]:", err);
+        alert("Network error while generating API key.");
+      }
+    }
+  </script>
+</body>
+</html>
