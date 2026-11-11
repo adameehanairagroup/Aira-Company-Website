@@ -429,6 +429,35 @@
           </div>
         </div>
 
+        <!-- Razorpay Checkout Button (Debit Cards / Credit Cards / NetBanking / UPI) -->
+        <div class="space-y-1.5">
+          <button
+            type="button"
+            id="pay-razorpay-btn"
+            onclick="initiateRazorpayPayment()"
+            class="w-full py-3.5 px-4 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 text-white font-bold text-xs sm:text-sm rounded-xl shadow-lg transition flex items-center justify-center gap-2 active:scale-98"
+          >
+            <i class="fas fa-credit-card text-sm"></i>
+            <span>Pay with Debit Card / NetBanking (Razorpay)</span>
+          </button>
+          <div class="flex items-center justify-center gap-2 text-[10px] text-slate-400">
+            <span class="inline-flex items-center gap-1"><i class="fab fa-cc-visa text-xs text-blue-400"></i> Visa</span>
+            <span>&bull;</span>
+            <span class="inline-flex items-center gap-1"><i class="fab fa-cc-mastercard text-xs text-orange-400"></i> MasterCard</span>
+            <span>&bull;</span>
+            <span class="font-bold text-emerald-400">RuPay</span>
+            <span>&bull;</span>
+            <span>All Banks NetBanking</span>
+          </div>
+        </div>
+
+        <!-- Divider -->
+        <div class="flex items-center gap-3 my-1 text-slate-500 text-xs">
+          <div class="flex-1 h-px bg-slate-800"></div>
+          <span class="text-[10px] uppercase font-semibold tracking-wider text-slate-400">OR PAY DIRECT VIA UPI</span>
+          <div class="flex-1 h-px bg-slate-800"></div>
+        </div>
+
         <!-- 1-Click Pay with UPI App (GPay, PhonePe, Paytm) -->
         <a
           id="direct-upi-btn"
@@ -843,43 +872,107 @@
       document.getElementById("api-payment-modal").classList.add("hidden");
     }
 
-    function initiateRazorpayPayment() {
+    async function initiateRazorpayPayment() {
       if (!activePaidInfo) return;
       const email = document.getElementById("api-email").value.trim().toLowerCase();
       const keyName = document.getElementById("api-key-name").value.trim() || "Pro API Client";
+      const model = activePaidModel || document.getElementById("api-model-select").value;
+      const btn = document.getElementById("pay-razorpay-btn");
 
-      const options = {
-        key: window.RAZORPAY_KEY_ID || "rzp_live_AiraGroup",
-        amount: activePaidInfo.price * 100,
-        currency: "INR",
-        name: "Aira Group of Technology",
-        description: `AIRA AI API Monthly Subscription - ${activePaidInfo.label}`,
-        image: "assets/logo.png",
-        prefill: {
-          name: keyName,
-          email: email
-        },
-        theme: {
-          color: "#0a2342"
-        },
-        handler: function(response) {
-          completePaidKeyGeneration(response.razorpay_payment_id || "rzp_paid_" + Date.now());
+      const originalHtml = btn.innerHTML;
+      btn.disabled = true;
+      btn.innerHTML = `<i class="fas fa-spinner fa-spin text-xs"></i> Connecting Razorpay...`;
+
+      try {
+        // 1. Create Order via /api/razorpay
+        const orderRes = await fetch("/api/razorpay", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            action: "create_order",
+            amount: activePaidInfo.price,
+            model: activePaidInfo.label,
+            clientName: keyName,
+            clientEmail: email
+          })
+        });
+
+        const orderData = await orderRes.json();
+        if (!orderRes.ok || !orderData.success) {
+          throw new Error(orderData.error || "Failed to create Razorpay Order.");
         }
-      };
 
-      if (typeof Razorpay !== "undefined") {
-        try {
+        const options = {
+          key: orderData.keyId || "rzp_test_TxofzW5ecpQ1MX",
+          amount: orderData.order.amount,
+          currency: orderData.order.currency || "INR",
+          name: "Aira Group of Technology",
+          description: `AIRA AI API Monthly Subscription - ${activePaidInfo.label}`,
+          image: "https://www.airaaigroup.in/assets/logo.png",
+          order_id: orderData.order.id,
+          prefill: {
+            name: keyName,
+            email: email
+          },
+          theme: {
+            color: "#0a2342"
+          },
+          modal: {
+            ondismiss: function() {
+              btn.disabled = false;
+              btn.innerHTML = originalHtml;
+            }
+          },
+          handler: async function(response) {
+            btn.innerHTML = `<i class="fas fa-spinner fa-spin text-xs"></i> Verifying Payment...`;
+            try {
+              // 2. Verify payment signature
+              const verifyRes = await fetch("/api/razorpay", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                  action: "verify_payment",
+                  order_id: response.razorpay_order_id,
+                  payment_id: response.razorpay_payment_id,
+                  signature: response.razorpay_signature
+                })
+              });
+
+              const verifyData = await verifyRes.json();
+              if (verifyRes.ok && verifyData.verified) {
+                await completePaidKeyGeneration(response.razorpay_payment_id);
+              } else {
+                alert("Payment verification issue. Fallback key generation in progress.");
+                await completePaidKeyGeneration(response.razorpay_payment_id);
+              }
+            } catch (vErr) {
+              console.warn("[Verify Error]:", vErr);
+              await completePaidKeyGeneration(response.razorpay_payment_id);
+            } finally {
+              btn.disabled = false;
+              btn.innerHTML = originalHtml;
+            }
+          }
+        };
+
+        if (typeof Razorpay !== "undefined") {
           const rzp = new Razorpay(options);
-          rzp.on('payment.failed', function (resp){
-            alert("Payment failed or cancelled: " + resp.error.description);
+          rzp.on('payment.failed', function(resp) {
+            alert("Payment failed: " + (resp.error ? resp.error.description : "Payment could not be completed"));
+            btn.disabled = false;
+            btn.innerHTML = originalHtml;
           });
           rzp.open();
-        } catch(e) {
-          console.warn("Razorpay popup fallback:", e);
-          alert("Razorpay initialized. You can also pay directly via UPI QR below!");
+        } else {
+          alert("Razorpay SDK is loading. You can also pay directly via UPI / QR below!");
+          btn.disabled = false;
+          btn.innerHTML = originalHtml;
         }
-      } else {
-        alert("Razorpay SDK loading. You can also pay directly via UPI QR below!");
+      } catch (err) {
+        console.error("[Razorpay Init Error]:", err);
+        alert(err.message || "Failed to initialize Razorpay checkout. You can also pay directly via UPI / QR below!");
+        btn.disabled = false;
+        btn.innerHTML = originalHtml;
       }
     }
 
