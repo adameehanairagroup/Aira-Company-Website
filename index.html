@@ -239,6 +239,7 @@
     </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
     <meta name="google-site-verification" content="dLRj4am2SRFjY-jRE1ltjJbK9Em2niGsUGA6Fbuf8rI" />
     <title>Aira Group of Technology | Sovereign AI, Systems & Software Engineering</title>
     <link rel="icon" type="image/png" href="assets/logo.png" />
@@ -1271,6 +1272,7 @@
                   id="v-user-photo"
                   src=""
                   alt="Google Profile"
+                  referrerpolicy="no-referrer"
                   class="w-14 h-14 rounded-full border-2 border-blue-500 shadow-sm object-cover bg-white"
                 />
                 <div>
@@ -3530,7 +3532,7 @@
             <div>
               <div class="flex items-start justify-between gap-3 mb-4">
                 <div class="flex items-center gap-3">
-                  <img src="${r.photo}" alt="${r.name}" class="w-12 h-12 rounded-full border-2 border-blue-500/80 shadow-sm object-cover bg-white flex-shrink-0" onerror="this.src='https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(r.name)}'" />
+                  <img src="${r.photo}" referrerpolicy="no-referrer" alt="${r.name}" class="w-12 h-12 rounded-full border-2 border-blue-500/80 shadow-sm object-cover bg-white flex-shrink-0" onerror="this.onerror=null; this.src='https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(r.name)}'" />
                   <div>
                     <div class="flex items-center gap-1.5 flex-wrap">
                       <span class="font-bold text-[#0a2342] text-sm">${r.name}</span>
