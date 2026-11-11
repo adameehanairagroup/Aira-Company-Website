@@ -1264,6 +1264,20 @@
 
             <!-- Feedback Submission Form (NO GMAIL INPUT ASKED!) -->
             <form id="verified-feedback-form" onsubmit="handleFeedbackSubmit(event)" class="space-y-4">
+              <!-- Edit Review Mode Indicator Banner -->
+              <div id="editing-review-indicator" class="hidden flex items-center justify-between p-3.5 bg-blue-50/90 border border-blue-200 rounded-xl mb-2 animate-fade-in">
+                <div class="flex items-center gap-2 text-xs font-bold text-blue-900">
+                  <i class="fas fa-pen-to-square text-blue-600"></i>
+                  <span>Editing your published review</span>
+                </div>
+                <button
+                  type="button"
+                  onclick="cancelEditReview()"
+                  class="text-xs text-slate-600 hover:text-slate-900 font-semibold px-2.5 py-1 rounded-lg hover:bg-white border border-slate-200 transition flex items-center gap-1"
+                >
+                  <i class="fas fa-times"></i> Cancel
+                </button>
+              </div>
               <!-- Star Rating Selection -->
               <div class="flex items-center gap-3">
                 <span class="text-sm font-semibold text-[#0a2342]">Your Rating:</span>
@@ -2924,6 +2938,7 @@
       let currentRating = 5;
       let currentTag = "Client / Business Partner";
       let liveReviews = [];
+      let editingReviewId = null;
 
       // Initialize on load
       function initReviewsSystem() {
@@ -3121,6 +3136,10 @@
           if (nameEl) nameEl.textContent = currentUser.name;
           if (emailEl) emailEl.textContent = currentUser.email;
         }
+        // Update reviews list to display Edit/Delete buttons exclusively for this user
+        if (typeof renderReviewsList === "function") {
+          renderReviewsList();
+        }
       }
 
       function scrollToGoogleAuth() {
@@ -3136,6 +3155,7 @@
       function googleLogout() {
         currentUser = null;
         deskUser = null;
+        if (typeof cancelEditReview === "function") cancelEditReview();
         localStorage.removeItem("aira_google_user");
         localStorage.removeItem("aira_founder_desk_user");
         if (window.google && google.accounts && google.accounts.id) {
@@ -3213,6 +3233,117 @@
         renderReviewsList();
       }
 
+      // 1. Start Editing an Existing Review (Owner only!)
+      function startEditReview(id) {
+        if (!currentUser) {
+          alert("Please sign in with Google to edit your review.");
+          return;
+        }
+
+        const review = liveReviews.find(r => r.id === id);
+        if (!review) return;
+
+        if (!review.email || review.email.toLowerCase() !== currentUser.email.toLowerCase()) {
+          alert("Unauthorized: You can only edit your own review!");
+          return;
+        }
+
+        editingReviewId = review.id;
+
+        const feedbackTextEl = document.getElementById("feedbackContent");
+        if (feedbackTextEl) feedbackTextEl.value = review.text;
+
+        setFeedbackRating(review.rating || 5);
+
+        if (review.tag) {
+          currentTag = review.tag;
+          document.querySelectorAll("#tag-picker .tag-opt").forEach(b => {
+            if (b.textContent.trim() === review.tag.trim()) {
+              b.className = "tag-opt active px-3 py-1.5 rounded-lg text-xs font-semibold bg-blue-600 text-white transition";
+            } else {
+              b.className = "tag-opt px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 text-slate-700 hover:bg-slate-200 transition";
+            }
+          });
+        }
+
+        const submitBtn = document.getElementById("submit-feedback-btn");
+        if (submitBtn) {
+          submitBtn.innerHTML = `<i class="fas fa-check text-xs"></i> Update Review`;
+        }
+
+        const indicator = document.getElementById("editing-review-indicator");
+        if (indicator) indicator.classList.remove("hidden");
+
+        const formBox = document.getElementById("google-feedback-loggedin");
+        if (formBox) {
+          formBox.scrollIntoView({ behavior: "smooth", block: "center" });
+          if (feedbackTextEl) feedbackTextEl.focus();
+        }
+      }
+
+      // 2. Cancel Edit Mode
+      function cancelEditReview() {
+        editingReviewId = null;
+        const feedbackTextEl = document.getElementById("feedbackContent");
+        if (feedbackTextEl) feedbackTextEl.value = "";
+
+        const submitBtn = document.getElementById("submit-feedback-btn");
+        if (submitBtn) {
+          submitBtn.innerHTML = `<i class="fas fa-paper-plane text-xs"></i> Post Verified Review`;
+        }
+
+        const indicator = document.getElementById("editing-review-indicator");
+        if (indicator) indicator.classList.add("hidden");
+      }
+
+      // 3. Delete Review (Owner only!)
+      async function deleteMyReview(id) {
+        if (!currentUser) {
+          alert("Please sign in with Google to manage your review.");
+          return;
+        }
+
+        const review = liveReviews.find(r => r.id === id);
+        if (!review) return;
+
+        if (!review.email || review.email.toLowerCase() !== currentUser.email.toLowerCase()) {
+          alert("Unauthorized: You can only delete your own review!");
+          return;
+        }
+
+        if (!confirm("Are you sure you want to delete your review permanently?")) {
+          return;
+        }
+
+        try {
+          const res = await fetch(REVIEWS_API_URL, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              action: "delete",
+              id: review.id,
+              email: currentUser.email
+            })
+          });
+
+          const data = await res.json();
+          if (res.ok && data.success) {
+            liveReviews = Array.isArray(data.reviews) ? data.reviews : liveReviews.filter(r => r.id !== review.id);
+            localStorage.setItem("aira_verified_reviews", JSON.stringify(liveReviews));
+            renderReviewsList();
+            if (editingReviewId === review.id) {
+              cancelEditReview();
+            }
+            alert("Your review has been deleted.");
+          } else {
+            alert(data.error || "Failed to delete review.");
+          }
+        } catch(err) {
+          console.error("[Delete Review Error]:", err);
+          alert("Network error while deleting review.");
+        }
+      }
+
       // Submit Verified Review via Sovereign API Gateway
       async function handleFeedbackSubmit(e) {
         e.preventDefault();
@@ -3225,27 +3356,29 @@
         const text = feedbackTextEl.value.trim();
         if (!text) return;
 
+        const isEditing = Boolean(editingReviewId);
         const submitBtn = document.getElementById("submit-feedback-btn");
         const originalBtnHtml = submitBtn.innerHTML;
         submitBtn.disabled = true;
-        submitBtn.innerHTML = `<i class="fas fa-spinner fa-spin text-xs"></i> Publishing...`;
+        submitBtn.innerHTML = `<i class="fas fa-spinner fa-spin text-xs"></i> ${isEditing ? "Updating..." : "Publishing..."}`;
 
-        const newReview = {
-          id: "rev_" + Date.now(),
+        const reviewPayload = {
+          id: editingReviewId || ("rev_" + Date.now()),
           name: currentUser.name,
           email: currentUser.email,
           photo: currentUser.picture,
           rating: currentRating,
           tag: currentTag,
           text: text,
-          date: new Date().toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })
+          date: new Date().toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" }),
+          isEdit: isEditing
         };
 
         try {
           const res = await fetch(REVIEWS_API_URL, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(newReview)
+            body: JSON.stringify(reviewPayload)
           });
 
           if (res.ok) {
@@ -3254,29 +3387,31 @@
               liveReviews = data.reviews;
             } else {
               // Optimistic update
-              const existingIdx = liveReviews.findIndex(r => r.email && r.email.toLowerCase() === newReview.email.toLowerCase());
+              const existingIdx = liveReviews.findIndex(r => r.id === reviewPayload.id || (r.email && r.email.toLowerCase() === reviewPayload.email.toLowerCase()));
               if (existingIdx >= 0) liveReviews.splice(existingIdx, 1);
-              liveReviews.unshift(newReview);
+              liveReviews.unshift(reviewPayload);
             }
           } else {
-            throw new Error(`Reviews API returned status ${res.status}`);
+            const errData = await res.json().catch(() => ({}));
+            throw new Error(errData.error || `Reviews API error ${res.status}`);
           }
         } catch(err) {
           console.error("[Reviews] API error, saving optimistically to local cache:", err);
-          const existingIdx = liveReviews.findIndex(r => r.email && r.email.toLowerCase() === newReview.email.toLowerCase());
-          if (existingIdx >= 0) liveReviews.splice(existingIdx, 1);
-          liveReviews.unshift(newReview);
+          alert(err.message || "Could not publish review. Please try again.");
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = originalBtnHtml;
+          return;
         }
 
         localStorage.setItem("aira_verified_reviews", JSON.stringify(liveReviews));
         renderReviewsList();
 
         submitBtn.disabled = false;
-        submitBtn.innerHTML = originalBtnHtml;
-        feedbackTextEl.value = "";
+        cancelEditReview();
 
         const successBanner = document.getElementById("feedback-success-banner");
         if (successBanner) {
+          successBanner.innerHTML = `<i class="fas fa-check-circle mr-1.5 text-emerald-600"></i> ${isEditing ? "Your review was successfully updated!" : "Thank you! Your verified review has been posted successfully."}`;
           successBanner.classList.remove("hidden");
           setTimeout(() => successBanner.classList.add("hidden"), 6000);
         }
@@ -3317,8 +3452,43 @@
               : '<i class="far fa-star text-slate-300 text-xs"></i>';
           }
 
+          const isOwner = Boolean(
+            currentUser && 
+            currentUser.email && 
+            r.email && 
+            (currentUser.email.trim().toLowerCase() === r.email.trim().toLowerCase())
+          );
+
           const card = document.createElement("div");
-          card.className = "bg-white p-7 rounded-2xl border border-slate-200/80 shadow-md hover:shadow-xl transition-all duration-300 flex flex-col justify-between card-hover";
+          card.className = "bg-white p-7 rounded-2xl border " + (isOwner ? "border-blue-300 ring-2 ring-blue-500/10" : "border-slate-200/80") + " shadow-md hover:shadow-xl transition-all duration-300 flex flex-col justify-between card-hover";
+
+          const ownerActionsHtml = isOwner ? `
+            <div class="flex items-center gap-1.5">
+              <button
+                type="button"
+                onclick="startEditReview('${r.id}')"
+                class="px-2.5 py-1 text-[11px] font-semibold text-blue-600 bg-blue-50 hover:bg-blue-100 active:scale-95 rounded-lg transition flex items-center gap-1 border border-blue-200/60"
+                title="Edit your review"
+              >
+                <i class="fas fa-pen-to-square text-[10px]"></i> Edit
+              </button>
+              <button
+                type="button"
+                onclick="deleteMyReview('${r.id}')"
+                class="px-2.5 py-1 text-[11px] font-semibold text-rose-600 bg-rose-50 hover:bg-rose-100 active:scale-95 rounded-lg transition flex items-center gap-1 border border-rose-200/60"
+                title="Delete your review"
+              >
+                <i class="fas fa-trash-can text-[10px]"></i> Delete
+              </button>
+            </div>
+          ` : ``;
+
+          const ownerBadgeHtml = isOwner ? `
+            <span class="text-[10px] font-bold text-blue-700 bg-blue-100/70 border border-blue-200 px-2 py-0.5 rounded-full">
+              Your Review
+            </span>
+          ` : ``;
+
           card.innerHTML = `
             <div>
               <div class="flex items-start justify-between gap-3 mb-4">
@@ -3330,6 +3500,7 @@
                       <span class="inline-flex items-center gap-1 text-[10px] font-semibold bg-emerald-50 text-emerald-700 px-2 py-0.5 rounded-full border border-emerald-200">
                         <i class="fas fa-check-circle text-emerald-600 text-[9px]"></i> Verified
                       </span>
+                      ${ownerBadgeHtml}
                     </div>
                     <div class="text-[11px] text-slate-500 flex items-center gap-1 mt-0.5 font-mono">
                       <i class="fab fa-google text-slate-400 text-[10px]"></i>
@@ -3351,8 +3522,8 @@
             </div>
 
             <div class="pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-slate-400">
-              <span class="flex items-center gap-1"><i class="fas fa-calendar-check text-[10px] text-blue-400"></i> Google Verified Review</span>
-              <span>${r.date || "Recent"}</span>
+              <span class="flex items-center gap-1"><i class="fas fa-calendar-check text-[10px] text-blue-400"></i> ${r.date || "Recent"}</span>
+              ${ownerActionsHtml}
             </div>
           `;
           container.appendChild(card);
