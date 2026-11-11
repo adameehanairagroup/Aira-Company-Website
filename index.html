@@ -2896,12 +2896,8 @@
       // Sovereign Google OAuth & JSONBin.io Database Integration
       const GOOGLE_CLIENT_ID = "267802159841-leun1b8b85ongsoc5pkjhufe4s5jbjj8.apps.googleusercontent.com";
       
-      // JSONBin Database Config (Boss will provide Bin ID & Access Key)
-      const JSONBIN_CONFIG = {
-        binId: "6ae98e5dffd5d16053a19fc4",
-        apiKey: "$2a$10$0IoWYIJUtPPsZ9Y9fED.megYee63XlKIFxzn.cGXYPVu.TMqC.SKi",
-        accessKey: "$2a$10$jf/M7s48/qgR31ZlqFqg8.vGifgPuuFNzEfGzl2NTGjXo7pv2RHEC"
-      };
+      // Sovereign Reviews Backend API Gateway (Vercel Serverless Function)
+      const REVIEWS_API_URL = "/api/reviews";
 
       let currentUser = null;
       let currentRating = 5;
@@ -3158,34 +3154,30 @@
         btn.className = "tag-opt active px-3 py-1.5 rounded-lg text-xs font-semibold bg-blue-600 text-white transition";
       }
 
-      // Fetch Reviews: JSONBin.io with LocalStorage fallback (Zero Fake Reviews)
+      // Fetch Reviews: Serverless Backend API with LocalStorage fallback (Zero Fake Reviews)
       async function loadReviews() {
         const container = document.getElementById("verified-reviews-grid");
         if (!container) return;
 
-        // 1. Try to load from JSONBin if binId is configured
-        if (JSONBIN_CONFIG.binId && JSONBIN_CONFIG.binId.length > 5) {
-          try {
-            const headers = { "Content-Type": "application/json" };
-            if (JSONBIN_CONFIG.apiKey) {
-              headers["X-Master-Key"] = JSONBIN_CONFIG.apiKey;
+        try {
+          const res = await fetch(REVIEWS_API_URL, {
+            method: "GET",
+            headers: { "Cache-Control": "no-cache, no-store, must-revalidate" }
+          });
+          if (res.ok) {
+            const data = await res.json();
+            if (data && data.success && Array.isArray(data.reviews)) {
+              liveReviews = data.reviews;
+              localStorage.setItem("aira_verified_reviews", JSON.stringify(liveReviews));
+              renderReviewsList();
+              return;
             }
-            const res = await fetch(`https://api.jsonbin.io/v3/b/${JSONBIN_CONFIG.binId}/latest`, { headers });
-            if (res.ok) {
-              const data = await res.json();
-              if (data && data.record && Array.isArray(data.record.feedbacks)) {
-                liveReviews = data.record.feedbacks;
-                localStorage.setItem("aira_verified_reviews", JSON.stringify(liveReviews));
-                renderReviewsList();
-                return;
-              }
-            }
-          } catch(err) {
-            console.log("JSONBin fetch fallback to local:", err);
           }
+        } catch(err) {
+          console.warn("[Reviews] Server fetch fallback to local:", err);
         }
 
-        // 2. Fallback to LocalStorage
+        // Fallback to LocalStorage if offline or network error
         const local = localStorage.getItem("aira_verified_reviews");
         if (local) {
           try {
@@ -3200,7 +3192,7 @@
         renderReviewsList();
       }
 
-      // Submit Verified Review
+      // Submit Verified Review via Sovereign API Gateway
       async function handleFeedbackSubmit(e) {
         e.preventDefault();
         if (!currentUser) {
@@ -3215,7 +3207,7 @@
         const submitBtn = document.getElementById("submit-feedback-btn");
         const originalBtnHtml = submitBtn.innerHTML;
         submitBtn.disabled = true;
-        submitBtn.innerHTML = `<i class="fas fa-spinner fa-spin text-xs"></i> Posting...`;
+        submitBtn.innerHTML = `<i class="fas fa-spinner fa-spin text-xs"></i> Publishing...`;
 
         const newReview = {
           id: "rev_" + Date.now(),
@@ -3228,64 +3220,35 @@
           date: new Date().toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })
         };
 
-        // 1. Save to JSONBin with latest sync
-        const authKey = JSONBIN_CONFIG.apiKey || JSONBIN_CONFIG.accessKey;
-        if (JSONBIN_CONFIG.binId && authKey) {
-          try {
-            let latestFeedbacks = [];
-            try {
-              const fetchRes = await fetch(`https://api.jsonbin.io/v3/b/${JSONBIN_CONFIG.binId}/latest`, {
-                headers: { "X-Master-Key": authKey }
-              });
-              if (fetchRes.ok) {
-                const data = await fetchRes.json();
-                if (data && data.record && Array.isArray(data.record.feedbacks)) {
-                  latestFeedbacks = data.record.feedbacks;
-                }
-              }
-            } catch(fetchErr) {
-              latestFeedbacks = [...liveReviews];
-            }
+        try {
+          const res = await fetch(REVIEWS_API_URL, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(newReview)
+          });
 
-            latestFeedbacks.unshift(newReview);
-            liveReviews = latestFeedbacks;
-
-            await fetch(`https://api.jsonbin.io/v3/b/${JSONBIN_CONFIG.binId}`, {
-              method: "PUT",
-              headers: {
-                "Content-Type": "application/json",
-                "X-Master-Key": authKey
-              },
-              body: JSON.stringify({ feedbacks: liveReviews })
-            });
-          } catch(err) {
-            console.error("JSONBin save error:", err);
-            if (!liveReviews.find(r => r.id === newReview.id)) {
+          if (res.ok) {
+            const data = await res.json();
+            if (data && data.success && Array.isArray(data.reviews)) {
+              liveReviews = data.reviews;
+            } else {
+              // Optimistic update
+              const existingIdx = liveReviews.findIndex(r => r.email && r.email.toLowerCase() === newReview.email.toLowerCase());
+              if (existingIdx >= 0) liveReviews.splice(existingIdx, 1);
               liveReviews.unshift(newReview);
             }
+          } else {
+            throw new Error(`Reviews API returned status ${res.status}`);
           }
-        } else {
+        } catch(err) {
+          console.error("[Reviews] API error, saving optimistically to local cache:", err);
+          const existingIdx = liveReviews.findIndex(r => r.email && r.email.toLowerCase() === newReview.email.toLowerCase());
+          if (existingIdx >= 0) liveReviews.splice(existingIdx, 1);
           liveReviews.unshift(newReview);
         }
 
         localStorage.setItem("aira_verified_reviews", JSON.stringify(liveReviews));
         renderReviewsList();
-
-        // 2. Email alert to Er. Adam Eehan via FormSubmit
-        try {
-          fetch("https://formsubmit.co/ajax/adameehan34@gmail.com", {
-            method: "POST",
-            headers: { "Content-Type": "application/json", "Accept": "application/json" },
-            body: JSON.stringify({
-              _subject: `🌟 New Real Feedback from ${currentUser.name} (${currentRating} Stars)`,
-              Name: currentUser.name,
-              Gmail: currentUser.email,
-              Rating: `${currentRating} / 5 Stars`,
-              Category: currentTag,
-              Feedback: text
-            })
-          }).catch(() => {});
-        } catch(err) {}
 
         submitBtn.disabled = false;
         submitBtn.innerHTML = originalBtnHtml;
