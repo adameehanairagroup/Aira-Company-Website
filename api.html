@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en" class="scroll-smooth" style="width: 100%; max-width: 100%; overflow-x: hidden;">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>AIRA AI REST API Console | Aira Group of Technology</title>
   <link rel="icon" type="image/png" href="assets/logo.png" />
   <script src="https://cdn.tailwindcss.com"></script>
@@ -12,11 +12,18 @@
   <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 
   <style>
-    body {
-      font-family: 'Inter', sans-serif;
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+    html, body {
+      width: 100%;
+      max-width: 100%;
+      overflow-x: hidden !important;
+      margin: 0;
+      padding: 0;
       background-color: #050b18;
       color: #ffffff;
-      overflow-x: hidden;
+      font-family: 'Inter', sans-serif;
     }
     .font-mono {
       font-family: 'JetBrains Mono', monospace;
@@ -24,83 +31,80 @@
     .hero-glow {
       background: radial-gradient(circle at 50% 0%, rgba(37, 99, 235, 0.18) 0%, transparent 60%);
     }
-    @keyframes pulseGlow {
-      0%, 100% { opacity: 0.4; }
-      50% { opacity: 0.8; }
-    }
-    .animate-glow {
-      animation: pulseGlow 4s ease-in-out infinite;
+    /* Prevent iOS & Android bounce scroll shifting */
+    body {
+      position: relative;
     }
   </style>
 </head>
-<body class="min-h-screen flex flex-col justify-between antialiased selection:bg-blue-600 selection:text-white">
+<body class="min-h-screen flex flex-col justify-between antialiased selection:bg-blue-600 selection:text-white w-full overflow-x-hidden">
 
   <!-- Top Navigation Bar -->
-  <header class="sticky top-0 z-40 bg-[#050b18]/90 backdrop-blur-md border-b border-slate-800/80">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+  <header class="sticky top-0 z-40 bg-[#050b18]/95 backdrop-blur-md border-b border-slate-800/80 w-full">
+    <div class="max-w-7xl mx-auto px-3.5 sm:px-6 lg:px-8 h-16 flex items-center justify-between w-full">
       <!-- Brand Logo -->
-      <a href="/" class="flex items-center gap-3 group">
-        <img src="assets/logo.png" alt="Aira Group Official Logo" class="w-9 h-9 rounded-xl shadow-md object-contain transition-transform group-hover:scale-105" />
-        <div class="flex items-center gap-2">
-          <span class="text-xl font-bold tracking-tight text-white">Aira<span class="text-blue-500 font-light">Group</span></span>
-          <span class="text-[10px] font-bold bg-blue-500/20 text-cyan-400 border border-cyan-500/30 px-2 py-0.5 rounded-full uppercase tracking-wider">REST API</span>
+      <a href="/" class="flex items-center gap-2.5 sm:gap-3 group">
+        <img src="assets/logo.png" alt="Aira Group Official Logo" class="w-8 h-8 sm:w-9 sm:h-9 rounded-xl shadow-md object-contain transition-transform group-hover:scale-105" />
+        <div class="flex items-center gap-1.5 sm:gap-2">
+          <span class="text-lg sm:text-xl font-bold tracking-tight text-white">Aira<span class="text-blue-500 font-light">Group</span></span>
+          <span class="text-[9px] sm:text-[10px] font-bold bg-blue-500/20 text-cyan-400 border border-cyan-500/30 px-2 py-0.5 rounded-full uppercase tracking-wider">REST API</span>
         </div>
       </a>
 
       <!-- Right Nav Buttons -->
-      <div class="flex items-center gap-3 sm:gap-4">
+      <div class="flex items-center gap-2.5 sm:gap-4">
         <div class="hidden sm:flex items-center gap-1.5 text-xs font-mono text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2.5 py-1 rounded-full">
           <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
           <span>99.9% Uptime</span>
         </div>
-        <a href="/" class="text-xs font-semibold text-slate-300 hover:text-white bg-slate-800/80 hover:bg-slate-700/80 border border-slate-700 px-3.5 py-2 rounded-xl transition flex items-center gap-1.5">
-          <i class="fas fa-arrow-left text-xs"></i> <span>Main Website</span>
+        <a href="/" class="text-xs font-semibold text-slate-300 hover:text-white bg-slate-800/80 hover:bg-slate-700/80 border border-slate-700 px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-xl transition flex items-center gap-1.5">
+          <i class="fas fa-arrow-left text-[11px]"></i> <span>Main Website</span>
         </a>
       </div>
     </div>
   </header>
 
   <!-- Main Container -->
-  <main class="flex-grow hero-glow relative z-10 py-6 sm:py-12">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+  <main class="flex-grow hero-glow relative z-10 py-5 sm:py-10 w-full overflow-hidden">
+    <div class="max-w-7xl mx-auto px-3.5 sm:px-6 lg:px-8 w-full min-w-0">
       
       <!-- Page Hero Header -->
-      <div class="text-center max-w-3xl mx-auto mb-8 sm:mb-12">
-        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[11px] font-bold tracking-widest uppercase bg-blue-500/10 text-cyan-400 border border-cyan-500/30 mb-3 shadow-sm">
-          <i class="fas fa-microchip text-[10px]"></i> Sovereign Neural API Gateway &bull; OpenAI Compatible
+      <div class="text-center max-w-3xl mx-auto mb-6 sm:mb-10 w-full px-2">
+        <div class="inline-flex items-center gap-1.5 sm:gap-2 px-3 py-1 rounded-full text-[10px] sm:text-[11px] font-bold tracking-widest uppercase bg-blue-500/10 text-cyan-400 border border-cyan-500/30 mb-2.5 shadow-sm">
+          <i class="fas fa-microchip text-[10px]"></i> Sovereign RESTful Gateway &bull; OpenAI Spec
         </div>
-        <h1 class="text-2xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white">
+        <h1 class="text-2xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white break-words">
           AIRA AI <span class="bg-gradient-to-r from-blue-400 via-cyan-300 to-indigo-300 bg-clip-text text-transparent">Developer Console</span>
         </h1>
-        <p class="text-slate-300 text-xs sm:text-base mt-2 sm:mt-3 leading-relaxed max-w-2xl mx-auto font-light">
+        <p class="text-slate-300 text-xs sm:text-sm mt-1.5 sm:mt-2.5 leading-relaxed max-w-2xl mx-auto font-light">
           Provision direct token-stream credentials for Aira Sovereign AI models. Instant free community access with verified email OTP, or monthly flagship subscription.
         </p>
       </div>
 
       <!-- Main Layout: Form FIRST on mobile (order-1), Docs SECOND on mobile (order-2) -->
-      <div class="grid lg:grid-cols-12 gap-6 sm:gap-8 items-start">
+      <div class="grid lg:grid-cols-12 gap-5 sm:gap-8 items-start w-full min-w-0">
         
-        <!-- PROVISIONING FORM CARD (lg:col-span-7, order-1 so mobile users see it immediately!) -->
-        <div class="lg:col-span-7 order-1">
-          <div class="bg-gradient-to-b from-slate-900/95 via-slate-900 to-[#071126] border border-blue-500/30 rounded-2xl sm:rounded-3xl p-5 sm:p-8 shadow-2xl backdrop-blur-md relative overflow-hidden">
+        <!-- PROVISIONING FORM CARD (lg:col-span-7, order-1) -->
+        <div class="lg:col-span-7 order-1 w-full min-w-0">
+          <div class="bg-gradient-to-b from-slate-900/95 via-slate-900 to-[#071126] border border-blue-500/30 rounded-2xl sm:rounded-3xl p-4 sm:p-7 shadow-2xl backdrop-blur-md relative overflow-hidden w-full">
             
-            <div class="flex items-center justify-between mb-5 pb-3 border-b border-slate-800">
+            <div class="flex items-center justify-between mb-4 pb-3 border-b border-slate-800">
               <div>
-                <h2 class="text-lg sm:text-xl font-bold text-white flex items-center gap-2">
-                  <i class="fas fa-key text-blue-400 text-base"></i> Provision API Credentials
+                <h2 class="text-base sm:text-lg font-bold text-white flex items-center gap-2">
+                  <i class="fas fa-key text-blue-400 text-sm sm:text-base"></i> Provision API Credentials
                 </h2>
-                <p class="text-[11px] sm:text-xs text-slate-400 mt-0.5">Instant key issuance with cryptographic OTP verification</p>
+                <p class="text-[11px] text-slate-400 mt-0.5">Instant key issuance with cryptographic OTP verification</p>
               </div>
-              <span class="inline-flex items-center gap-1.5 text-[10px] font-bold text-blue-400 bg-blue-500/10 border border-blue-500/30 px-2 py-0.5 rounded-full uppercase">
+              <span class="inline-flex items-center gap-1 text-[10px] font-bold text-blue-400 bg-blue-500/10 border border-blue-500/30 px-2 py-0.5 rounded-full uppercase flex-shrink-0">
                 <i class="fas fa-shield-halved text-[9px]"></i> Secure
               </span>
             </div>
 
             <!-- Form -->
-            <form id="aira-api-form" onsubmit="return false;" class="space-y-4">
+            <form id="aira-api-form" onsubmit="return false;" class="space-y-3.5 w-full">
               
               <!-- 1. API Key Name -->
-              <div>
+              <div class="w-full">
                 <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1">
                   1. API Key Name
                 </label>
@@ -113,8 +117,8 @@
               </div>
 
               <!-- 2. Model & 3. Expiry in 2 cols -->
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                <div>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 w-full">
+                <div class="w-full">
                   <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1">
                     2. Select Model
                   </label>
@@ -135,7 +139,7 @@
                   </select>
                 </div>
 
-                <div>
+                <div class="w-full">
                   <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1">
                     3. Key Expiration
                   </label>
@@ -152,17 +156,17 @@
               </div>
 
               <!-- 4. Developer Email with Side-by-Side "Verify Email" Button -->
-              <div>
+              <div class="w-full">
                 <div class="flex items-center justify-between mb-1">
                   <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300">
                     4. Developer Email &amp; Verification
                   </label>
                   <span id="api-verified-status" class="text-[10px] font-semibold text-slate-400">
-                    OTP required for key issuance
+                    OTP required
                   </span>
                 </div>
 
-                <div class="flex gap-2">
+                <div class="flex gap-2 w-full">
                   <input
                     type="email"
                     id="api-email"
@@ -173,22 +177,22 @@
                     type="button"
                     id="api-verify-btn"
                     onclick="sendApiOtp()"
-                    class="px-4 py-2.5 sm:py-3 bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs rounded-xl shadow-md transition-all flex items-center gap-1.5 whitespace-nowrap active:scale-95 flex-shrink-0"
+                    class="px-3.5 py-2.5 sm:py-3 bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs rounded-xl shadow-md transition-all flex items-center justify-center gap-1.5 whitespace-nowrap active:scale-95 flex-shrink-0"
                   >
                     <i class="fas fa-paper-plane text-xs"></i> <span>Verify Email</span>
                   </button>
                 </div>
 
                 <!-- Inline OTP Drawer (Slides down on OTP dispatch) -->
-                <div id="api-otp-container" class="hidden mt-3 p-3.5 bg-blue-950/40 border border-blue-500/40 rounded-xl animate-fade-in space-y-2">
+                <div id="api-otp-container" class="hidden mt-2.5 p-3 bg-blue-950/40 border border-blue-500/40 rounded-xl animate-fade-in space-y-2 w-full">
                   <div class="flex items-center justify-between text-[11px] text-slate-200">
                     <span class="flex items-center gap-1">
-                      <i class="fas fa-envelope text-cyan-400"></i> Code sent via <strong class="text-white">noreply@airaaigroup.in</strong>:
+                      <i class="fas fa-envelope text-cyan-400"></i> Enter OTP sent via <strong class="text-white">noreply@airaaigroup.in</strong>:
                     </span>
                     <span id="api-otp-countdown" class="font-mono text-amber-300 font-bold text-xs">10:00</span>
                   </div>
 
-                  <div class="flex gap-2">
+                  <div class="flex gap-2 w-full">
                     <input
                       type="text"
                       id="api-otp-input"
@@ -200,14 +204,14 @@
                       type="button"
                       id="api-otp-confirm-btn"
                       onclick="verifyApiOtp()"
-                      class="px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs rounded-xl transition flex items-center gap-1.5 active:scale-95"
+                      class="px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs rounded-xl transition flex items-center gap-1.5 active:scale-95 flex-shrink-0"
                     >
                       <i class="fas fa-check text-xs"></i> Confirm
                     </button>
                     <button
                       type="button"
                       onclick="sendApiOtp()"
-                      class="px-2 py-2 text-slate-400 hover:text-white text-xs underline transition"
+                      class="px-2 py-2 text-slate-400 hover:text-white text-xs underline transition flex-shrink-0"
                     >
                       Resend
                     </button>
@@ -217,40 +221,56 @@
               </div>
 
               <!-- 5. Dynamic Pricing & Tier Status Banner -->
-              <div id="api-tier-banner" class="p-3 rounded-xl bg-slate-950/70 border border-slate-800 text-xs flex items-center justify-between transition-all">
-                <div class="flex items-center gap-2.5">
+              <div id="api-tier-banner" class="p-3 rounded-xl bg-slate-950/70 border border-slate-800 text-xs flex items-center justify-between transition-all w-full">
+                <div class="flex items-center gap-2.5 min-w-0">
                   <div id="api-tier-icon" class="w-7 h-7 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold text-xs flex-shrink-0">
                     <i class="fas fa-bolt"></i>
                   </div>
-                  <div>
-                    <div id="api-tier-name" class="font-bold text-white text-xs">Free Community Access</div>
-                    <div id="api-tier-desc" class="text-[10px] text-slate-400">Zero cost &bull; Instant API key generation</div>
+                  <div class="min-w-0">
+                    <div id="api-tier-name" class="font-bold text-white text-xs truncate">Free Community Access</div>
+                    <div id="api-tier-desc" class="text-[10px] text-slate-400 truncate">Zero cost &bull; Instant API key generation</div>
                   </div>
                 </div>
-                <div id="api-tier-price" class="text-right">
+                <div id="api-tier-price" class="text-right flex-shrink-0 pl-2">
                   <span class="text-sm font-extrabold text-emerald-400 font-mono">&#8377;0</span>
                   <span class="text-[10px] text-slate-400 block">Forever Free</span>
                 </div>
               </div>
 
-              <!-- 6. SLIDE / SWIPE TO UNLOCK & GENERATE KEY WIDGET -->
-              <div class="pt-1">
-                <div id="api-slider" class="relative h-13 sm:h-14 bg-white/10 border border-white/20 rounded-full overflow-hidden select-none touch-none cursor-pointer py-1">
-                  <div id="api-fill" class="absolute left-0 top-0 h-full w-0 bg-gradient-to-r from-blue-600 via-cyan-500 to-emerald-500 rounded-full"></div>
-                  <div id="api-slider-text" class="absolute inset-0 flex items-center justify-center text-[11px] sm:text-xs font-bold tracking-widest text-slate-200 pointer-events-none uppercase transition-opacity px-4 text-center">
+              <!-- 6. SLIDE / SWIPE TO UNLOCK & GENERATE KEY WIDGET (ROCK SOLID FIXED HEIGHT) -->
+              <div class="pt-2 w-full">
+                <div
+                  id="api-slider"
+                  class="relative bg-white/10 border border-white/20 rounded-full overflow-hidden select-none touch-none cursor-pointer w-full"
+                  style="height: 56px; min-height: 56px;"
+                >
+                  <div
+                    id="api-fill"
+                    class="absolute left-0 top-0 h-full w-0 bg-gradient-to-r from-blue-600 via-cyan-500 to-emerald-500 rounded-full"
+                    style="height: 100%;"
+                  ></div>
+                  <div
+                    id="api-slider-text"
+                    class="absolute inset-0 flex items-center justify-center text-xs font-bold tracking-widest text-slate-200 pointer-events-none uppercase transition-opacity px-6 text-center select-none"
+                    style="z-index: 5;"
+                  >
                     Slide to Generate Free API Key <span class="ml-2">&rarr;</span>
                   </div>
-                  <div id="api-thumb" class="absolute left-1 top-1 w-11 h-11 sm:w-12 sm:h-12 bg-white text-[#0a2342] rounded-full shadow-lg flex items-center justify-center font-bold text-sm cursor-grab active:cursor-grabbing z-10 transition-transform">
+                  <div
+                    id="api-thumb"
+                    class="absolute bg-white text-[#0a2342] rounded-full shadow-xl flex items-center justify-center font-bold text-sm cursor-grab active:cursor-grabbing transition-transform"
+                    style="width: 48px; height: 48px; top: 4px; left: 4px; z-index: 10;"
+                  >
                     <i class="fas fa-arrow-right text-xs"></i>
                   </div>
                 </div>
-                <p class="text-[10px] sm:text-[11px] text-slate-400 text-center mt-1.5 select-none">
+                <p class="text-[10px] sm:text-[11px] text-slate-400 text-center mt-2 select-none">
                   Drag the button to the right to verify credentials and provision your API key
                 </p>
               </div>
 
               <!-- 7. Key Reveal Box -->
-              <div id="api-result-box" class="hidden mt-4 p-4 sm:p-5 bg-gradient-to-br from-emerald-950/60 via-slate-900 to-slate-950 border border-emerald-500/50 rounded-2xl animate-fade-in space-y-2.5">
+              <div id="api-result-box" class="hidden mt-4 p-4 sm:p-5 bg-gradient-to-br from-emerald-950/60 via-slate-900 to-slate-950 border border-emerald-500/50 rounded-2xl animate-fade-in space-y-2.5 w-full">
                 <div class="flex items-center justify-between">
                   <div class="flex items-center gap-2">
                     <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
@@ -259,7 +279,7 @@
                   <span id="api-result-tier-pill" class="text-[9px] sm:text-[10px] font-bold uppercase bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 px-2 py-0.5 rounded-full">Active</span>
                 </div>
 
-                <div class="relative bg-slate-950 border border-emerald-500/40 rounded-xl p-2.5 sm:p-3 flex items-center justify-between gap-2 font-mono text-xs text-emerald-300">
+                <div class="relative bg-slate-950 border border-emerald-500/40 rounded-xl p-2.5 sm:p-3 flex items-center justify-between gap-2 font-mono text-xs text-emerald-300 w-full">
                   <span id="api-generated-key-display" class="truncate select-all font-bold text-[11px] sm:text-xs"></span>
                   <button
                     type="button"
@@ -283,10 +303,10 @@
           </div>
         </div>
 
-        <!-- SPECS & CODE SAMPLES (lg:col-span-5, order-2 on mobile, clean and scrollable) -->
-        <div class="lg:col-span-5 order-2 space-y-5">
+        <!-- SPECS & CODE SAMPLES (lg:col-span-5, order-2) -->
+        <div class="lg:col-span-5 order-2 space-y-4 sm:space-y-5 w-full min-w-0">
           <!-- Base Endpoint Card -->
-          <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-5 shadow-xl backdrop-blur-sm">
+          <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-4 sm:p-5 shadow-xl backdrop-blur-sm w-full min-w-0 overflow-hidden">
             <div class="flex items-center justify-between mb-3 pb-2 border-b border-slate-800">
               <span class="text-xs font-bold tracking-wider uppercase text-cyan-400 flex items-center gap-1.5">
                 <i class="fas fa-network-wired text-xs"></i> Base Endpoint
@@ -295,13 +315,13 @@
                 <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span> REST v1
               </span>
             </div>
-            <div class="bg-slate-950 rounded-xl p-2.5 border border-slate-800 font-mono text-xs text-blue-300 flex items-center justify-between gap-2">
+            <div class="bg-slate-950 rounded-xl p-2.5 border border-slate-800 font-mono text-xs text-blue-300 flex items-center justify-between gap-2 w-full min-w-0">
               <span class="truncate text-[11px] sm:text-xs">https://airaai-8ibs.onrender.com/v1</span>
-              <button type="button" onclick="navigator.clipboard.writeText('https://airaai-8ibs.onrender.com/v1'); alert('Endpoint copied to clipboard!');" class="text-slate-400 hover:text-white transition text-xs p-1" title="Copy Endpoint">
+              <button type="button" onclick="navigator.clipboard.writeText('https://airaai-8ibs.onrender.com/v1'); alert('Endpoint copied to clipboard!');" class="text-slate-400 hover:text-white transition text-xs p-1 flex-shrink-0" title="Copy Endpoint">
                 <i class="far fa-copy"></i>
               </button>
             </div>
-            <div class="grid grid-cols-2 gap-2.5 mt-3 text-xs">
+            <div class="grid grid-cols-2 gap-2.5 mt-3 text-xs w-full">
               <div class="p-2 rounded-lg bg-slate-950/60 border border-slate-800/80">
                 <div class="text-slate-400 text-[10px] uppercase font-semibold">Latency</div>
                 <div class="text-white font-bold font-mono mt-0.5">&lt;50ms TTFT</div>
@@ -314,16 +334,16 @@
           </div>
 
           <!-- cURL Quickstart Card -->
-          <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-5 shadow-xl backdrop-blur-sm">
+          <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-4 sm:p-5 shadow-xl backdrop-blur-sm w-full min-w-0 overflow-hidden">
             <div class="flex items-center justify-between mb-2.5">
               <span class="text-xs font-bold text-slate-300 uppercase tracking-wider flex items-center gap-1.5">
                 <i class="fas fa-terminal text-blue-400 text-xs"></i> cURL Quick Start
               </span>
-              <button type="button" onclick="copyApiCurlCode()" id="copy-curl-btn" class="text-xs text-cyan-400 hover:text-cyan-300 font-semibold inline-flex items-center gap-1 transition">
+              <button type="button" onclick="copyApiCurlCode()" id="copy-curl-btn" class="text-xs text-cyan-400 hover:text-cyan-300 font-semibold inline-flex items-center gap-1 transition flex-shrink-0">
                 <i class="far fa-copy"></i> Copy
               </button>
             </div>
-            <pre id="api-curl-sample" class="bg-slate-950 border border-slate-800 rounded-xl p-3 sm:p-4 font-mono text-[11px] text-slate-300 overflow-x-auto leading-relaxed select-all">curl https://airaai-8ibs.onrender.com/v1/chat/completions \
+            <pre id="api-curl-sample" class="bg-slate-950 border border-slate-800 rounded-xl p-3 sm:p-4 font-mono text-[11px] text-slate-300 overflow-x-auto leading-relaxed select-all w-full max-w-full">curl https://airaai-8ibs.onrender.com/v1/chat/completions \
   -H "Authorization: Bearer airaaixak..." \
   -H "Content-Type: application/json" \
   -d '{
@@ -335,11 +355,11 @@
           </div>
 
           <!-- Available Models Overview -->
-          <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-5 shadow-xl backdrop-blur-sm">
+          <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-4 sm:p-5 shadow-xl backdrop-blur-sm w-full min-w-0 overflow-hidden">
             <h3 class="text-xs font-bold text-slate-300 uppercase tracking-wider mb-3 flex items-center gap-1.5">
               <i class="fas fa-layer-group text-blue-400 text-xs"></i> Neural Models Available
             </h3>
-            <div class="space-y-2">
+            <div class="space-y-2 w-full">
               <div class="p-2.5 rounded-xl bg-slate-950 border border-slate-800/80 flex items-center justify-between">
                 <div>
                   <div class="font-bold text-white text-xs">Aira Flash 1.5 &amp; Flash Lite</div>
@@ -377,7 +397,7 @@
   </main>
 
   <!-- Razorpay / UPI Modal for Paid Flagship Models -->
-  <div id="api-payment-modal" class="fixed inset-0 z-50 flex items-center justify-center hidden bg-black/80 backdrop-blur-sm p-4 transition-all duration-300">
+  <div id="api-payment-modal" class="fixed inset-0 z-50 flex items-center justify-center hidden bg-black/80 backdrop-blur-sm p-4 transition-all duration-300 w-full overflow-x-hidden">
     <div class="bg-slate-900 border border-blue-500/40 rounded-3xl w-full max-w-md shadow-2xl overflow-hidden text-white animate-scale max-h-[90vh] overflow-y-auto">
       <!-- Modal Header -->
       <div class="bg-gradient-to-r from-blue-700 via-[#0a2342] to-slate-900 p-4 sm:p-5 flex items-center justify-between border-b border-blue-500/20">
@@ -396,7 +416,7 @@
       </div>
 
       <!-- Modal Body -->
-      <div class="p-5 space-y-4">
+      <div class="p-4 sm:p-5 space-y-3.5">
         <div class="bg-slate-950 p-3.5 rounded-2xl border border-slate-800 flex items-center justify-between">
           <div>
             <span class="text-[10px] text-slate-400 block uppercase font-semibold">Monthly Subscription</span>
@@ -465,7 +485,7 @@
   </div>
 
   <!-- Footer -->
-  <footer class="bg-[#030712] border-t border-slate-800/80 py-6 text-center text-xs text-slate-500">
+  <footer class="bg-[#030712] border-t border-slate-800/80 py-6 text-center text-xs text-slate-500 w-full overflow-hidden">
     <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3">
       <div>
         &copy; 2026 <strong>Aira Group of Technology</strong>. All sovereign rights reserved.
@@ -636,7 +656,7 @@
       }
     }
 
-    // 3. Slide to Unlock Widget
+    // 3. Slide to Unlock Widget (Rock-Solid Touch & Mouse Tracking)
     (function initApiSlider() {
       const slider = document.getElementById('api-slider');
       const thumb = document.getElementById('api-thumb');
@@ -687,6 +707,10 @@
         thumb.style.left = '4px';
         fill.style.width = '0px';
         text.style.opacity = '1';
+        setTimeout(() => {
+          thumb.style.transition = '';
+          fill.style.transition = '';
+        }, 300);
       }
 
       // Mouse events
