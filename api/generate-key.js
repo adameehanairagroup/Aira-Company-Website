@@ -185,7 +185,7 @@ export default async function handler(req, res) {
     if (isPaid && !paymentId) {
       return res.status(402).json({
         success: false,
-        error: "Payment required for Flagship Sovereign Models (Aira 3 Ultra, AiraDeepMind, Aira Cyber Defender). Please complete monthly subscription via Razorpay."
+        error: "Payment required for Flagship Sovereign Models (Aira 3 Ultra, AiraDeepMind, Aira Cyber Defender). Please complete monthly subscription via UPI / QR."
       });
     }
 
